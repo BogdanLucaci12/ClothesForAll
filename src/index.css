@@ -1,0 +1,28 @@
+
+body {
+  margin: 0;
+font-family: 'Comfortaa', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Dosis', sans-serif;
+  font-family: 'Lobster Two', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
+}
+
+
+a {
+  text-decoration: none !important;
+  color: black !important;
+}
+
+* {
+  box-sizing: border-box;
+font-family: 'Comfortaa', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Dosis', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Tektur', sans-serif;
+}
+ul{
+  list-style-type: none;
+}
