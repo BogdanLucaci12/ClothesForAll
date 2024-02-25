@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const Back=styled.div`
-background-color: #A8EED57F;
-width: 99vw;
-height: 90vh;
+background-color: white;
+
 overflow: hidden;
 `
 export const MainDiv=styled.div`
@@ -12,13 +11,16 @@ top: 50%;
 right: 50%;
 transform: translate(50%, -50%);
 background-color: white;
-min-height:60%;
-min-width:60%;
-max-width:100%;
-max-height: 100%;
+width:60%;
 padding:1em;
 display: flex;
 border-radius:1em;
+box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.5);
+@media screen and (max-width: 900px) {
+    display:block;
+    width: 70%;
+    top: 55%;
+  }
 `
 export const MainpicDiv=styled.div`
 width:50%;
@@ -27,25 +29,33 @@ display: flex;
 justify-content: center;
 align-items: center;
 text-align: center;
-
+position: relative;
+@media screen and (max-width: 900px) {
+   width:100%;
+   height:20rem;
+  }
 `
 export const ProductDetailes=styled.div`
 width:50%;
 height:auto;
-display: grid;
+display: flex;
+flex-direction: column;
 gap: 2em;
 padding-left: 1em;
-
+@media screen and (max-width: 900px) {
+   width:100%;
+   gap: 1em;
+  }
 `
 export const Alege=styled.div`
-width:50%;
+width:100%;
 height:2em;
 text-align: center;
-border: 1px solid black;
 border-radius:1em;
 font-size:1.25em;
 position:relative;
-cursor:pointer
+cursor:pointer;
+box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 `
 export const OpenDropdown=styled.div`
 position: absolute;
@@ -64,7 +74,7 @@ p{
     padding:.3em;
     color:white;
     &:hover{
-        background-color: red;
+        background-color: white;
         opacity:.8;
         color:black;
         border-radius:1em;
@@ -74,11 +84,10 @@ p{
 export const Addtocart=styled.button`
 margin-top:auto;
 height: 3em;
-width: 50%;
+width: 100%;
 background-color:black;
 color:white;
 border-radius:1em;
-margin-left:25%
 `
 export const ProdusAdaugat = styled.div`
 position:relative;
@@ -94,4 +103,7 @@ z-index:3;
 display:flex;
 justify-content:center;
 align-items:center;
+@media screen and (max-width: 900px) {
+   width:80%;
+  }
 `

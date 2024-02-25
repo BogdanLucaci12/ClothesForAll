@@ -11,7 +11,7 @@ const Dissapear= () =>{
         } else if (inputName === "password") {
             setLabelOffPassword(!!e.target.value);
         }
-        else if (inputName === "name") {
+        else if (inputName === "nume") {
             setLabelOffName(!!e.target.value); // true if there is a value, false otherwise
     }
         else if (inputName === "confirmPassword") {

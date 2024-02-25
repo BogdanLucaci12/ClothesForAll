@@ -9,9 +9,9 @@ background-color:black;
 `
 
 export const ButtonSignRegIn=styled.button`
-width:90%;
+width:100%;
 height:4vh;
 border-radius:5px;
 color:white;
-background-color:blue;
+background-color:black;
 `

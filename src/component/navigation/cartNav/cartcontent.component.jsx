@@ -6,7 +6,6 @@ import { Button, Items } from "./cartcontent.styles";
 import Item from "./itemCart.component";
 const CartContent=()=>{
     const {cartItems} = useContext(Cartcontext)
-    
     return(
         <MainDiv>
             {Object.keys(cartItems).length > 0 ?
@@ -26,9 +25,11 @@ const CartContent=()=>{
       </CosPlin>
      )
      :
-                (<CosGol><h3>
+                (<CosGol><div>
+                  <p>
                     Nu ai produse in cos
-                    </h3>
+                  </p>
+                    </div>
                     </CosGol>)}
         </MainDiv>)
 }

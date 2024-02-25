@@ -1,111 +1,192 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CgHeart } from "react-icons/cg";
+import { IoIosArrowDown } from "react-icons/io";
 export const MainDiv= styled.div`
 padding: 1em;
 width: 100%;
 height: 100%;
 display:flex;
 position: relative;
+ @media only screen and (max-width: 900px) {
+display:block
+}
 `
-export const FilterContainer= styled.div`
-border-right: 1px solid black;
+export const FilterContainers= styled.div`
+border-right:1px solid rgba(0, 0, 0, .2);
 width: 15%;
 height: 100vh;
 padding-top:1em;
+ @media only screen and (max-width: 900px) {
+  border-right:0px;
+  width: 100%;
+  display:flex;
+  height: 100%;
+  flex-wrap: wrap;
+}
 `
 export const ProductsContainer=styled.div`
 padding: 1em;
 display:block;
 position: relative;
 width: 85%;
+@media only screen and (max-width: 900px) {
+   width: 100%;
+}
 `
 export const HeaderProductsContainer=styled.div`
 height: 8vh;
 width: 100%;
-border-bottom: 1px solid black;
+border-bottom: 1px solid rgba(0, 0, 0, .2);
 display: flex;
 position: relative;
 align-items: center;
-padding: 1em;
-
+@media only screen and (max-width: 900px) {
+  border-bottom: 0px;
+}
 `
-export const ProductContainerstyle= styled(Link)`
+export const ProductContainerstyle= styled.div`
 display:block;
-height:22em;
-width:20em;
+height:28em;
+width:25em;
 overflow: hidden;
 border-radius:5px;
 position: relative;
+transition:transform 0.3s ease-in-out;
+padding:.5em;
+background-color:white;
 &:hover {
-    height: 26em;
     cursor: pointer;
--webkit-box-shadow: 4px 2px 15px -4px #000000; 
-box-shadow: 4px 2px 15px -4px #000000;
+    transform:scale(1.1);
+box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 z-index:10;
-  }
+}
+  @media only screen and (max-width: 900px) {
+  width: 18em;
+  box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
+}
+ @media only screen and (max-width: 633px) {
+  width: 25em;
+}
 `
 export const ProductImage= styled.img`
 margin: .5em;
 width: 95%;
-height: 13em;
+height: 14em;
+object-fit: fill;
 `
 export const Containerforproducts=styled.div`
-width:100%;
+width:auto;
 height:auto;
-display:grid;
-grid-template-columns: repeat(4, auto);
-row-gap:5em;
+display:flex;
+flex-wrap: wrap;
+row-gap:2em;
   position: relative;
   z-index:0;
+
 `
 export const ColorSize= styled.div`
 display:flex;
 gap: 10px;
 `
 export const SortItemsContainer=styled.div`
-border: 1px solid black;
 padding:.2em 1em;
-color: white;
-background-color: rgba(107, 74, 74, 0.5);
-width: 13vw;
+background-color: white;
+
 height: auto;
 -webkit-box-shadow: 4px 2px 15px -4px #000000; 
 box-shadow: 4px 2px 15px -4px #000000;
- cursor:pointer
+ cursor:pointer;
+ border-radius:1em;
+  @media only screen and (max-width: 900px) {
+  width: 15em;
+}
+
 `
 export const HiddenSortContainer=styled.div`
 heigh:auto;
-width:13vw;
 position: absolute;
-left:16px;
 -webkit-box-shadow: 4px 2px 15px -4px #000000; 
 box-shadow: 4px 2px 15px -4px #000000;
-border: 1px solid black;
+border-radius:1em;
 z-index:5;
-background-color: rgba(107, 74, 74, 0.5);
-font-size:1.3em;
+background-color: white;
+font-size:1.15em;
 display: block;
+left:0;
+  @media only screen and (max-width: 900px) {
+ 
+}
+&>div:first-child{
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.4); 
+  }}
+  &>div:last-child{
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.4); 
+  }
+}
 `
 export const Div=styled.div`
 padding:.9em;
  transition: background-color 0.3s ease;
-
+border-bottom: 1px solid rgba(0,0,0,0.5);
  &:hover{
-    background-color: rgba(255, 255, 255, 0.4); 
-   cursor:pointer
+   cursor:pointer;
   }
 `
 export const Casuta=styled.div`
-border-right: 1px solid black;
+border-right: 1px solid rgba(0, 0, 0, 0.4);
 padding:.2em;
+
 `
-export const Filtre=styled.div`
+export const Filtru=styled.div`
 margin-top:2em;
+box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
+border-radius:2rem;
+padding:.8em;
+margin-right:1em;
+height:auto;
+overflow:hidden;
+cursor:pointer;
+
+ @media only screen and (max-width: 900px) {
+width:11rem;
+height:3em;
+}
 `
 export const FavoritesIcon=styled(CgHeart)`
-width:13%;
-height:13%;
+width:10%;
+height:10%;
 position:absolute;
+&:hover{
+  filter:drop-shadow(.1em .1em .5em red);
+}
+`
+export const ProdAdaugatCuSucces=styled.div`
+top:10%;
+left:40%;
+position:absolute;
+width:35rem;
+height:5rem;
+z-index:10;
+background-color: white;
+color:black;
+box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
+border-radius:2rem;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:2em;
+font-size:1.4em;
+`
+export const ArrowForFilter=styled(IoIosArrowDown)`
+display:flex;
+width:2em;
+height:2em;
 
 `

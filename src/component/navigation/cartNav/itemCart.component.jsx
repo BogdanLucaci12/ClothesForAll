@@ -1,4 +1,4 @@
-import { Itemstyles, PicItem, DetailesItem } from "./itemCart.styles";
+import { Itemstyles, PicItem, DetailesItem, DivEDf } from "./itemCart.styles";
 const Item=({prod})=>{
     const {nume, pret, ImageUrl, quantity}=prod;
     return (
@@ -7,9 +7,9 @@ const Item=({prod})=>{
                 <img src={ImageUrl} />
             </PicItem>
             <DetailesItem>
-                <p>{nume}</p>
-                <p>{pret}RON</p>
-                <div style={{ display: 'flex' }}>Cantitate: <p>{quantity}</p></div>
+                <DivEDf>{nume}</DivEDf>
+                <DivEDf>{pret} RON</DivEDf>
+                <DivEDf>Cantitate: <p>{quantity}</p></DivEDf>
             </DetailesItem>
         </Itemstyles>
     )

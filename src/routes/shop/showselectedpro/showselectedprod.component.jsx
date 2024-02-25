@@ -10,7 +10,7 @@ const MarimeCuloare={
 const ShowSelectedProd= ()=>{
     const { cartItems, setCartItems, addToCart }=useContext(Cartcontext);
     const { item } = useContext(ItemContext);
-    const {nume, Nume ,ImageUrl, culoare, marime, pret}=item
+    const {nume, Nume ,ImageUrl, culoare, marime, pret, categorie}=item
     const [isOpenSize, setIsOpenSize] = useState(false);
     const [isOpenColor, setIsOpenColor] = useState(false);
     const [marimeculoare, setMarimeCuloare]=useState(MarimeCuloare);
@@ -36,7 +36,7 @@ const ShowSelectedProd= ()=>{
             culoare: isOpenColor ? culoare : prev.culoare,
         }));
     };
-    const adaugaProdus = () => {
+    const adaugaProdusInfo = () => {
         // Adaugare produs logic aici
         setProdusAdaugat(true);
 
@@ -45,9 +45,7 @@ const ShowSelectedProd= ()=>{
             setProdusAdaugat(false);
         }, 3000); // 3000 milisecunde = 3 secunde
     };
-
      const handlebuttonclick = () => {
-    
         const newCartItem={
             ...item, 
             marime:marimeculoare.marime,
@@ -55,23 +53,27 @@ const ShowSelectedProd= ()=>{
             quantity: 1
         }
          addToCart(newCartItem)
-         adaugaProdus();
+         adaugaProdusInfo();
      }
   
 return (
    <Back>
         {
-            produsAdaugat && (<ProdusAdaugat><h1>Produs adaugat cu succes</h1></ProdusAdaugat>)
+            produsAdaugat && (<ProdusAdaugat><h5>Produs adaugat cu succes</h5></ProdusAdaugat>)
         }
      <MainDiv>
       
         <MainpicDiv>
-                <img src={ImageUrl} alt="" style={{width:"100%", height:"auto"}}/>
+                <img src={ImageUrl} alt="" style={{width: "100%", height:"100%"}}/>
         </MainpicDiv>
             <ProductDetailes>
                 <h1 style={{textAlign:"center"}}>{nume||Nume}</h1>
-                <h3>{pret} RON</h3>
-            <Alege onClick={handleSizeClick}>Alege marimea dorita
+                <h5 style={{ textAlign: "center" }}>{categorie}</h5>
+                <h3 style={{ textAlign: "center" }}>{pret} RON</h3>
+                <Alege onClick={handleSizeClick}>
+                    {
+                        marimeculoare.marime ? (<h3>{marimeculoare.marime}</h3>) : ("Alege marimea dorita")
+                }
                    { isOpenSize &&
                    (
                      <OpenDropdown>
@@ -83,8 +85,11 @@ return (
                     )
                    }
                 </Alege>
-                <h1>{marimeculoare.marime}</h1>
-            <Alege onClick={handleColorClick}>Alege culoarea dorita 
+                
+            <Alege onClick={handleColorClick}>
+                    {
+                        marimeculoare.culoare ? (<h3>{marimeculoare.culoare}</h3>) : ("Alege culoare dorita")
+                    }
                 {isOpenColor &&
                         <OpenDropdown>
                             {culoare && culoare.map((culoareOption) => 
@@ -94,7 +99,7 @@ return (
                         </OpenDropdown>
                     }
                 </Alege>
-                <h1>{marimeculoare.culoare}</h1>
+             
                 {  
                    available ? 
                     (

@@ -3,8 +3,6 @@ import { initializeApp} from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {getFirestore, doc, getDoc, setDoc, collection, query, getDocs} from "firebase/firestore"
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
-import { CategorieContext } from "../context/categorie.context";
-import { useContext } from "react";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCYU60dxwzp-TddLRL50AEPqLZHdQXd-bA",
@@ -99,12 +97,10 @@ export const getUserDisplayName = async (userAuth) => {
 };
 export const SearchDatabases=async()=>{
     try{
-        
         const dbbarbati = await getDocs(collection(db, "barbati"));
         const dbfemei =await getDocs(collection(db, "femei"));
         const dbcopii = await getDocs(collection(db, "copii"));
         const databarbati=dbbarbati.docs.reduce((acc, docSnapshot) =>{
-
             const {items, Items}=docSnapshot.data();
             acc = acc.concat(items || Items || []);
             return acc;

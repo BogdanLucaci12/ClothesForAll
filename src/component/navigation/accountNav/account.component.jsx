@@ -7,7 +7,8 @@ import { useContext } from 'react';
 import { UserContext } from '../../../context/user.context';
 const AccountIcon = () => {
     const { isDropdownMenuOpen, handleOpen, handleClose } = useDropdownMenu();
-    const { currentUser }=useContext(UserContext)
+    const { currentUser }=useContext(UserContext);
+   
     return (
         <NavigationIconContainer
             onMouseEnter={handleOpen}
@@ -18,7 +19,6 @@ const AccountIcon = () => {
             {
                 currentUser ? (<p>{currentUser}</p>) : (<p>Contul Meu</p>)
             }
-            
             {
                 isDropdownMenuOpen &&
                 <DropdownComponent>

@@ -9,7 +9,7 @@ import CartPage from "./routes/cartPage/cartPage.component";
 const App = () => {
 
   return (
-    <div style={{ margin: '10px' }}>
+    <div style={{ padding: '10px', overflowX:""}}>
       <Routes>
         <Route path='/' element={<NavigationBar />} >
           <Route index element={<Home />} />

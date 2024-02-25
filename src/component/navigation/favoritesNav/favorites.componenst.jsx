@@ -2,10 +2,9 @@ import { useContext } from "react"
 import { FavoritesContext } from "../../../context/favorites.context"
 import { CosGol, CosPlin, MainDiv } from "../cartNav/cartcontent.styles";
 import { Items, Button } from "../cartNav/cartcontent.styles";
-import { Link } from "react-router-dom";
 import Item from "./favoritesItem.component";
 const FavoritesContent=()=>{
-    const {favoriteItem } = useContext(FavoritesContext)
+    const { favoriteItem} = useContext(FavoritesContext)
 
     return (
         <MainDiv>
@@ -22,9 +21,12 @@ const FavoritesContent=()=>{
                     </CosPlin>
                 )
                 :
-                (<CosGol><h3>
+                (<CosGol><div>
+                    <p>
+
                     Nu ai adaugat nici un produs favorit
-                </h3>
+                    </p>
+                </div>
                 </CosGol>)}
         </MainDiv>)
 }

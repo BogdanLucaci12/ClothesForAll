@@ -1,20 +1,25 @@
 import { Casuta, ColorSize, ProductContainerstyle, ProductImage, FavoritesIcon } from "./shop.styles"
 import { FavoritesContext } from "../../context/favorites.context";
-import { useContext } from "react";
+import { useContext, } from "react";
+import { useNavigate } from "react-router-dom";
 const ProductContainer= ({produs, onClick})=>{
-    const { id, ImageUrl, pret, Pret, Nume, nume, culoare, marime } = produs;
+    const { ImageUrl, pret, Pret, Nume, nume, culoare, marime, categorie } = produs;
     const {addToFav } = useContext(FavoritesContext)
-    const handleClick= ()=>{
-    onClick(produs)
-   }
-   const handleClickFav=()=>{
-       addToFav(produs)
+    const navigate = useNavigate();
+    const handleClickFav=(e)=>{
+        addToFav(produs);
+    }
+    const handleClick= (e)=>{
+        onClick(produs);
+        navigate("/selprod");
    }
     return(
-        <ProductContainerstyle onClick={handleClick} to="/selprod">
-            <FavoritesIcon onClick={handleClickFav}/>
+        <ProductContainerstyle>
+            <FavoritesIcon  onClick={handleClickFav}/>
+        <div onClick={handleClick} > 
             <ProductImage src={ImageUrl} />
             <h5>{pret || Pret} RON</h5>
+            <div>{categorie}</div>
             <p>{Nume || nume}</p>
             <div style={{ display: "block" }}>Culori:
                 <ColorSize> {culoare.map((culori) => {
@@ -29,6 +34,7 @@ const ProductContainer= ({produs, onClick})=>{
                 })}
             </ColorSize>
             </div>
+             </div>  
          
         </ProductContainerstyle>
     )

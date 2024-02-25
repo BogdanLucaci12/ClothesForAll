@@ -1,8 +1,7 @@
 import { SignUp, LogRegContainer, LogIn, SignInGoogle, LabelUser, InputUser, FormUser } from "./LogReg.styled";
 import GoogleIcon from '@mui/icons-material/Google';
 import { ButtonSignRegIn } from "../button/button.styles";
-import { useState, useContext, } from "react";
-import Dissapear from "./inputlabeldissapear.component";
+import { useState, useContext, useEffect} from "react";
 import { signInWithGooglePopUp, 
   createUserDocumentFromAuth, 
   createAuthUserWithEmailAndPassword,
@@ -15,18 +14,21 @@ import { useNavigate } from 'react-router-dom';
 
 
 const defaultFormFields = {
-  displayName: '',
+  nume: '',
   email: '',
   password: '',
   confirmPassword: ''
 }
 const AccountPage = () => {
-  const { handleInputFocus, labelOffEmail, labelOffPassword, labelOffName, labelOffconfirmPassword } = Dissapear();
   const [logInState, setLogInState] = useState(true);
   const { setCurrentUser } = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
+  const { nume, email, password, confirmPassword } = formFields;
   const navigate = useNavigate();
+  const [labelOffEmail, setLabelOffEmail] = useState(true);
+  const [labelOffPassword, setLabelOffPassword] = useState(true);
+  const [labelOffName, setLabelOffName] = useState(true);
+  const [labelOffconfirmPassword, setLabelOffconfirmPassword] = useState(true);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value })
@@ -60,7 +62,7 @@ catch(error){
     }
     try {
       const { user } = await createAuthUserWithEmailAndPassword(email, password);
-      await createUserDocumentFromAuth(user, { displayName })
+      await createUserDocumentFromAuth(user, { nume })
     resetFormFields();
       const resetLogInPage= ()=>{
         setLogInState(true)
@@ -71,10 +73,16 @@ catch(error){
       console.log('user register encountered an error', error)
     }
   }
+  useEffect(() => {
+    nume !== "" ? setLabelOffName(false) : setLabelOffName(true)
+    email !== "" ? setLabelOffEmail(false) : setLabelOffEmail(true)
+    password !== "" ? setLabelOffPassword(false) : setLabelOffPassword(true)
+    confirmPassword !== "" ? setLabelOffconfirmPassword(false) : setLabelOffconfirmPassword(true)
+  }, [nume, email, password, confirmPassword]);
   const changeEvent = (e) => {
-    handleInputFocus(e);
     handleChange(e);
   }
+
   return (
     <LogRegContainer>
       {
@@ -83,8 +91,13 @@ catch(error){
             <h1 style={{ textAlign: 'center' }}>LogIn</h1>
             <FormUser onSubmit={handleSignIn}>
               <div>
-                <LabelUser $hidelabel={labelOffEmail}>Email</LabelUser>
+               {
+                labelOffEmail && (
+                  <LabelUser>Email</LabelUser>
+                )
+               } 
                 <InputUser
+                  id="email"
                   type="email"
                   name="email"
                   onChange={changeEvent}
@@ -92,7 +105,12 @@ catch(error){
                 />
               </div>
               <div>
-                <LabelUser $hidelabel={labelOffPassword}>Password</LabelUser>
+                {
+                  labelOffPassword &&
+                  (
+                    <LabelUser>Password</LabelUser>
+                  )
+                }
                 <InputUser
                   type="password"
                   name="password"
@@ -102,7 +120,7 @@ catch(error){
               </div>
               <ButtonSignRegIn>LogIn</ButtonSignRegIn>
             </FormUser>
-            <div style={{ display: 'flex' }}>Nu ai cont? <div style={{ color: 'blue', cursor: 'pointer' }} onClick={() => setLogInState(false)}>Inregistreaza-te</div></div>
+            <div style={{ display: 'block' }}>Nu ai cont? <div style={{ color: 'blue', cursor: 'pointer' }} onClick={() => setLogInState(false)}> Inregistreaza-te</div></div>
           </LogIn>
         )
           : (
@@ -110,16 +128,24 @@ catch(error){
               <h1 style={{ textAlign: 'center' }}>Register</h1>
               <FormUser onSubmit={handleSubmitRegister}>
                 <div>
-                  <LabelUser $hidelabel={labelOffName}>Name</LabelUser>
+                  {
+                    labelOffName && (
+                      <LabelUser>Name</LabelUser>
+                    )
+                  }
                   <InputUser
-                    type="name"
-                    name="displayName"
+                    type="text"
+                    name="nume"
                     onChange={changeEvent}
-                    value={displayName}
+                    value={nume}
                   />
                 </div>
                 <div>
-                  <LabelUser $hidelabel={labelOffEmail}>Email</LabelUser>
+                  {
+                    labelOffEmail &&(
+                      <LabelUser >Email</LabelUser>
+                    )
+                  }
                   <InputUser
                     type="email"
                     name="email"
@@ -128,7 +154,11 @@ catch(error){
                   />
                 </div>
                 <div>
-                  <LabelUser $hidelabel={labelOffPassword}>Password</LabelUser>
+                  {
+                    labelOffPassword && (
+                      <LabelUser>Password</LabelUser>
+                    )
+                  }
                   <InputUser
                     type="password"
                     name="password"
@@ -137,7 +167,11 @@ catch(error){
                   />
                 </div>
                 <div>
-                  <LabelUser $hidelabel={labelOffconfirmPassword}>Confirm Password</LabelUser>
+                  {
+                    labelOffconfirmPassword && (
+                      <LabelUser >Confirm Password</LabelUser>
+                    )
+                  }
                   <InputUser
                     type="password"
                     name="confirmPassword"
@@ -148,7 +182,7 @@ catch(error){
                 <ButtonSignRegIn>Register</ButtonSignRegIn>
               </FormUser>
              
-              <p>Ai deja cont? <div style={{ color: 'blue', cursor: 'pointer' }} onClick={() => setLogInState(true)}>Logheaza-te</div></p>
+              <div>Ai deja cont? <div style={{ color: 'blue', cursor: 'pointer' }} onClick={() => setLogInState(true)}>Logheaza-te</div></div>
             </SignUp>)}
       <SignInGoogle>
         <p>Or</p>

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 export const MainDiv= styled.div`
-height:35vh;
-width:100%;
+
 `
 export const CosPlin=styled.div`
 display:grid;
@@ -17,6 +16,8 @@ display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
+width:100%;
+margin-top:1em;
 `
 export const Button=styled.button`
 width:90%;

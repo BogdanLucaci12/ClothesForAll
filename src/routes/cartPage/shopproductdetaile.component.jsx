@@ -19,20 +19,20 @@ const ShowPriceDetails = ()=>{
                 </div>
             <div>
             <Valori>
-             <h3>Subtotal</h3>
-             <h3> {total}</h3>
+             <h5>Subtotal</h5>
+             <h5> {total}</h5>
                 </Valori>
                 <Valori>
-                    <h3>Reducere</h3>
-                    <h3> 0 RON</h3>
+                    <h5>Reducere</h5>
+                    <h5> 0 RON</h5>
                 </Valori>
                 <Valori>
-                    <h3>Transport</h3>
-                    <h3> {transport} RON</h3>
+                    <h5>Transport</h5>
+                    <h5> {transport} RON</h5>
                 </Valori>
                 <Valori>
-                    <h3>Total</h3>
-                    <h3> {total+transport} RON</h3>
+                    <h5>Total</h5>
+                    <h5> {total+transport} RON</h5>
                 </Valori>
             </div>
             <GoToPay>Plateste</GoToPay>

@@ -12,11 +12,13 @@ import { ItemProvider } from './context/itemcontext.component';
 import { CartProvider } from './context/addtocart.context';
 import { FavoritesProvider } from './context/favorites.context';
 import { SearchItemProviver } from './context/searchitem.context';
+import { LabelDropdownProvider } from './context/labelanddropdownforsearch.context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
+        <LabelDropdownProvider>
         <SearchItemProviver>
         <CategorieProvider>
           <ProductsProvider>
@@ -30,6 +32,7 @@ root.render(
           </ProductsProvider>
         </CategorieProvider>
         </SearchItemProviver>
+        </LabelDropdownProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
