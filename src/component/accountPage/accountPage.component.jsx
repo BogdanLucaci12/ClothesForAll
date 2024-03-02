@@ -6,7 +6,6 @@ import { signInWithGooglePopUp,
   createUserDocumentFromAuth, 
   createAuthUserWithEmailAndPassword,
   signInUserWithEmailAndPassword,
-   getDisplayName,
   getUserDisplayName
   } from "../../utility/firebase";
 import { UserContext } from "../../context/user.context";
@@ -32,9 +31,11 @@ const AccountPage = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value })
+    
   }
   const signInProvider = async () => {
     const { user } = await signInWithGooglePopUp();
+    await createUserDocumentFromAuth(user)
     setCurrentUser(user.displayName);
     navigate("/")
   }

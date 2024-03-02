@@ -57,13 +57,13 @@ z-index:5
 }
 `
 export const NavigationIconContainer=styled.div`
-height:100%;
 display:grid;
 align-items: center;
 text-align: center;
 place-items:center;
 box-sizing: border-box;
 position:relative;
+cursor:pointer;
 `
 export const CountLengthCart=styled.div`
 position: absolute;

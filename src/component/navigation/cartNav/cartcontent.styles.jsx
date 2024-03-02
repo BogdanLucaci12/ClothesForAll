@@ -18,6 +18,7 @@ align-items:center;
 text-align:center;
 width:100%;
 margin-top:1em;
+font-size:20px
 `
 export const Button=styled.button`
 width:90%;

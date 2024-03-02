@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp} from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import {getFirestore, doc, getDoc, setDoc, collection, query, getDocs} from "firebase/firestore"
+import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, getDoc, setDoc, collection, query, getDocs, updateDoc } from "firebase/firestore"
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
 
 const firebaseConfig = {
@@ -22,24 +22,44 @@ provider.setCustomParameters({
 });
 const storage = getStorage(app);
 export const auth = getAuth(app);
+console.log(auth);
 export const signInWithGooglePopUp= () =>signInWithPopup(auth, provider);
 export const signOutUser= async()=> await signOut(auth);
 export const db= getFirestore();
-export const createUserDocumentFromAuth=async(userAuth, additionalInfo={})=>{
+export const retreiveUserName=  ()=> onAuthStateChanged(auth, (user) => {
+    if (user) {
+        return user
+    } 
+    else {
+        return false;
+    }
+});
+export const createUserDocumentFromAuth = async (userAuth, nume)=>{
     if(!userAuth) return;
 const userDocRef=doc(db, 'users', userAuth.uid)
 const userSnapshot= await getDoc(userDocRef);
 if(!userSnapshot.exists()){
     const {displayName, email}=userAuth;
+    const userName = displayName == null ? nume : displayName;
+    const additionalInfo = {
+        telefon:"",
+        alias:"",
+        dataNasterii: {
+            an:"",
+            luna:"",
+            ziua:""
+            }
+    }
     const createdAt= new Date();
     try{
      await setDoc(userDocRef, {
-        displayName,
+        userName,
         email,
         createdAt,
-       ...additionalInfo
+       additionalInfo
      })
-    }catch(error){
+    }
+    catch(error){
        console.log('error creating the user', error.message)
     }
 }
@@ -83,7 +103,7 @@ export const getUserDisplayName = async (userAuth) => {
             const docSnapshot = await getDoc(userDocRef);
             if (docSnapshot.exists()) {
                 const userData = docSnapshot.data();
-                const displayName = userData.displayName;
+                const displayName = userData.userName;
                 return displayName;
             } else {
                 console.log("Documentul pentru UID-ul dat nu există.");
@@ -127,4 +147,34 @@ export const SearchDatabases=async()=>{
     }
 }
 
+export const getUserCollection=async (useruid) =>{
+    if (useruid){
+        const usercollection = doc(db, "users", useruid);
+            try{
+                const snapshot = await getDoc(usercollection)
+                if(snapshot.exists()){
+                const userCollectionDetails=snapshot.data();
+                return userCollectionDetails
+                }
+            }
+            catch(error){
+                console.log(error)
+            }
+    }
+}
 
+export const UpdateUserCollection = async (useruid, userName, alias, telefon)=>{
+try{
+    const userDocRef = doc(db, 'users', useruid)
+    await updateDoc(userDocRef, {
+        userName: userName,
+        additionalInfo:{
+            alias: alias,
+            telefon: telefon
+        }
+    });
+}
+catch(err){
+    console.log(err)
+}
+}

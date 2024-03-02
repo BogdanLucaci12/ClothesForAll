@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const DropdownComponentStyled=styled.div`
 position: absolute;
 display: grid;
-margin-top:20vw;
+top:6vh;
 width: 13vw;
 height: 35vh;
 z-index:2;

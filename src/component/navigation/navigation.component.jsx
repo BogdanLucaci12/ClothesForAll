@@ -8,7 +8,7 @@ import AccountIcon from "./accountNav/account.component";
 import { CategorieContext } from "../../context/categorie.context";
 import { useContext } from "react";
 const NavigationBar = () => {
-    const { seteazaCategoria, setSeteazaCategoria } = useContext(CategorieContext);
+    const {setSeteazaCategoria } = useContext(CategorieContext);
     const seteazaBarbat = () => setSeteazaCategoria("barbati")
     const seteazaFemeie = () => setSeteazaCategoria("femei")
     const seteazaCopil = () => setSeteazaCategoria("copil")
@@ -28,9 +28,9 @@ const NavigationBar = () => {
                     <UserIcon>
                         <CartIcon />
                         <FavoritesIcon />
-                        <AccountIcon>
-                            <Link to="/cart"></Link>
-                        </AccountIcon>
+                        <AccountIcon/>
+                            
+                       
                     </UserIcon>
                 </Navigationcontainer>
 

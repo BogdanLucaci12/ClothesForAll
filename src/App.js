@@ -6,6 +6,7 @@ import AccountPage from "./component/accountPage/accountPage.component";
 import Shop from "./routes/shop/shop.component";
 import ShowSelectedProd from "./routes/shop/showselectedpro/showselectedprod.component";
 import CartPage from "./routes/cartPage/cartPage.component";
+import UserPage from "./routes/userpage/userpage.compent";
 const App = () => {
 
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="selprod" element={<ShowSelectedProd />} />
           <Route path='account' element={<AccountPage />} />
           <Route path="cart" element={<CartPage />} />
+          <Route path="userPage" element={<UserPage />}/>
         </Route>
       </Routes>
     </div>

@@ -8,7 +8,7 @@ const AccountContent = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const signOutHandler= async()=>{
         await signOutUser();
-        setCurrentUser(undefined);
+        setCurrentUser("");
     }
     return (
         <AccountContentStyle >

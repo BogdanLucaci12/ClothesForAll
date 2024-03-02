@@ -26,9 +26,9 @@ const CartContent=()=>{
      )
      :
                 (<CosGol><div>
-                  <p>
+            
                     Nu ai produse in cos
-                  </p>
+                 
                     </div>
                     </CosGol>)}
         </MainDiv>)
