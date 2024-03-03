@@ -15,14 +15,14 @@ align-items: center;
 border-bottom: 1px solid rgba(0,0,0,0.2)
 `
 export const AdaugaAdreseButton =styled.div`
-width:10vw;
+
 background-color:black;
 color:white;
 display: flex;
 justify-content: center;
 border-radius:1rem;
 cursor:pointer;
-padding:.3em;
+padding:.5em;
 `
 export const Titlu=styled.div`
 display: flex;

@@ -22,18 +22,9 @@ provider.setCustomParameters({
 });
 const storage = getStorage(app);
 export const auth = getAuth(app);
-console.log(auth);
 export const signInWithGooglePopUp= () =>signInWithPopup(auth, provider);
 export const signOutUser= async()=> await signOut(auth);
 export const db= getFirestore();
-export const retreiveUserName=  ()=> onAuthStateChanged(auth, (user) => {
-    if (user) {
-        return user
-    } 
-    else {
-        return false;
-    }
-});
 export const createUserDocumentFromAuth = async (userAuth, nume)=>{
     if(!userAuth) return;
 const userDocRef=doc(db, 'users', userAuth.uid)
@@ -177,4 +168,40 @@ try{
 catch(err){
     console.log(err)
 }
+}
+
+export const AddAdress = async (useruid, nume, telefon, judet, localitate, adresa) => {
+   if(useruid){
+       const userDocRef = doc(db, 'users', useruid);
+       const userSnapshot = await getDoc(userDocRef);
+       const adress=userSnapshot.data().adress;
+      if(!adress){
+              await updateDoc(userDocRef, {
+                adress:
+                    [{
+                        nume:nume,
+                        telefon:telefon,
+                        judet:judet,
+                        localitate:localitate,
+                        adresa:adresa
+                    }]
+              }, 
+              {merge:true}
+            )
+      }
+   else{
+          const newAddress = {
+              nume: nume,
+              telefon: telefon,
+              judet: judet,
+              localitate: localitate,
+              adresa: adresa
+          };
+          const updatedAdressArray = [...adress, newAddress];
+          await updateDoc(userDocRef, {
+             adress:updatedAdressArray
+          }
+          )
+   }
+   }
 }
