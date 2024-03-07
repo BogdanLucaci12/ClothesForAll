@@ -76,14 +76,15 @@ top:0;
 display:flex;
 justify-content:center;
 align-items:center;
+z-index:10
 `
 export const ModifiyDataContainer=styled.div`
 position:relative;
 width:50vw;
-height:50vh;
+height:auto;
 background:white;
 border-radius:1rem;
-
+padding:.5em
 `
 
 export const CloseSign = styled(GrAdd)`
@@ -93,7 +94,7 @@ height:2em;
 cursor:pointer;
 transition:transform 950ms ease-in-out;
 right:0;
-margin:1em;
+
 &:hover{
     transform:rotate(360deg)
 }

@@ -10,7 +10,7 @@ import { BsPower } from "react-icons/bs";
 import AboutUser from "./aboutuserContainer/aboutuser.component";
 import { ManageClickOnUserPage } from "../../context/managaAccountSubpage.component";
 import UserAdress from "./AdrressContainer/useradress.component";
-import CardContainer from "./cardContainer/card.component";
+import CardContainer from "./cardContainer/cardContainer.component";
 const UserPage = () => {
     const { currentUser, userUid } = useContext(UserContext)
     const { states, setClickState } = useContext(ManageClickOnUserPage)

@@ -10,7 +10,7 @@ import UserPage from "./routes/userpage/userpage.compent";
 const App = () => {
 
   return (
-    <div style={{ padding: '10px', overflowX:""}}>
+    <div style={{ paddingTop:"8px" ,overflowX:""}}>
       <Routes>
         <Route path='/' element={<NavigationBar />} >
           <Route index element={<Home />} />

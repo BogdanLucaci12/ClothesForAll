@@ -1,9 +1,8 @@
-import { Titlu, Content, Inputdiv, ExtAdresa, AdaugaAdresabttn, Option } from "./useradress.styles";
+import { Titlu, Content, Inputdiv, ExtAdresa, AdaugaAdresabttn, Option, MesajSucces } from "./useradress.styles";
 import { CloseSign, ModifiyDataContainer, ModifiyDataMainDiv } from "../aboutuserContainer/aboutuser.styles";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../../context/user.context";
 import { AddAdress } from "../../../utility/firebase";
-
 const AdaugaAdresa = ({close}) => {
     const { userUid }=useContext(UserContext)
     const [optionLocalitate, setOptionLocalitate] = useState("Search");
@@ -15,6 +14,7 @@ const AdaugaAdresa = ({close}) => {
     const [localitati, setLocalitati] = useState([]);
     const [localitateSelectataPeJudet, setLocalitateSelectataPeJudet] = useState([])
     const [afiseazaLocalitati, setAfiseazaLocalitati] = useState(localitateSelectataPeJudet)
+    const [mesajSucces, setMesajSucces] = useState(false)
     const inseraCautareaLocalitate = (e) => {
         const { value } = e.target;
         setOptionLocalitate(value);
@@ -68,23 +68,64 @@ const AdaugaAdresa = ({close}) => {
 
         fetchData();
     }, []);
-    const adaugaClickButton = ()=>{
+    const adaugaClickButton = () => {
         const nume = document.getElementById("nume");
         const telefon = document.getElementById("telefon");
         const judet = document.getElementById("Judet");
-        const localitate= document.getElementById("Localitate");
+        const localitate = document.getElementById("Localitate");
         const adresa = document.getElementById("adresa");
-        nume.value.trim() === "" ? nume.style = "border: 5px solid red" : nume.style = "";
-        telefon.value.trim() === "" ? telefon.style = "border: 5px solid red" : telefon.style="";
-        judet.value.trim() === "" || judet.value.trim()==="Search" ? judet.style = "border: 5px solid red" : judet.style = "";
-        localitate.value.trim() === "" || localitate.value.trim()==="Search" ? localitate.style = "border: 5px solid red" : localitate.style = "";
-        adresa.value.trim() === "" ? adresa.style = "border: 5px solid red" : adresa.style = "";
-        AddAdress(userUid, nume.value.trim(), telefon.value.trim(), judet.value.trim(),localitate.value.trim(), adresa.value.trim())
-        
-    }
+        if (nume.value.trim() === "") {
+            nume.style.border = "5px solid red";
+            return;
+        } else {
+            nume.style.border = "";
+        }
+
+        if (telefon.value.trim() === "") {
+            telefon.style.border = "5px solid red";
+            return;
+        } else {
+            telefon.style.border = "";
+        }
+
+        if (judet.value.trim() === "" || judet.value.trim() === "Search") {
+            judet.style.border = "5px solid red";
+            return;
+        } else {
+            judet.style.border = "";
+        }
+
+        if (localitate.value.trim() === "" || localitate.value.trim() === "Search") {
+            localitate.style.border = "5px solid red";
+            return;
+        } else {
+            localitate.style.border = "";
+        }
+
+        if (adresa.value.trim() === "") {
+            adresa.style.border = "5px solid red";
+            return;
+        } else {
+            adresa.style.border = "";
+        }
+        AddAdress(userUid, nume.value.trim(), telefon.value.trim(), judet.value.trim(), localitate.value.trim(), adresa.value.trim());
+       nume.value="";
+       telefon.value="";
+       setOptionJudet("Search");
+       setOptionLocalitate("Search");
+       adresa.value="";
+        setMesajSucces(true)
+        setTimeout(() => {
+            setMesajSucces(false)
+        }, 2000);
+    };
     return (
         <ModifiyDataMainDiv>
             <ModifiyDataContainer>
+                {
+                    mesajSucces && <MesajSucces>Adresa introdusa cu succes</MesajSucces>
+                }
+               
                 <CloseSign onClick={close}/>
                 <Titlu>Adauga Adresa noua</Titlu>
                 <Content>

@@ -1,13 +1,14 @@
 import { SignUp, LogRegContainer, LogIn, SignInGoogle, LabelUser, InputUser, FormUser } from "./LogReg.styled";
 import GoogleIcon from '@mui/icons-material/Google';
 import { ButtonSignRegIn } from "../button/button.styles";
-import { useState, useContext, useEffect} from "react";
-import { signInWithGooglePopUp, 
-  createUserDocumentFromAuth, 
+import { useState, useContext, useEffect } from "react";
+import {
+  signInWithGooglePopUp,
+  createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
   signInUserWithEmailAndPassword,
   getUserDisplayName
-  } from "../../utility/firebase";
+} from "../../utility/firebase";
 import { UserContext } from "../../context/user.context";
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +32,7 @@ const AccountPage = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value })
-    
+
   }
   const signInProvider = async () => {
     const { user } = await signInWithGooglePopUp();
@@ -42,18 +43,18 @@ const AccountPage = () => {
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   }
-  const handleSignIn= async (event) => {
-event.preventDefault()
-try{
-  const {user} = await signInUserWithEmailAndPassword(email, password);
-  const userDisplayName = await getUserDisplayName(user);
-  setCurrentUser(userDisplayName)
-  resetFormFields();
-  navigate("/");
-}
-catch(error){
-  console.log("erorr for signIn", error.code)
-}
+  const handleSignIn = async (event) => {
+    event.preventDefault()
+    try {
+      const { user } = await signInUserWithEmailAndPassword(email, password);
+      const userDisplayName = await getUserDisplayName(user);
+      setCurrentUser(userDisplayName)
+      resetFormFields();
+      navigate("/");
+    }
+    catch (error) {
+      console.log("erorr for signIn", error.code)
+    }
   }
   const handleSubmitRegister = async (event) => {
     event.preventDefault();
@@ -64,11 +65,8 @@ catch(error){
     try {
       const { user } = await createAuthUserWithEmailAndPassword(email, password);
       await createUserDocumentFromAuth(user, { nume })
-    resetFormFields();
-      const resetLogInPage= ()=>{
-        setLogInState(true)
-      }
-      resetLogInPage()
+      resetFormFields();
+      setLogInState(true)
     }
     catch (error) {
       console.log('user register encountered an error', error)
@@ -92,11 +90,11 @@ catch(error){
             <h1 style={{ textAlign: 'center' }}>LogIn</h1>
             <FormUser onSubmit={handleSignIn}>
               <div>
-               {
-                labelOffEmail && (
-                  <LabelUser>Email</LabelUser>
-                )
-               } 
+                {
+                  labelOffEmail && (
+                    <LabelUser>Email</LabelUser>
+                  )
+                }
                 <InputUser
                   id="email"
                   type="email"
@@ -143,7 +141,7 @@ catch(error){
                 </div>
                 <div>
                   {
-                    labelOffEmail &&(
+                    labelOffEmail && (
                       <LabelUser >Email</LabelUser>
                     )
                   }
@@ -182,7 +180,7 @@ catch(error){
                 </div>
                 <ButtonSignRegIn>Register</ButtonSignRegIn>
               </FormUser>
-             
+
               <div>Ai deja cont? <div style={{ color: 'blue', cursor: 'pointer' }} onClick={() => setLogInState(true)}>Logheaza-te</div></div>
             </SignUp>)}
       <SignInGoogle>

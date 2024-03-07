@@ -15,7 +15,6 @@ align-items: center;
 border-bottom: 1px solid rgba(0,0,0,0.2)
 `
 export const AdaugaAdreseButton =styled.div`
-
 background-color:black;
 color:white;
 display: flex;
@@ -93,4 +92,48 @@ text-align:center;
     background-color:rgba(0,0,0,.2);
     cursor:pointer
 }
+`
+export const ContentAdress=styled.div`
+width:100%;
+height:auto;
+display:flex;
+flex-wrap:wrap;
+`
+export const ContainerAdresa=styled.div`
+width:auto;
+height:15em;
+box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
+border-radius:2rem;
+margin:1em;
+padding:1em;
+font-size:20px;
+position:relative;
+`
+export const HeaderAdresa=styled.div`
+height:90%;
+`
+
+export const FooterAdresa=styled.div`
+cursor:pointer;
+background-color:black;
+color:white;
+width:100%;
+display:flex;
+justify-content:center;
+border-radius:2rem;
+`
+export const MesajSucces=styled.div`
+position:absolute;
+left:25%;
+top:25%;
+width:50%;
+height:5vh;
+background-color: rgba(0,0,0,0.6);
+color:white;
+z-index:15;
+border-radius:2rem;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:20px;
 `

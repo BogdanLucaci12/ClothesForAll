@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp} from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc, collection, query, getDocs, updateDoc } from "firebase/firestore"
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
 
@@ -179,6 +179,7 @@ export const AddAdress = async (useruid, nume, telefon, judet, localitate, adres
               await updateDoc(userDocRef, {
                 adress:
                     [{
+                        index:0,
                         nume:nume,
                         telefon:telefon,
                         judet:judet,
@@ -191,6 +192,7 @@ export const AddAdress = async (useruid, nume, telefon, judet, localitate, adres
       }
    else{
           const newAddress = {
+            index:adress.length+1,
               nume: nume,
               telefon: telefon,
               judet: judet,
@@ -204,4 +206,139 @@ export const AddAdress = async (useruid, nume, telefon, judet, localitate, adres
           )
    }
    }
+}
+
+export const showAdress=async(useruid)=>{
+    if(useruid){
+        try{
+            const userDocRef = doc(db, 'users', useruid);
+            const userSnapshot = await getDoc(userDocRef);
+            const adress = userSnapshot.data().adress;
+            if(!adress) {
+                const nuExistaAdreseSalvate="NoAdressSave";
+                return nuExistaAdreseSalvate;
+            }  
+            else{
+                return adress;
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+    else{
+
+    }
+}
+export const deleteAdress = async (useruid, index) => {
+    if (useruid) {
+        try {
+            const userDocRef = doc(db, 'users', useruid);
+            const userSnapshot = await getDoc(userDocRef);
+            const adress = userSnapshot.data().adress;
+            if (!adress) {
+                const nuExistaAdreseSalvate = "NoAdressSave";
+                return nuExistaAdreseSalvate;
+            }
+            else {
+                const newAdressArray = adress.filter((adres) => adres.index!==index)
+                await updateDoc(userDocRef, {
+                    adress: newAdressArray
+                })
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    else {
+        console.log("Nu exista un user logat")
+    }
+}
+
+export const AddCard = async (useruid, titularCard, codCVV, nrCard, dataExpirare) => {
+    if (useruid) {
+        const userDocRef = doc(db, 'users', useruid);
+        const userSnapshot = await getDoc(userDocRef);
+        const carduri = userSnapshot.data().carduri;
+        if (!carduri) {
+            await updateDoc(userDocRef, {
+                carduri:
+                    [{
+                        titularCard: titularCard,
+                        codCVV: codCVV,
+                        nrCard: nrCard,
+                        dataExpirare:dataExpirare,
+                        plata:false
+                    }]
+            },
+                { merge: true }
+            )
+        }
+        else {
+            const newCard = {
+                titularCard: titularCard,
+                codCVV: codCVV,
+                nrCard: nrCard,
+                dataExpirare: dataExpirare,
+                plata:false
+            };
+            const updatedCarduri = [...carduri, newCard];
+            await updateDoc(userDocRef, {
+                carduri: updatedCarduri
+            }
+            )
+        }
+    }else
+    {
+        console.log("Nu exista un user logat")
+    }
+}
+
+export const RetrieveCards=async(useruid)=>{
+    if (useruid) {
+        try {
+            const userDocRef = doc(db, 'users', useruid);
+            const userSnapshot = await getDoc(userDocRef);
+            const carduri = userSnapshot.data().carduri;
+            if (!carduri) {
+                const nuexistacardurisalvata = "Nu există carduri salvate";
+                return nuexistacardurisalvata;
+            }
+            else {
+                return carduri;
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }else {
+        console.log("Nu exista un user logat")
+    }
+}
+
+export const DeleteCard = async (useruid, nrCard) => {
+    if (useruid) {
+        try {
+            const userDocRef = doc(db, 'users', useruid);
+            const userSnapshot = await getDoc(userDocRef);
+            const carduri = userSnapshot.data().carduri;
+            if (!carduri) {
+                const nuexistacardurisalvata = "Nu există carduri salvate";
+                return nuexistacardurisalvata;
+            }
+            else {
+                const newCardsArray = carduri.filter((card) => card.nrCard !== nrCard)
+                await updateDoc(userDocRef, {
+                    carduri: newCardsArray
+                })
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    else {
+        console.log("Nu exista un user logat")
+    }
 }
