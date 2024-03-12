@@ -6,10 +6,10 @@ const ProductContainer= ({produs, onClick})=>{
     const { ImageUrl, pret, Pret, Nume, nume, culoare, marime, categorie } = produs;
     const {addToFav } = useContext(FavoritesContext)
     const navigate = useNavigate();
-    const handleClickFav=(e)=>{
+    const handleClickFav=()=>{
         addToFav(produs);
     }
-    const handleClick= (e)=>{
+    const handleClick= ()=>{
         onClick(produs);
         navigate("/selprod");
    }

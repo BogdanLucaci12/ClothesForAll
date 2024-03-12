@@ -16,19 +16,14 @@ const ModifyData = ({ onclick, userName, alias, telefon }) => {
 const handleChange = (event)=>{
     const {name, value} = event.target
     setNewChanges((prevChanges) => ({ ...prevChanges, [name]:value}))
-
 }
-useEffect(()=>{
-    setNewChanges({
-        username1: userName,
-        alias1: alias,
-        telefon1: telefon
-})
-}, [userName, alias, telefon])
 
     const onSubmitClick = ()=>{
         UpdateUserCollection(userUid, newChanges.userName1, newChanges.alias1, newChanges.telefon1)
-        navigate("/userPage");
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+
     }
     return (
         <ModifiyDataMainDiv >

@@ -5,24 +5,30 @@ import { Radio } from 'antd';
 import { DeleteCard, RetrieveCards } from "../../../utility/firebase";
 import { UserContext } from "../../../context/user.context";
 import { useContext, useEffect, useState } from "react";
-const Card = ({ nrCard, titular, dataExpirare, cardPrincipal }) => {
-    const { userUid } = useContext(UserContext)
+import { decryptData } from "../../../utility/hastag";
+
+const Card = ({card, stergeCard }) => {
+    const { userUid, setReloadingComponent, reloadingComponent } = useContext(UserContext)
     const [handleBrandCard, setHandleBrandCard]=useState("")
     const [handlePictureCard, setHandlePictureCard]=useState()
+    const { nrCard, titular, dataExpirare, cardPrincipal }=card
+    const decryptCard = decryptData(nrCard)
     const [numarCardHidde, setNumarCardHidde] = useState(()=>{
-        const preiaUltimele4Cifre=nrCard.slice(-4)
+      
+        const preiaUltimele4Cifre = decryptCard.slice(-4)
         const ultimele4Cifre=`**** ${preiaUltimele4Cifre}`
         return ultimele4Cifre
     })
     const handleStergeClick = () => {
-        DeleteCard(userUid, nrCard)
+        DeleteCard(userUid, decryptCard)
+        stergeCard(card)
     }
   useEffect(()=>{
-      if (/^5[1-5]/.test(nrCard)) { 
+      if (/^5[1-5]/.test(decryptCard)) { 
         setHandleBrandCard("MasterCard") 
           setHandlePictureCard(MasterCardLogo)
     } 
-      else if (/^4/.test(nrCard)) {
+      else if (/^4/.test(decryptCard)) {
         setHandleBrandCard("VisaCard")
         setHandlePictureCard(VisaLogo)
       }

@@ -1,33 +1,16 @@
 import { AboutUserMain, Containerul, HeaderContainer, Content, Image, FooterContainer, ButtonModify } from "./aboutuser.styles"
-import { getUserCollection } from "../../../utility/firebase";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/user.context";
 import ModifyData from "./modifyData.component";
 const AboutUser = () => {
-    const { userUid } = useContext(UserContext)
-    const [isLoading, setIsLoading] = useState(true)
-    const [usercollection, setUserCollection] = useState()
+    const { isLoading, usercollection } = useContext(UserContext)
+
     const [open, setOpen] = useState(false)
     const userName = usercollection && usercollection.userName;
     const alias = usercollection && usercollection.additionalInfo.alias;
     const telefon = usercollection && usercollection.additionalInfo.telefon;
     const email = usercollection && usercollection.email
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const data = await getUserCollection(userUid);
-                setUserCollection(data);
-            }
-            catch (error) {
-                console.log(error);
-            }
-            finally {
-                setIsLoading(false);
-            }
-        }
-        getData()
-    }, [userUid])
-
+  
 const handleClick = () =>{
     setOpen(false)
 }
@@ -40,7 +23,6 @@ const handleClick = () =>{
              userName={userName}
              alias={alias}
              telefon={telefon}
-
              />
              }
             {isLoading ? (<div>Incarcare date</div>) : (

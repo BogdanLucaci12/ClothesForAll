@@ -3,43 +3,41 @@ import AdaugaAdresa from "./AddAdress.component";
 import { HeaderAdress, AdaugaAdreseButton, ContentAdress } from "./useradress.styles"
 import { useContext, useEffect, useState } from "react";
 import AdresaContainer from "./containerAdresa.component";
-import { showAdress } from "../../../utility/firebase";
+
 const UserAdress = ()=>{
 const [open, setOpen] = useState(false);
-const {userUid}=useContext(UserContext)
-const [adrese, setAdrese]=useState([]);
+const {adrese}=useContext(UserContext)
+const [toateAdresele, setToateAdresele] = useState(adrese)
+  
 const handleCloseOpen=()=>{
     setOpen(!open)
 }
-
-useEffect(()=>{
-const fetchData= async()=>{
-    const date = await showAdress(userUid);
-    setAdrese(date)
-}
-fetchData()
-    
-}, [userUid, adrese])
+    const adaugaArrayAdresa= (e)=>{
+        setToateAdresele([...toateAdresele, e])
+    }
+    const deleteAdressFromStateArray= (e)=>{
+        console.log(e)
+        setToateAdresele(toateAdresele.filter(ad=>ad.adresa !== e))
+     }
     return (
         <div>
-            {open && <AdaugaAdresa close={handleCloseOpen} />}
+            {open && <AdaugaAdresa 
+            close={handleCloseOpen} 
+                adaugaArrayAdresa={adaugaArrayAdresa}
+            />}
             <HeaderAdress>
             <h4>Adresele mele</h4>
             <AdaugaAdreseButton  onClick={handleCloseOpen}>Adauga adresa noua</AdaugaAdreseButton>
             </HeaderAdress>
             <ContentAdress>
                 {
-                    adrese.length>0 && adrese.map(({ adresa, judet, localitate, nume, telefon, index}) => (
+                    toateAdresele !=="NoAdressSave" ? ( toateAdresele.map((adresaUnica, index) => (
                         <AdresaContainer
                             key={index}
-                            adresa={adresa}
-                            judet={judet}
-                            localitate={localitate}
-                            nume={nume}
-                            telefon={telefon}
-                            index={index}
+                            adresaUnica={adresaUnica}
+                            deleteAdressFromStateArray={(e)=>deleteAdressFromStateArray(e)}
                         />
-                    ))
+                    ))):(<div>Nu exista adrese salvate</div>)
                 }
             </ContentAdress>
         

@@ -4,25 +4,28 @@ import AdaugaCard from "./adaugaCard.component";
 import Card from "./card.component";
 import React from 'react';
 import { UserContext } from "../../../context/user.context";
-import { RetrieveCards } from "../../../utility/firebase";
+
 const CardContainer = () => {
-    const { userUid } = useContext(UserContext)
+    const { cards } = useContext(UserContext);
+    const [retrieveCards, setRetrieveCards] = useState(cards)
     const [open, setOpen] = useState(false);
-    const [cards, setCards] = useState([]);
+    const stergeCard = (card) => {
+        setRetrieveCards(retrieveCards.filter(c => c.nrCard !== card.nrCard));
+    };
     const handleCloseSign = () => {
         setOpen(!open);
     }
-    useEffect(() => {
-        const fetchData = async () => {
-            const cardArray = await RetrieveCards(userUid);
-            setCards(cardArray)
-        }
-        fetchData()
-    }, [userUid, cards])
+    const addCard = (card) => {
+        console.log(card)
+        setRetrieveCards([...retrieveCards, card])
+    }
     return (
         <div>
             {
-                open && <AdaugaCard close={handleCloseSign} />
+                open && <AdaugaCard
+                 close={handleCloseSign} 
+                 changeArray={(card)=>addCard(card)}
+                 />
             }
             <HeaderAdress>
                 <h4>Cardurile mele</h4>
@@ -30,16 +33,15 @@ const CardContainer = () => {
             </HeaderAdress>
             <ContentAdress>
                 {
-                    cards && cards.map(({ nrCard, titularCard, dataExpirare, plata})=>(
-                        <Card 
-                        key={nrCard} 
-                        nrCard={nrCard}
-                        titular={titularCard}
-                        dataExpirare={dataExpirare}
-                        cardPrincipal={plata}
+                    retrieveCards!=="Nu există carduri salvate" ? (retrieveCards.map((card, index) => (
+                        <Card
+                            key={index}
+                            card={card}
+                            stergeCard={() => stergeCard(card)}
+
                         />
-                    ))
-                }
+                    )) ): (<div>Nici un card salvat</div>
+                )}
                
             </ContentAdress>
         </div>

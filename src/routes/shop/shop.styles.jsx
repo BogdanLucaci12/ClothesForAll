@@ -48,7 +48,7 @@ align-items: center;
 export const ProductContainerstyle= styled.div`
 display:block;
 height:28em;
-width:25em;
+width:23em;
 overflow: hidden;
 border-radius:5px;
 position: relative;

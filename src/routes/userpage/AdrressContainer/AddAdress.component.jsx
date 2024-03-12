@@ -3,8 +3,9 @@ import { CloseSign, ModifiyDataContainer, ModifiyDataMainDiv } from "../aboutuse
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../../context/user.context";
 import { AddAdress } from "../../../utility/firebase";
-const AdaugaAdresa = ({close}) => {
-    const { userUid }=useContext(UserContext)
+
+const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
+    const { userUid } = useContext(UserContext)
     const [optionLocalitate, setOptionLocalitate] = useState("Search");
     const [optionJudet, setOptionJudet] = useState("Search");
     const [openJudet, setOpenJudet] = useState(false);
@@ -34,25 +35,26 @@ const AdaugaAdresa = ({close}) => {
             setLocalitateSelectataPeJudet(localitatiAsociateJudetului.localitati)
         }
     }, [optionJudet, localitati]);
-    useEffect(()=>{
+    useEffect(() => {
         setAfiseazaLocalitati(localitateSelectataPeJudet)
-       
+
     }, [localitateSelectataPeJudet])
 
     useEffect(() => {
         const filterLocalitate = localitateSelectataPeJudet.filter((loc) => loc.nume.toLowerCase().includes(optionLocalitate.toLowerCase()));
         setAfiseazaLocalitati(filterLocalitate);
-       
+
     }, [optionLocalitate, localitateSelectataPeJudet])
 
     useEffect(() => {
         const filterJudete = judete.filter((jud) => jud.toLowerCase().includes(optionJudet.toLowerCase()));
         setAfiseazaJudete(filterJudete);
         setOptionLocalitate("Search");
-     
+
     }, [optionJudet, judete])
     const optionClickJudet = (e) => {
         setOptionJudet(e.target.value)
+       
     }
     useEffect(() => {
         const fetchData = async () => {
@@ -108,12 +110,20 @@ const AdaugaAdresa = ({close}) => {
         } else {
             adresa.style.border = "";
         }
+        const adresaTrimitere={
+            nume: nume.value.trim(),
+            telefon: telefon.value.trim(),
+            judet: judet.value.trim(),
+            localitate: localitate.value.trim(),
+            adresa: adresa.value.trim()
+        }
         AddAdress(userUid, nume.value.trim(), telefon.value.trim(), judet.value.trim(), localitate.value.trim(), adresa.value.trim());
-       nume.value="";
-       telefon.value="";
-       setOptionJudet("Search");
-       setOptionLocalitate("Search");
-       adresa.value="";
+        adaugaArrayAdresa(adresaTrimitere)
+        nume.value = "";
+        telefon.value = "";
+        setOptionJudet("Search");
+        setOptionLocalitate("Search");
+        adresa.value = "";
         setMesajSucces(true)
         setTimeout(() => {
             setMesajSucces(false)
@@ -125,19 +135,27 @@ const AdaugaAdresa = ({close}) => {
                 {
                     mesajSucces && <MesajSucces>Adresa introdusa cu succes</MesajSucces>
                 }
-               
-                <CloseSign onClick={close}/>
+
+                <CloseSign onClick={close} />
                 <Titlu>Adauga Adresa noua</Titlu>
                 <Content>
                     <div><b>Persoana de contact</b></div>
                     <Inputdiv>
                         <div style={{ width: "45%" }}>
                             <div>Nume</div>
-                            <div><input type="text" id="nume"/></div>
+                            <div><input
+                                type="text"
+                                id="nume"
+                             
+                              /></div>
                         </div>
                         <div style={{ width: "45%" }}>
                             <div>Numar de telefon</div>
-                            <div><input type="text" id="telefon"/></div>
+                            <div><input
+                                type="text"
+                                id="telefon"
+                           
+                            /></div>
                         </div>
                     </Inputdiv>
                 </Content>
@@ -148,13 +166,13 @@ const AdaugaAdresa = ({close}) => {
                         <div style={{ width: "45%" }}>
                             <div>Judet</div>
                             <div onClick={() => setOpenJudet(!openJudet)}>
-                                <input 
-                                type="text"
-                                id="Judet" 
-                                name="optionJudet" 
-                                value={optionJudet} 
-                                onChange={inseraCautareaJudet} 
-                                onClick={() => setOptionJudet("")} />
+                                <input
+                                    type="text"
+                                    id="Judet"
+                                    name="optionJudet"
+                                      value={optionJudet}
+                                    onChange={inseraCautareaJudet}
+                                    onClick={() => setOptionJudet("")} />
                                 {
                                     openJudet && (
                                         <Option>
@@ -177,31 +195,35 @@ const AdaugaAdresa = ({close}) => {
                                     id="Localitate"
                                     type="text"
                                     name="optionLocalitate"
-                                    value={optionLocalitate}
+                                   value={optionLocalitate}
                                     onChange={inseraCautareaLocalitate}
                                     onClick={() => setOptionLocalitate("")}
 
                                 />
-                               {
-                                openLocalitate && (
-                                    <Option>
-                                        {
+                                {
+                                    openLocalitate && (
+                                        <Option>
+                                            {
                                                 afiseazaLocalitati && (
-                                                    afiseazaLocalitati.map((loc, idx)=>(
+                                                    afiseazaLocalitati.map((loc, idx) => (
                                                         <option key={idx} onClick={(e) => optionClickLocalitati(e)} >{loc.nume}</option>
                                                     )
-                                                        )
+                                                    )
                                                 )
-                                        }
-                                    </Option>
-                                )
-                               }
+                                            }
+                                        </Option>
+                                    )
+                                }
                             </div>
                         </div>
                     </Inputdiv>
                     <ExtAdresa>
                         <div>Adresa</div>
-                        <div><input type="text" id="adresa"/></div>
+                        <div><input 
+                        type="text" 
+                        id="adresa" 
+                
+                        /></div>
                     </ExtAdresa>
                     <AdaugaAdresabttn onClick={adaugaClickButton}>Adauga</AdaugaAdresabttn>
                 </Content>

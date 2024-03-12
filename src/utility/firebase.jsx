@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp} from "firebase/app";
+import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc, collection, query, getDocs, updateDoc } from "firebase/firestore"
-import { getStorage, ref, getDownloadURL} from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCYU60dxwzp-TddLRL50AEPqLZHdQXd-bA",
@@ -18,73 +18,73 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
-    prompt:'select_account'
+    prompt: 'select_account'
 });
 const storage = getStorage(app);
 export const auth = getAuth(app);
-export const signInWithGooglePopUp= () =>signInWithPopup(auth, provider);
-export const signOutUser= async()=> await signOut(auth);
-export const db= getFirestore();
-export const createUserDocumentFromAuth = async (userAuth, nume)=>{
-    if(!userAuth) return;
-const userDocRef=doc(db, 'users', userAuth.uid)
-const userSnapshot= await getDoc(userDocRef);
-if(!userSnapshot.exists()){
-    const {displayName, email}=userAuth;
-    const userName = displayName == null ? nume : displayName;
-    const additionalInfo = {
-        telefon:"",
-        alias:"",
-        dataNasterii: {
-            an:"",
-            luna:"",
-            ziua:""
+export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
+export const signOutUser = async () => await signOut(auth);
+export const db = getFirestore();
+export const createUserDocumentFromAuth = async (userAuth, nume) => {
+    if (!userAuth) return;
+    const userDocRef = doc(db, 'users', userAuth.uid)
+    const userSnapshot = await getDoc(userDocRef);
+    if (!userSnapshot.exists()) {
+        const { displayName, email } = userAuth;
+        const userName = displayName == null ? nume : displayName;
+        const additionalInfo = {
+            telefon: "",
+            alias: "",
+            dataNasterii: {
+                an: "",
+                luna: "",
+                ziua: ""
             }
+        }
+        const createdAt = new Date();
+        try {
+            await setDoc(userDocRef, {
+                userName,
+                email,
+                createdAt,
+                additionalInfo
+            })
+        }
+        catch (error) {
+            console.log('error creating the user', error.message)
+        }
     }
-    const createdAt= new Date();
-    try{
-     await setDoc(userDocRef, {
-        userName,
-        email,
-        createdAt,
-       additionalInfo
-     })
-    }
-    catch(error){
-       console.log('error creating the user', error.message)
-    }
+    return userDocRef;
 }
-return userDocRef;
-}
-export const createAuthUserWithEmailAndPassword= async(email, password)=>{
-  if(!email || !password) return;
-   return await createUserWithEmailAndPassword(auth, email, password)
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+    return await createUserWithEmailAndPassword(auth, email, password)
 }
 export const signInUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
     return await signInWithEmailAndPassword(auth, email, password)
 }
-export const getImagebyUrl = async(imageUrl) => {
+export const getImagebyUrl = async (imageUrl) => {
     try {
         if (!imageUrl) return
         const storageRef = ref(storage, imageUrl);
         const url = await getDownloadURL(storageRef);
-       return url
+        return url
     } catch (error) {
         console.error('Error fetching download URL:', error);
     }
 };
 
-export const getCategoriesAndDocuments= async(categorie)=>{
-const collectionRef = collection(db, categorie);
-const q=query(collectionRef)
-const querySnapshot=await getDocs(q)
-const categoryMap=querySnapshot.docs.reduce((acc, docSnapshot)=>{
-    
-    const {items, Items } = docSnapshot.data();
-    acc = acc.concat(items || Items || []);
-    return acc;
-}, []);
+export const getCategoriesAndDocuments = async (categorie) => {
+    const collectionRef = collection(db, categorie);
+    const q = query(collectionRef)
+    const querySnapshot = await getDocs(q)
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+
+        const { items, Items } = docSnapshot.data();
+        acc = acc.concat(items || Items || []);
+        return acc;
+    }, []);
     return categoryMap;
 }
 export const getUserDisplayName = async (userAuth) => {
@@ -106,17 +106,17 @@ export const getUserDisplayName = async (userAuth) => {
         console.log("UID-ul utilizatorului nu este valid.");
     }
 };
-export const SearchDatabases=async()=>{
-    try{
+export const SearchDatabases = async () => {
+    try {
         const dbbarbati = await getDocs(collection(db, "barbati"));
-        const dbfemei =await getDocs(collection(db, "femei"));
+        const dbfemei = await getDocs(collection(db, "femei"));
         const dbcopii = await getDocs(collection(db, "copii"));
-        const databarbati=dbbarbati.docs.reduce((acc, docSnapshot) =>{
-            const {items, Items}=docSnapshot.data();
+        const databarbati = dbbarbati.docs.reduce((acc, docSnapshot) => {
+            const { items, Items } = docSnapshot.data();
             acc = acc.concat(items || Items || []);
             return acc;
         }, []);
-        
+
         const datafemei = dbfemei.docs.reduce((acc, docSnapshot) => {
 
             const { items, Items } = docSnapshot.data();
@@ -131,106 +131,83 @@ export const SearchDatabases=async()=>{
             return acc;
         }, []);
 
-        const allItemInDb=[...databarbati, ...datafemei, ...datacopii]
+        const allItemInDb = [...databarbati, ...datafemei, ...datacopii]
         return allItemInDb
-    }catch(error){
+    } catch (error) {
         console.error("Eroare la căutarea în bazele de date:", error);
     }
 }
 
-export const getUserCollection=async (useruid) =>{
-    if (useruid){
+export const getUserCollection = async (useruid) => {
+    if (useruid) {
         const usercollection = doc(db, "users", useruid);
-            try{
-                const snapshot = await getDoc(usercollection)
-                if(snapshot.exists()){
-                const userCollectionDetails=snapshot.data();
+        try {
+            const snapshot = await getDoc(usercollection)
+            if (snapshot.exists()) {
+                const userCollectionDetails = snapshot.data();
                 return userCollectionDetails
-                }
             }
-            catch(error){
-                console.log(error)
-            }
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 }
 
-export const UpdateUserCollection = async (useruid, userName, alias, telefon)=>{
-try{
-    const userDocRef = doc(db, 'users', useruid)
-    await updateDoc(userDocRef, {
-        userName: userName,
-        additionalInfo:{
-            alias: alias,
-            telefon: telefon
-        }
-    });
-}
-catch(err){
-    console.log(err)
-}
+export const UpdateUserCollection = async (useruid, userName, alias, telefon) => {
+    try {
+        const userDocRef = doc(db, 'users', useruid)
+        console.log(userName, alias, telefon)
+        await updateDoc(userDocRef, {
+            userName: userName,
+            additionalInfo: {
+                alias: alias,
+                telefon: telefon
+            }
+        });
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 export const AddAdress = async (useruid, nume, telefon, judet, localitate, adresa) => {
-   if(useruid){
-       const userDocRef = doc(db, 'users', useruid);
-       const userSnapshot = await getDoc(userDocRef);
-       const adress=userSnapshot.data().adress;
-      if(!adress){
-              await updateDoc(userDocRef, {
+    if (useruid) {
+        const userDocRef = doc(db, 'users', useruid);
+        const userSnapshot = await getDoc(userDocRef);
+        const adress = userSnapshot.data().adress;
+        if (!adress) {
+            await updateDoc(userDocRef, {
                 adress:
                     [{
-                        index:0,
-                        nume:nume,
-                        telefon:telefon,
-                        judet:judet,
-                        localitate:localitate,
-                        adresa:adresa
+                        nume: nume,
+                        telefon: telefon,
+                        judet: judet,
+                        localitate: localitate,
+                        adresa: adresa
                     }]
-              }, 
-              {merge:true}
+            },
+                { merge: true }
             )
-      }
-   else{
-          const newAddress = {
-            index:adress.length+1,
-              nume: nume,
-              telefon: telefon,
-              judet: judet,
-              localitate: localitate,
-              adresa: adresa
-          };
-          const updatedAdressArray = [...adress, newAddress];
-          await updateDoc(userDocRef, {
-             adress:updatedAdressArray
-          }
-          )
-   }
-   }
-}
-
-export const showAdress=async(useruid)=>{
-    if(useruid){
-        try{
-            const userDocRef = doc(db, 'users', useruid);
-            const userSnapshot = await getDoc(userDocRef);
-            const adress = userSnapshot.data().adress;
-            if(!adress) {
-                const nuExistaAdreseSalvate="NoAdressSave";
-                return nuExistaAdreseSalvate;
-            }  
-            else{
-                return adress;
+        }
+        else {
+            const newAddress = {
+                nume: nume,
+                telefon: telefon,
+                judet: judet,
+                localitate: localitate,
+                adresa: adresa
+            };
+            const updatedAdressArray = [...adress, newAddress];
+            await updateDoc(userDocRef, {
+                adress: updatedAdressArray
             }
+            )
         }
-        catch(err){
-            console.log(err)
-        }
-    }
-    else{
-
     }
 }
-export const deleteAdress = async (useruid, index) => {
+
+export const showAdress = async (useruid) => {
     if (useruid) {
         try {
             const userDocRef = doc(db, 'users', useruid);
@@ -241,7 +218,27 @@ export const deleteAdress = async (useruid, index) => {
                 return nuExistaAdreseSalvate;
             }
             else {
-                const newAdressArray = adress.filter((adres) => adres.index!==index)
+                return adress;
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+}
+export const deleteAdress = async (useruid, adresa) => {
+    if (useruid) {
+        try {
+            const userDocRef = doc(db, 'users', useruid);
+            const userSnapshot = await getDoc(userDocRef);
+            const adress = userSnapshot.data().adress;
+            if (!adress) {
+                const nuExistaAdreseSalvate = "NoAdressSave";
+                return nuExistaAdreseSalvate;
+            }
+            else {
+             
+                const newAdressArray = adress.filter((adres) => adres.adresa.trim() !== adresa.trim())
                 await updateDoc(userDocRef, {
                     adress: newAdressArray
                 })
@@ -268,8 +265,8 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, dataExpirare
                         titularCard: titularCard,
                         codCVV: codCVV,
                         nrCard: nrCard,
-                        dataExpirare:dataExpirare,
-                        plata:false
+                        dataExpirare: dataExpirare,
+                        plata: false
                     }]
             },
                 { merge: true }
@@ -281,7 +278,7 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, dataExpirare
                 codCVV: codCVV,
                 nrCard: nrCard,
                 dataExpirare: dataExpirare,
-                plata:false
+                plata: false
             };
             const updatedCarduri = [...carduri, newCard];
             await updateDoc(userDocRef, {
@@ -289,13 +286,12 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, dataExpirare
             }
             )
         }
-    }else
-    {
+    } else {
         console.log("Nu exista un user logat")
     }
 }
 
-export const RetrieveCards=async(useruid)=>{
+export const RetrieveCards = async (useruid) => {
     if (useruid) {
         try {
             const userDocRef = doc(db, 'users', useruid);
@@ -312,9 +308,7 @@ export const RetrieveCards=async(useruid)=>{
         catch (err) {
             console.log(err)
         }
-    }else {
-        console.log("Nu exista un user logat")
-    }
+    } 
 }
 
 export const DeleteCard = async (useruid, nrCard) => {
@@ -338,7 +332,5 @@ export const DeleteCard = async (useruid, nrCard) => {
             console.log(err)
         }
     }
-    else {
-        console.log("Nu exista un user logat")
-    }
+    
 }

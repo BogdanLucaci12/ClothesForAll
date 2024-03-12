@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Itemstyles, PicItem, DetailesItem, DivEDf, RemovefavItem, CustomCursor } from "../cartNav/itemCart.styles";
 import { FavoritesContext } from "../../../context/favorites.context";
-import e from "cors";
+
 const Item = ({ prod }) => {
     const { nume, pret, ImageUrl } = prod;
     const {deleteItem}=useContext(FavoritesContext);

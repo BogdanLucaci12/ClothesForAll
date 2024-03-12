@@ -26,6 +26,7 @@ background-color:white;
 border-radius:2rem;
 display:flex;
 flex-direction:column;
+padding:.4em;
 `
 export const HeaderMeniuUser=styled.div`
 height: 10vh;

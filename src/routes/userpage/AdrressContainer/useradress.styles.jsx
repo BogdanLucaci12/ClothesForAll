@@ -102,6 +102,9 @@ flex-wrap:wrap;
 export const ContainerAdresa=styled.div`
 width:auto;
 height:15em;
+display:flex;
+flex-direction:column;
+align-items:center;
 box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 border-radius:2rem;
 margin:1em;

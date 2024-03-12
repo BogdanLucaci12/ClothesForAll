@@ -5,16 +5,16 @@ import { Items, Button } from "../cartNav/cartcontent.styles";
 import Item from "./favoritesItem.component";
 const FavoritesContent=()=>{
     const { favoriteItem} = useContext(FavoritesContext)
-
+    
     return (
         <MainDiv>
             {Object.keys(favoriteItem).length > 0 ?
                 (
                     <CosPlin>
                         <Items>
-                            {Object.values(favoriteItem).map((prod) => {
+                            {Object.values(favoriteItem).map((prod, index) => {
                                 const randomKey = `${prod.id}_${prod.marime}_${prod.culoare}`;
-                                return <Item key={randomKey} prod={prod} />
+                                return <Item key={index} prod={prod} />
                             })}
                         </Items>
                        

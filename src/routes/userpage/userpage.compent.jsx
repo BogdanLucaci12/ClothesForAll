@@ -11,9 +11,13 @@ import AboutUser from "./aboutuserContainer/aboutuser.component";
 import { ManageClickOnUserPage } from "../../context/managaAccountSubpage.component";
 import UserAdress from "./AdrressContainer/useradress.component";
 import CardContainer from "./cardContainer/cardContainer.component";
+import FavoritesContainer from "./favoritesContainer/favoritesContainer.component";
+import { signOutUser } from "../../utility/firebase";
+import { useNavigate } from "react-router-dom";
 const UserPage = () => {
-    const { currentUser, userUid } = useContext(UserContext)
+    const { currentUser, userUid, setCurrentUser } = useContext(UserContext)
     const { states, setClickState } = useContext(ManageClickOnUserPage)
+    const navigate=useNavigate()
     const handleAdressClick = () => {
         setClickState("adress");
     }
@@ -22,6 +26,14 @@ const UserPage = () => {
     }
     const handleDefaultClick = () => {
         setClickState("defaultClick")
+    }
+    const handleClickFav=()=>{
+        setClickState("fav")
+    }
+    const handleDelogare=async()=>{
+        await signOutUser();
+        setCurrentUser("");
+        setTimeout(()=>{navigate("/")}, 1000)
     }
     return (
         <MainDiv>
@@ -41,8 +53,8 @@ const UserPage = () => {
                     />
                     <Features image={< ImLocation style={{ fontSize: "3em" }} />} denumire={"Adresele mele"}
                         onClick={handleAdressClick} />
-                    <Features image={< TiHeartOutline style={{ fontSize: "3em" }} />} denumire={"Produse favorite"} />
-                    <Features image={< BsPower style={{ fontSize: "3em" }} />} denumire={"Delogheaza-te"} />
+                    <Features image={< TiHeartOutline style={{ fontSize: "3em" }} />} denumire={"Produse favorite"} onClick={handleClickFav}/>
+                    <Features image={< BsPower style={{ fontSize: "3em" }} />} denumire={"Delogheaza-te"} onClick={handleDelogare}/>
                 </ContentMeniu>
             </Meniu>
             <ShowDetailsForSelectedMeniu>
@@ -55,7 +67,9 @@ const UserPage = () => {
                 {
                     states.card && <CardContainer />
                 }
-
+                {
+                    states.fav && <FavoritesContainer/>
+                }
             </ShowDetailsForSelectedMeniu>
         </MainDiv>
     )

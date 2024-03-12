@@ -53,7 +53,7 @@ border-bottom-left-radius: 1rem;
 }
 `
 export const ButtonSubmit=styled.button`
-position: absolute;
+position: relative;
 background-color:black;
 color:white;
 display:flex;
@@ -70,13 +70,15 @@ export const ModifiyDataMainDiv=styled.div`
 position:absolute;
 width:100%;
 height:100%;
+overflow:hidden;
 background-color:rgba(0,0,0,0.5);
 right:0;
 top:0;
 display:flex;
 justify-content:center;
 align-items:center;
-z-index:10
+z-index:10;
+
 `
 export const ModifiyDataContainer=styled.div`
 position:relative;
@@ -105,7 +107,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 width:100%;
-height:100%;
+height:auto;
 & input{
     width:50%;
     margin-right:1em;
