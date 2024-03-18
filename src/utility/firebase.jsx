@@ -253,7 +253,7 @@ export const deleteAdress = async (useruid, adresa) => {
     }
 }
 
-export const AddCard = async (useruid, titularCard, codCVV, nrCard, dataExpirare) => {
+export const AddCard = async (useruid, titularCard, codCVV, nrCard, an, luna) => {
     if (useruid) {
         const userDocRef = doc(db, 'users', useruid);
         const userSnapshot = await getDoc(userDocRef);
@@ -265,7 +265,10 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, dataExpirare
                         titularCard: titularCard,
                         codCVV: codCVV,
                         nrCard: nrCard,
-                        dataExpirare: dataExpirare,
+                        dataExpirare: {
+                            an:an,
+                            luna:luna
+                        },
                         plata: false
                     }]
             },
@@ -277,7 +280,10 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, dataExpirare
                 titularCard: titularCard,
                 codCVV: codCVV,
                 nrCard: nrCard,
-                dataExpirare: dataExpirare,
+                dataExpirare: {
+                    an: an,
+                    luna: luna
+                },
                 plata: false
             };
             const updatedCarduri = [...carduri, newCard];
@@ -298,7 +304,7 @@ export const RetrieveCards = async (useruid) => {
             const userSnapshot = await getDoc(userDocRef);
             const carduri = userSnapshot.data().carduri;
             if (!carduri) {
-                const nuexistacardurisalvata = "Nu există carduri salvate";
+                const nuexistacardurisalvata = "Nu exista carduri salvate";
                 return nuexistacardurisalvata;
             }
             else {

@@ -8,8 +8,9 @@ const FavoritesContainer= ()=>{
     return(
         <div style={{padding:"1em", display:"flex", flexWrap:"wrap"}}>
             {
-                favoriteItem.length>0 ? (favoriteItem.map((fav)=>(
+                favoriteItem.length>0 ? (favoriteItem.map((fav, index)=>(
                     <ProductContainer
+                    key={index}
                     produs={fav}
                     />
                 ))) : 

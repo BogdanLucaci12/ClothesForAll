@@ -7,18 +7,26 @@ import { UserContext } from "../../../context/user.context";
 
 const CardContainer = () => {
     const { cards } = useContext(UserContext);
-    const [retrieveCards, setRetrieveCards] = useState(cards)
+    const [retrieveCards, setRetrieveCards] = useState()
     const [open, setOpen] = useState(false);
     const stergeCard = (card) => {
         setRetrieveCards(retrieveCards.filter(c => c.nrCard !== card.nrCard));
     };
+    useEffect(() => { setRetrieveCards(cards) },[cards])
     const handleCloseSign = () => {
         setOpen(!open);
+        console.log(open)
+        if (open) {
+            document.body.style.overflow = '';
+        }
+     
     }
     const addCard = (card) => {
         console.log(card)
         setRetrieveCards([...retrieveCards, card])
     }
+    open && (document.body.style.overflow = 'hidden')
+
     return (
         <div>
             {
@@ -33,16 +41,17 @@ const CardContainer = () => {
             </HeaderAdress>
             <ContentAdress>
                 {
-                    retrieveCards!=="Nu există carduri salvate" ? (retrieveCards.map((card, index) => (
+                    retrieveCards === undefined ? (<div>Se incarca cardurile</div>) :
+                    retrieveCards!=="Nu exista carduri salvate"? 
+                    (retrieveCards.map((card, index) => (
                         <Card
                             key={index}
                             card={card}
                             stergeCard={() => stergeCard(card)}
-
                         />
-                    )) ): (<div>Nici un card salvat</div>
+                    )) ): 
+                    (<div>Nici un card salvat</div>
                 )}
-               
             </ContentAdress>
         </div>
     )

@@ -1,28 +1,48 @@
-import { useContext, useState } from "react"
-import { AdaugaAdresabttn, ExtAdresa, MesajSucces, Titlu } from "../AdrressContainer/useradress.styles"
+import { useContext, useEffect, useState } from "react"
+import { ExtAdresa, MesajSucces, Titlu } from "../AdrressContainer/useradress.styles"
 import { CloseSign, ModifiyDataContainer, ModifiyDataMainDiv } from "../aboutuserContainer/aboutuser.styles"
-import AlegeData from "./datepicker.component"
 import { AddCard } from "../../../utility/firebase"
 import { UserContext } from "../../../context/user.context"
-import { decryptData, encryptedData } from "../../../utility/hastag"
-
-const warning = { border: "4px solid red" }
-const noWarning = {}
+import {  encryptedData } from "../../../utility/securedata"
+import DataPicker from "../../../component/datapicker/datapicker.component"
+import { Add } from "../../../component/button/button.styles"
 
 const defaultCardInput = {
     nrCard: "",
     numeTitular: "",
-    dataExpirare: "",
+    dataExpirare: {
+        an: "an",
+        luna: "luna"
+    },
     CVV: ""
 }
+
 const AdaugaCard = ({ close, changeArray }) => {
     const { userUid } = useContext(UserContext)
     const [mesaj, setMesaj] = useState(false)
-    const [outline, setOutline] = useState(noWarning)
+    const [warningAn, setWarningAn] = useState("")
+    const [warningLuna, setWarningLuna] = useState("")
     const [formfield, setFormField] = useState(defaultCardInput)
+    const [reset, setReset] = useState(false)
     const { nrCard, numeTitular, dataExpirare, CVV } = formfield
-    const onChange = (e) => {
-        setFormField({ ...formfield, dataExpirare: e })
+    const handleclickAn = (e) => {
+        setFormField(prevState => ({
+            ...prevState,
+            dataExpirare: {
+                ...prevState.dataExpirare,
+                an: e
+            }
+        }));
+    };
+    const handleClickMonth = (e) => {
+
+        setFormField(prevState => ({
+            ...prevState,
+            dataExpirare: {
+                ...prevState.dataExpirare,
+                luna: e
+            }
+        }));
     }
     const handleChangeInput = (e) => {
         const { id, value } = e.target
@@ -32,24 +52,22 @@ const AdaugaCard = ({ close, changeArray }) => {
         const titularCardID = document.getElementById("numeTitular")
         const nrCardID = document.getElementById("nrCard")
         const codCVVID = document.getElementById("CVV")
-        if (nrCard.length !== 16){
-           nrCardID.style.border = "5px solid red";
-           return
-       }
-       else{
-           nrCardID.style.border = "";
-       }
-        
-        if ((/^5[1-5]/.test(nrCard)) || (/^4/.test(nrCard))){
+        if (nrCard.length !== 16) {
+            nrCardID.style.border = "5px solid red";
+            return
+        }
+        else {
+            nrCardID.style.border = "";
+        }
+
+        if ((/^5[1-5]/.test(nrCard)) || (/^4/.test(nrCard))) {
             nrCardID.style.border = ""
-         
-        }else{
+
+        } else {
             nrCardID.style.border = "5px solid red";
             return;
         }
-      
-
-        if (numeTitular==="") {
+        if (numeTitular === "") {
             titularCardID.style.border = "5px solid red";
             return
         }
@@ -63,20 +81,22 @@ const AdaugaCard = ({ close, changeArray }) => {
         else {
             codCVVID.style.border = "";
         }
-        if (dataExpirare ==="") {
-            setOutline(warning)
-            return;
+        if (dataExpirare.luna === "luna" || dataExpirare.an === "an") {
+            dataExpirare.luna === "luna" ? setWarningLuna("warning") : setWarningLuna("")
+            dataExpirare.an === "an" ? setWarningAn("warning") : setWarningAn("")
+            return
         }
         else {
-            setOutline(noWarning)
+            setWarningLuna("")
+            setWarningAn("")
         }
-        AddCard(userUid, numeTitular, encryptedData(CVV), encryptedData(nrCard), dataExpirare)
+        AddCard(userUid, numeTitular, encryptedData(CVV), encryptedData(nrCard), dataExpirare.an, dataExpirare.luna)
         changeArray(formfield)
-       setFormField(defaultCardInput)
+        setFormField(defaultCardInput)
+        setReset(!reset)
         setMesaj(true)
         setTimeout(() => { setMesaj(false) }, 2000)
     }
-
     return (
         <ModifiyDataMainDiv>
             <ModifiyDataContainer>
@@ -106,20 +126,25 @@ const AdaugaCard = ({ close, changeArray }) => {
                 </ExtAdresa>
                 <ExtAdresa>
                     <div>Alege data de expirare a cardului</div>
-                    <AlegeData warning={outline} onChange={onChange} />
+                    <DataPicker
+                        handleClickYear={handleclickAn}
+                        handleClickMonth={handleClickMonth}
+                        warningYear={warningAn}
+                        warningMonth={warningLuna}
+                        reset={reset}
+                    />
                 </ExtAdresa>
                 <ExtAdresa>
                     <div>Introdu codul CVV</div>
                     <div style={{ width: "30%" }}>
-                        <input 
-                        type="number" 
-                        id="CVV" 
-                        
-                        value={CVV}
-                        onChange={handleChangeInput}
+                        <input
+                            type="number"
+                            id="CVV"
+                            value={CVV}
+                            onChange={handleChangeInput}
                         /></div>
                 </ExtAdresa>
-                <AdaugaAdresabttn onClick={handleAdaugaCard}>Adauga card</AdaugaAdresabttn>
+                <Add onClick={handleAdaugaCard}>Adauga card</Add>
             </ModifiyDataContainer>
         </ModifiyDataMainDiv>
     )

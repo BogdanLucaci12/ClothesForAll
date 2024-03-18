@@ -7,6 +7,8 @@ import Shop from "./routes/shop/shop.component";
 import ShowSelectedProd from "./routes/shop/showselectedpro/showselectedprod.component";
 import CartPage from "./routes/cartPage/cartPage.component";
 import UserPage from "./routes/userpage/userpage.compent";
+import PaymentPage from "./routes/checkoutPage/paymentPage.component";
+import { Payment } from "@mui/icons-material";
 const App = () => {
 
   return (
@@ -19,6 +21,7 @@ const App = () => {
           <Route path='account' element={<AccountPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="userPage" element={<UserPage />}/>
+          <Route path="pay" element={<PaymentPage />} />
         </Route>
       </Routes>
     </div>

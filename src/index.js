@@ -14,27 +14,31 @@ import { FavoritesProvider } from './context/favorites.context';
 import { SearchItemProviver } from './context/searchitem.context';
 import { LabelDropdownProvider } from './context/labelanddropdownforsearch.context';
 import { ManageClickOnUserPageProvier } from './context/managaAccountSubpage.component';
+import { Elements } from '@stripe/react-stripe-js';
+import { StripePromise } from './utility/stripe.utils';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
         <ManageClickOnUserPageProvier>
-        <LabelDropdownProvider>
-        <SearchItemProviver>
-        <CategorieProvider>
-          <ProductsProvider>
-            <ItemProvider>
-              <CartProvider>
-                <FavoritesProvider>
-              <App />
-                </FavoritesProvider>
-              </CartProvider>
-            </ItemProvider>
-          </ProductsProvider>
-        </CategorieProvider>
-        </SearchItemProviver>
-        </LabelDropdownProvider>
+          <LabelDropdownProvider>
+            <SearchItemProviver>
+              <CategorieProvider>
+                <ProductsProvider>
+                  <ItemProvider>
+                    <CartProvider>
+                      <FavoritesProvider>
+                        <Elements stripe={StripePromise}>
+                        <App />
+                        </Elements>
+                      </FavoritesProvider>
+                    </CartProvider>
+                  </ItemProvider>
+                </ProductsProvider>
+              </CategorieProvider>
+            </SearchItemProviver>
+          </LabelDropdownProvider>
         </ManageClickOnUserPageProvier>
       </UserProvider>
     </BrowserRouter>

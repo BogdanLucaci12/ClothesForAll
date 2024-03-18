@@ -24,7 +24,8 @@ const ProductContainer= ({produs, onClick})=>{
             <div style={{ display: "block" }}>Culori:
                 <ColorSize> {culoare.map((culori) => {
                     return <Casuta key={culori}>{culori.toLowerCase()}</Casuta>
-                })}</ColorSize>
+                })}
+                </ColorSize>
                
             </div>
             <div style={{ display: "block" }}>Marimi:

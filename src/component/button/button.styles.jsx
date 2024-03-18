@@ -15,3 +15,14 @@ border-radius:5px;
 color:white;
 background-color:black;
 `
+export const Add=styled.button`
+background-color:black;
+color:white;
+justify-content: center;
+align-items:center;
+width:auto;
+border-radius:1rem;
+display:flex;
+cursor:pointer;
+padding:.2em;
+`
