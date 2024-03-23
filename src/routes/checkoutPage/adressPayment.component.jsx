@@ -1,43 +1,74 @@
-import { Fragment } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { Div1 } from "./paymentPage.styles";
 import { Add } from "../../component/button/button.styles";
-import AdaugaCard from "../userpage/cardContainer/adaugaCard.component";
-
-const SelectAdresaLivare = ({ showAdaugaAdresa })=>{
+import { UserContext } from "../../context/user.context";
+const SelectAdresaLivare = ({ showAdaugaAdresa, handleAdresaField, noUserAdress }) => {
+    const { adrese, userUid } = useContext(UserContext)
+    const [toateAdresele, setToateAdresele] = useState(adrese)
+    const [alegeAdresa, setAlegeAdresa] = useState({
+        nume: "",
+        telefon: "",
+        judet: "",
+        localitate: "",
+        adresa: ""
+    })
+//    useEffect(()=>{
+//        setAlegeAdresa(noUserAdress)
+//    }, [])
+    useEffect(() => { setToateAdresele(adrese) }, [adrese])
+    const handleClickAdresa = (adr) => {
+        const { adresa, judet, localitate, nume, telefon } = adr
+        setAlegeAdresa({ nume: nume, adresa: adresa, judet: judet, localitate: localitate, telefon: telefon })
+    }
+    useEffect(() => {
+        handleAdresaField(alegeAdresa)
+    }, [alegeAdresa, handleAdresaField])
     return (
         <Fragment>
-           
+
             <div>
 
-            <h4 style={{textAlign:"center"}}>Selecteaza adresa de livrare</h4>
-            <div className="py-3">
-                <div><b>Persoana de contact</b></div>
-                <div>Lucaci Bogdan - 0745466263</div>
-                <div>Adresa de livrare</div>
-                <div>Constantin Brâncuși nr.149 - Cluj-Napoca, Cluj</div>
-            </div>
-            <div >
-                <div className="pb-4">
-                    <b>
-                    Selecteaza o alta adresa
-                    </b>
+                <h4 style={{ textAlign: "center" }}>Selecteaza adresa de livrare</h4>
+                <div className="py-3 border">
+                    <div><b>Persoana de contact</b></div>
+                    <div>{alegeAdresa.nume} - {alegeAdresa.telefon}</div>
+                    <div>Adresa de livrare</div>
+                    <div>{alegeAdresa.judet}- {alegeAdresa.localitate}, {alegeAdresa.adresa}</div>
                 </div>
-                <div>
-                    <Div1>
-                        <div>
-                        Lucaci Bogdan  - 051488
-                        </div>
-                        <div>
-                            Gh dima 5
-                        </div>
-                    </Div1>
+                <div >
+                    <div className="pb-4">
+                        <b>
+                            Selecteaza o adresa pentru livrare
+                        </b>
+                    </div>
+                    <div>
+                        {
+                            toateAdresele === undefined ? (
+                            userUid===undefined ? (
+                                <div>Nu exista un cont salvat, adauga o adresa</div>
+                            ):
+                           ( <div>Se incarca adresele</div>)) :
+                                toateAdresele !== "NoAdressSave" ? (toateAdresele.map((adr, index) => (
+                                    <Div1
+                                    key={index}
+                                        onClick={() => handleClickAdresa(adr)}>
+                                        
+                                        <div>
+                                            {adr.nume}  - {adr.telefon}
+                                        </div>
+                                        <div>
+                                            {adr.judet} - {adr.localitate} - {adr.adresa}
+                                        </div>
+                                    </Div1>
+
+                                ))) : (<div>Nu exista adrese salvate</div>)
+                        }
+                    </div>
                 </div>
             </div>
-            </div>
-            <Add className="my-2" onClick={showAdaugaAdresa}>Adauga adresa noua</Add>
-            
+            <Add className="my-2" onClick={showAdaugaAdresa}>Adauga adresa</Add>
+
         </Fragment>
     )
 }

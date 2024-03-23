@@ -26,3 +26,8 @@ display:flex;
 cursor:pointer;
 padding:.2em;
 `
+export const AfiseazaCard=styled.button`
+background-color:white;
+border:none;
+font-size:.9em;
+`

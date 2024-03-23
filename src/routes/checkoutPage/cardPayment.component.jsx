@@ -1,93 +1,85 @@
 import { Fragment, useContext, useEffect } from "react"
 import { useState } from "react";
-import { FormCardPayment, DivForInputPaymentPage, Choose } from "./paymentPage.styles"
+import { FormCardPayment, DivForInputPaymentPage, ExpCard, AlertaCVV } from "./paymentPage.styles"
 import { Add } from "../../component/button/button.styles"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DataPicker from "../../component/datapicker/datapicker.component";
 import { UserContext } from "../../context/user.context";
 import AlegecardPayment from "../checkoutPage/alegecardCheckoutpage.component"
 import { decryptData } from "../../utility/securedata";
-const dafaultCardInput = {
-    nrCard: "",
-    titularCard: "",
-    dataExpirare:{
-        an:"", 
-        luna:""
-    }
-}
-const CardPayment = ({ showAdaugaCard }) => {
-    const [formfield, setFormField] = useState(dafaultCardInput)
-    const [selectedCardIndex, setSelectedCardIndex] = useState();
-    const { cards } = useContext(UserContext)
-    const [insertMonth, setInsertMonth] = useState()
-    const [insertYear, setInsertYear] = useState()
-    const [retrieveCards, setRetrieveCards] = useState()
-    const { nrCard, titularCard, dataExpirare } = formfield;
-    const handleChangeInput = (e) => {
-        const { name, value } = e.target
-        setFormField({ ...formfield, [name]: value })
-    }
-    const handleClickMonth = (e) => {
-        setFormField({ ...formfield, 
-            dataExpirare:{
-                ...dataExpirare, 
-                luna:e
-            }
-        })
-    }
-    const handleClickYear = (e) => {
-        setFormField({
-            ...formfield,
-            dataExpirare: {
-                ...dataExpirare,
-                an: e
-            }
-        });
-    }
 
-    // console.log(formfield)
+const CardPayment = ({ showAdaugaCard }) => {
+    const [nrCard, setNrCard] = useState("")
+    const [titularCard, setTitularCard]=useState("")
+    const [cvvIncorect, setCvvIncorect]=useState(false)
+    const [indexCard, setIndexCard]=useState("")
+    const { cards } = useContext(UserContext)
+    const [retrieveCards, setRetrieveCards] = useState()
+    const [month, setMonth]=useState("Luna");
+    const [year, setYear]=useState("An")
     useEffect(() => { setRetrieveCards(cards) }, [cards])
-    const handleClick = (index, card) => {
-        setSelectedCardIndex(index);
-        const {dataExpirare, nrCard, titularCard}=card
-        const decryptNr=decryptData(nrCard)
-        setFormField({ nrCard: decryptNr, titularCard: titularCard, dataExpirare:dataExpirare})
-        setInsertMonth(dataExpirare.luna);
-        setInsertYear(dataExpirare.an)
-        console.log(card)
+    const handleClick = (card, CVV, index) => {
+        const { dataExpirare, nrCard, titularCard, codCVV } = card
+        const decryptNr = decryptData(nrCard);
+        const drecyptCVV = decryptData(codCVV);
+        if (drecyptCVV === CVV){
+            setNrCard(decryptNr)
+            setTitularCard(titularCard)
+            setMonth(dataExpirare.luna)
+            setYear(dataExpirare.an)
+            setIndexCard(index)
+        }
+        else{
+            setCvvIncorect(true)
+            setTimeout(() => { 
+                setCvvIncorect(false)
+            }, 2000)
+        }
     };
-    
+
     return (
         <Fragment>
+            {
+                cvvIncorect && 
+            <AlertaCVV>Datele CVV ale cardului selectat nu corespund cu CVV-ul introdus</AlertaCVV>
+            }
             <div>
-                <h4 style={{textAlign:"center"}}>
-                    Introdu un card
+                <h4 style={{ textAlign: "center" }}>
+                    Afiseaza datele cardului salvat
                 </h4>
-                <div>
+                <div className="border">
                     <FormCardPayment action="">
                         <DivForInputPaymentPage>
                             <label htmlFor="">Numar Card</label>
-                            <input type="number" name="nrCard" value={nrCard} onChange={handleChangeInput} />
+                            <input
+                                type="number"
+                                name="nrCard"
+                                value={nrCard}
+                                id="nrCard"
+                                readOnly
+                            />
                         </DivForInputPaymentPage>
                         <DivForInputPaymentPage>
                             <label htmlFor="">Numele titularului</label>
-                            <input type="text" name="titularCard" value={titularCard} onChange={handleChangeInput} />
+                            <input
+                                type="text"
+                                name="titularCard"
+                                value={titularCard}
+                                readOnly
+                            />
                         </DivForInputPaymentPage>
                         <DivForInputPaymentPage>
                             <label htmlFor="">Data de expirare</label>
-                            <DataPicker 
-                            handleClickMonth={handleClickMonth} 
-                            handleClickYear={handleClickYear} 
-                                insertYear={insertYear}
-                                insertMonth={insertMonth}
-                            />
+                            <ExpCard>
+                               <div>{month}</div>
+                               <div>{year}</div>
+                            </ExpCard>
                         </DivForInputPaymentPage>
                     </FormCardPayment>
                 </div>
                 <div>
                     <div style={{ margin: "1em 0" }}>
                         <b>
-                            Alege unul dintre cardurile salvate
+                            Afiseaza-ti cardurile salvate introducand CVV-ul
                         </b>
                     </div>
                     <div>
@@ -98,9 +90,10 @@ const CardPayment = ({ showAdaugaCard }) => {
                                         <AlegecardPayment
                                             key={index}
                                             card={card}
-                                            onClick={() => handleClick(index, card)}
+                                            onClick={(cardData, cvv) => handleClick(cardData, cvv, index)}
+                                            
                                         >
-                                            {selectedCardIndex === index && <Choose />}
+                                          
                                         </AlegecardPayment>
                                     ))) :
                                     (<div>Nici un card salvat</div>

@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../../context/user.context";
 import { AddAdress } from "../../../utility/firebase";
 
-const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
+const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
     const { userUid } = useContext(UserContext)
     const [optionLocalitate, setOptionLocalitate] = useState("Search");
     const [optionJudet, setOptionJudet] = useState("Search");
@@ -54,7 +54,7 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
     }, [optionJudet, judete])
     const optionClickJudet = (e) => {
         setOptionJudet(e.target.value)
-       
+
     }
     useEffect(() => {
         const fetchData = async () => {
@@ -110,15 +110,20 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
         } else {
             adresa.style.border = "";
         }
-        const adresaTrimitere={
+        const adresaTrimitere = {
             nume: nume.value.trim(),
             telefon: telefon.value.trim(),
             judet: judet.value.trim(),
             localitate: localitate.value.trim(),
             adresa: adresa.value.trim()
         }
-        AddAdress(userUid, nume.value.trim(), telefon.value.trim(), judet.value.trim(), localitate.value.trim(), adresa.value.trim());
-        adaugaArrayAdresa(adresaTrimitere)
+        if(userUid===undefined){
+            sendAdressNoUser(adresaTrimitere)
+        }
+        else {
+            AddAdress(userUid, nume.value.trim(), telefon.value.trim(), judet.value.trim(), localitate.value.trim(), adresa.value.trim())
+            adaugaArrayAdresa(adresaTrimitere)
+        }
         nume.value = "";
         telefon.value = "";
         setOptionJudet("Search");
@@ -146,15 +151,13 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
                             <div><input
                                 type="text"
                                 id="nume"
-                             
-                              /></div>
+                            /></div>
                         </div>
                         <div style={{ width: "45%" }}>
                             <div>Numar de telefon</div>
                             <div><input
                                 type="text"
                                 id="telefon"
-                           
                             /></div>
                         </div>
                     </Inputdiv>
@@ -170,7 +173,7 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
                                     type="text"
                                     id="Judet"
                                     name="optionJudet"
-                                      value={optionJudet}
+                                    value={optionJudet}
                                     onChange={inseraCautareaJudet}
                                     onClick={() => setOptionJudet("")} />
                                 {
@@ -195,7 +198,7 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
                                     id="Localitate"
                                     type="text"
                                     name="optionLocalitate"
-                                   value={optionLocalitate}
+                                    value={optionLocalitate}
                                     onChange={inseraCautareaLocalitate}
                                     onClick={() => setOptionLocalitate("")}
 
@@ -219,10 +222,10 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa }) => {
                     </Inputdiv>
                     <ExtAdresa>
                         <div>Adresa</div>
-                        <div><input 
-                        type="text" 
-                        id="adresa" 
-                
+                        <div><input
+                            type="text"
+                            id="adresa"
+
                         /></div>
                     </ExtAdresa>
                     <AdaugaAdresabttn onClick={adaugaClickButton}>Adauga</AdaugaAdresabttn>

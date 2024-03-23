@@ -13,7 +13,7 @@ const handleCloseOpen=()=>{
     setOpen(!open)
 }
     const adaugaArrayAdresa= (e)=>{
-        setToateAdresele([...toateAdresele, e])
+        setToateAdresele({...toateAdresele, e})
     }
     const deleteAdressFromStateArray= (e)=>{
         console.log(e)
@@ -30,7 +30,7 @@ const handleCloseOpen=()=>{
             <AdaugaAdreseButton  onClick={handleCloseOpen}>Adauga adresa noua</AdaugaAdreseButton>
             </HeaderAdress>
             <ContentAdress>
-                {
+                {   toateAdresele===undefined ? (<div>Se incarca adresele salvate</div>) : 
                     toateAdresele !=="NoAdressSave" ? ( toateAdresele.map((adresaUnica, index) => (
                         <AdresaContainer
                             key={index}
