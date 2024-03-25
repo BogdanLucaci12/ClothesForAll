@@ -11,7 +11,7 @@ export const UserContext = createContext({
     cards: [],
     isLoading: true,
     usercollection: [],
-
+    email:""
 })
 export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(() => {
@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
         return existingUser ? existingUser : "";
     });
     const [userUid, setUserUid] = useState()
+    const [email, setEmail] = useState()
     const [adrese, setAdrese] = useState([]);
     const [cards, setCards] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
@@ -28,7 +29,7 @@ export const UserProvider = ({ children }) => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUserUid(user.uid)
-                
+               setEmail(user.email)
             }
             else {
                 console.log("no user available")
@@ -39,14 +40,11 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem("user", currentUser)
     }, [currentUser])
     useEffect(() => {
-
-
         const fetchData = async () => {
             const date = await showAdress(userUid);
             setAdrese(date)
         }
-        fetchData()
-
+         fetchData()
     }, [userUid])
     useEffect(() => {
 
@@ -58,7 +56,6 @@ export const UserProvider = ({ children }) => {
 
     }, [userUid])
     useEffect(() => {
-
         const getData = async () => {
             try {
                 const data = await getUserCollection(userUid);
@@ -69,16 +66,14 @@ export const UserProvider = ({ children }) => {
                 }
             }
             catch (error) {
-               
             }
             finally {
                 setIsLoading(false);
             }
         }
         getData()
-    }, [userUid])
-
-    const value = { isLoading, currentUser, setCurrentUser, userUid, setUserUid, adrese, cards, isLoading, usercollection }
+    }, [userUid, currentUser])
+    const value = { isLoading, currentUser, setCurrentUser, userUid, setUserUid, adrese, cards, usercollection, email }
     return (
         <UserContext.Provider value={value}>{children}</UserContext.Provider>
     )

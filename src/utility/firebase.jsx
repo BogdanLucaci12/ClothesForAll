@@ -3,14 +3,13 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc, collection, query, getDocs, updateDoc } from "firebase/firestore"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-
 const firebaseConfig = {
-    apiKey: "AIzaSyCYU60dxwzp-TddLRL50AEPqLZHdQXd-bA",
+    apiKey: process.env.REACT_APP_Firebase_Key,
     authDomain: "clothesforall-4ad3e.firebaseapp.com",
     projectId: "clothesforall-4ad3e",
     storageBucket: "clothesforall-4ad3e.appspot.com",
     messagingSenderId: "887978649362",
-    appId: "1:887978649362:web:c98f0e01f724f1bff275cb",
+    appId: process.env.REACT_APP_Firebase_APP_ID,
     measurementId: "G-DRBZB1EC7G"
 };
 
@@ -269,7 +268,7 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, an, luna) =>
                             an:an,
                             luna:luna
                         },
-                        plata: false
+                       
                     }]
             },
                 { merge: true }
@@ -284,7 +283,7 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, an, luna) =>
                     an: an,
                     luna: luna
                 },
-                plata: false
+               
             };
             const updatedCarduri = [...carduri, newCard];
             await updateDoc(userDocRef, {
@@ -339,4 +338,41 @@ export const DeleteCard = async (useruid, nrCard) => {
         }
     }
     
+}
+export const UrmaresteComanda=async (useruid, id, adresa, email, cartItems, total)=>{
+    if (useruid) {
+        const userDocRef = doc(db, 'users', useruid);
+        const userSnapshot = await getDoc(userDocRef);
+        const comanda = userSnapshot.data().comanda;
+        if (!comanda) {
+            await updateDoc(userDocRef, {
+                comanda:
+                    [{
+                      id:id,
+                      adresa:adresa,
+                      email:email,
+                        cartItems:cartItems,
+                        total:total
+                    }]
+            },
+                { merge: true }
+            )
+        }
+        else {
+            const newComanda = {
+                id: id,
+                adresa: adresa,
+                email: email,
+                cartItems: cartItems,
+                total: total
+            };
+            const updateComanda = [...comanda, newComanda];
+            await updateDoc(userDocRef, {
+                comanda: updateComanda
+            }
+            )
+        }
+    } else {
+        console.log("Nu exista un user logat")
+    }
 }

@@ -1,46 +1,47 @@
 import { Fragment, useContext, useEffect } from "react"
 import { useState } from "react";
 import { FormCardPayment, DivForInputPaymentPage, ExpCard, AlertaCVV } from "./paymentPage.styles"
-import { Add } from "../../component/button/button.styles"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContext } from "../../context/user.context";
 import AlegecardPayment from "../checkoutPage/alegecardCheckoutpage.component"
 import { decryptData } from "../../utility/securedata";
-
-const CardPayment = ({ showAdaugaCard }) => {
+import { useNavigate } from "react-router-dom";
+const CardPayment = () => {
     const [nrCard, setNrCard] = useState("")
-    const [titularCard, setTitularCard]=useState("")
-    const [cvvIncorect, setCvvIncorect]=useState(false)
-    const [indexCard, setIndexCard]=useState("")
+    const [titularCard, setTitularCard] = useState("")
+    const [cvvIncorect, setCvvIncorect] = useState(false)
     const { cards } = useContext(UserContext)
     const [retrieveCards, setRetrieveCards] = useState()
-    const [month, setMonth]=useState("Luna");
-    const [year, setYear]=useState("An")
+    const [month, setMonth] = useState("Luna");
+    const [year, setYear] = useState("An")
+    const navigate=useNavigate()
     useEffect(() => { setRetrieveCards(cards) }, [cards])
-    const handleClick = (card, CVV, index) => {
+    const handleClick = (card, CVV) => {
         const { dataExpirare, nrCard, titularCard, codCVV } = card
         const decryptNr = decryptData(nrCard);
         const drecyptCVV = decryptData(codCVV);
-        if (drecyptCVV === CVV){
+        if (drecyptCVV === CVV) {
             setNrCard(decryptNr)
             setTitularCard(titularCard)
             setMonth(dataExpirare.luna)
             setYear(dataExpirare.an)
-            setIndexCard(index)
+        
         }
-        else{
+        else {
             setCvvIncorect(true)
-            setTimeout(() => { 
+            setTimeout(() => {
                 setCvvIncorect(false)
             }, 2000)
         }
     };
-
+    const showAdaugaCard = () => {
+        navigate("/userPage")
+    }
     return (
         <Fragment>
             {
-                cvvIncorect && 
-            <AlertaCVV>Datele CVV ale cardului selectat nu corespund cu CVV-ul introdus</AlertaCVV>
+                cvvIncorect &&
+                <AlertaCVV>Datele CVV ale cardului selectat nu corespund cu CVV-ul introdus</AlertaCVV>
             }
             <div>
                 <h4 style={{ textAlign: "center" }}>
@@ -70,8 +71,8 @@ const CardPayment = ({ showAdaugaCard }) => {
                         <DivForInputPaymentPage>
                             <label htmlFor="">Data de expirare</label>
                             <ExpCard>
-                               <div>{month}</div>
-                               <div>{year}</div>
+                                <div>{month}</div>
+                                <div>{year}</div>
                             </ExpCard>
                         </DivForInputPaymentPage>
                     </FormCardPayment>
@@ -91,17 +92,15 @@ const CardPayment = ({ showAdaugaCard }) => {
                                             key={index}
                                             card={card}
                                             onClick={(cardData, cvv) => handleClick(cardData, cvv, index)}
-                                            
+
                                         >
-                                          
+
                                         </AlegecardPayment>
                                     ))) :
                                     (<div>Nici un card salvat</div>
                                     )}
                     </div>
                 </div>
-                <Add
-                    className="my-2" onClick={showAdaugaCard}>Adauga card nou</Add>
             </div>
         </Fragment>
     )

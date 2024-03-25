@@ -2,11 +2,10 @@ import { Div, HiddenSortContainer, FilterContainers, Containerforproducts, Produ
 import { ProductsContext } from "../../context/products.context";
 import { useContext, useState, useEffect } from "react";
 import ProductContainer from "./productContainer.component.jsx";
-import Form from 'react-bootstrap/Form';
 import { ItemContext } from "../../context/itemcontext.component";
 import { FavoritesContext } from "../../context/favorites.context.jsx";
 import Filter from "./filter.component.jsx";
-
+import Spinner from 'react-bootstrap/Spinner';
 const Shop = () => {
     const { produseCategorie } = useContext(ProductsContext);
     const { setItem } = useContext(ItemContext);
@@ -18,11 +17,15 @@ const Shop = () => {
     const [selectedCuloare, setSelectedCuloare] = useState("All");
     const [marime, setMarime] = useState([]);
     const [culoare, setCuloare] = useState([]);
-
+    const [loading, setLoading] = useState(true)
+    useEffect(()=>{
+        if (produseCategorie.length>0) {
+            setProduse(produseCategorie)
+            setLoading(false)
+        }
+    }, [produseCategorie])
     useEffect(() => {
-        setProduse(produseCategorie);
         const fetchData = async () => {
-
             if (produse.length > 0) {
                 const categoriiUnice = Array.from(new Set(produse.map((produs) => produs.categorie)));
                 setCategorie(categoriiUnice);
@@ -34,7 +37,6 @@ const Shop = () => {
                 const allMarimi = [].concat(...allMarimiArrays);
                 const marimiUnice = Array.from(new Set(allMarimi));
                 setMarime(marimiUnice);
-               
             }
         };
         fetchData();
@@ -109,7 +111,8 @@ const Shop = () => {
                 </HeaderProductsContainer>
                 <Containerforproducts>
                  
-                    {produse.length > 0 &&
+                    {
+                        loading ? (<Spinner animation="border" variant="dark" />):
                         produse
                             .filter((produs) =>
                                 (selectedCategory === "All" || produs.categorie === selectedCategory) &&

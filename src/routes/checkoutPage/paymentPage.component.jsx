@@ -1,143 +1,183 @@
 import SelectAdresaLivare from "./adressPayment.component"
-import { PaymentPageMainDiv } from "./paymentPage.styles"
+import { FormularPlata, PaymentPageMainDiv, WarningPlata, CardStyle } from "./paymentPage.styles"
 import AdaugaAdresa from "../userpage/AdrressContainer/AddAdress.component";
 import { useContext, useEffect, useState } from "react";
 import CardPayment from "./cardPayment.component";
-import AdaugaCard from "../userpage/cardContainer/adaugaCard.component";
 import { Cartcontext } from "../../context/addtocart.context";
 import { Add } from "../../component/button/button.styles";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserContext } from "../../context/user.context";
 import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement } from "@stripe/react-stripe-js";
+import { UrmaresteComanda } from "../../utility/firebase";
 const PaymentPage = () => {
     const [openAdresa, setOpenAdresa] = useState(false);
-    const [openCard, setOpenCard] = useState(false);
+   
     const [adresaSelectata, setAdresaSelectata] = useState();
     const [noUserAdress, setNoUserAdress] = useState();
-    const [disable, setDisable]=useState(true);
-    const { total } = useContext(Cartcontext)
+    const [newAdress, setNewAdress] = useState()
+    const [disable, setDisable] = useState("");
+    const { currentUser, email, userUid } = useContext(UserContext)
+    const [noUserEmail, setNoUserEmail] = useState(email)
+    const { total, setCartItems, cartItems } = useContext(Cartcontext)
     const stripe = useStripe()
     const elements = useElements()
     const [proccessing, setProccessing] = useState(false);
-    const [error, setError]=useState(null);
     const handleClickAddadresa = () => {
         setOpenAdresa(!openAdresa)
     }
-    const handleClickAddCard = () => {
-        setOpenCard(!openCard)
-    }
-
+   
     const handleAdresaField = (adresafield) => {
         setAdresaSelectata(adresafield)
     }
-    const sendAdressNoUser=(e)=>{
-        setAdresaSelectata(e)
+    const sendAdressNoUser = (e) => {
         setNoUserAdress(e)
     }
-    useEffect(()=>{
-       
-        if (adresaSelectata===undefined){
-           
-        }else{
-            if (adresaSelectata.judet!==""){
-                setDisable(false)
+    useEffect(() => {
+        if (adresaSelectata === undefined) {
+        } else {
+            if (adresaSelectata.judet === "") {
+                setDisable("NoAdress")
+            }
+            else {
+                setDisable("")
             }
         }
     }, [adresaSelectata])
-    const cardStyle = {
-        style: {
-            base: {
-                iconColor: '#c4f0ff',
-                color: '#fff',
-                fontWeight: '500',
-                fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-                fontSize: '16px',
-                fontSmoothing: 'antialiased',
-                ':-webkit-autofill': {
-                    color: '#fce883',
-                },
-                '::placeholder': {
-                    color: '#87BBFD',
-                },
-            },
-            invalid: {
-                iconColor: '#FFC7EE',
-                color: '#FFC7EE',
-            },
-        },
-}
-    const cardHandlesChange = (event)=>{
-      
-    }
+
     const paymentHandler = async (e) => {
         e.preventDefault()
         if (!stripe || !elements) return;
-       
+        setProccessing("Processing")
+        setDisable(true)
         const response = await fetch("/.netlify/functions/create-payment-intent", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/jsson',
             },
-            body: JSON.stringify({ amount: 10000 })
+            body: JSON.stringify({ amount: total * 100 })
         }).then(res => res.json());
         const { paymentIntent: { client_secret } } = response;
+
         const paymentResult = await stripe.confirmCardPayment(client_secret, {
             payment_method: {
-                card: "",
+                card: elements.getElement(CardNumberElement),
                 billing_details: {
-                    name: "Lucaci Bogdan"
-                }
-            }
+                    address: {
+                        city: adresaSelectata.localitate,
+                        state: adresaSelectata.judet
+                    },
+                    name: currentUser ? currentUser : "No name",
+                    email: email ? email : noUserEmail,
+                },
+            },
+            receipt_email: email ? email : noUserEmail,
         })
-
+        setProccessing(false)
+        setDisable(false)
         console.log(paymentResult)
         if (paymentResult.error) {
-            alert(paymentResult.error)
+            paymentResult.error.code === "incomplete_number" ? setProccessing("incomplete_number") : setProccessing("failPayment")
+            return
         } else {
-            if (paymentResult.paymentIntent.status === "succeeded") { alert("payment") }
+            if (paymentResult.paymentIntent.status === "succeeded") {
+                setProccessing("succeeded")
+                userUid ? UrmaresteComanda(userUid, paymentResult.paymentIntent.id, adresaSelectata, email, cartItems, total)
+                 : (setNoUserEmail(""))
+                setCartItems([])
+            }
         }
-
     }
+
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             {
                 openAdresa && <AdaugaAdresa
-                close={handleClickAddadresa} 
-                sendAdressNoUser={sendAdressNoUser}
+                    close={handleClickAddadresa}
+                    sendAdressNoUser={sendAdressNoUser}
+                    adaugaArrayAdresa={(e) => setNewAdress(e)}
                 />
             }
-            {
-                openCard && <AdaugaCard close={handleClickAddCard} />
-            }
+            
+        
             <PaymentPageMainDiv>
                 <SelectAdresaLivare
                     showAdaugaAdresa={handleClickAddadresa}
                     handleAdresaField={handleAdresaField}
                     noUserAdress={noUserAdress}
+                    adaugaArrayAdresa={newAdress}
                 />
             </PaymentPageMainDiv>
+            {
+                currentUser ? (
+                    <PaymentPageMainDiv>
+                        <CardPayment/>               
+                    </PaymentPageMainDiv>
+                ) :
+                    (
+                        <PaymentPageMainDiv>
+                            <label htmlFor="noUserEmail">Email: </label>
+                            <input
+                                type="email"
+                                style={{ borderRadius: "2rem" }}
+                                value={noUserEmail}
+                                onChange={(e)=>setNoUserEmail(e.target.value)}
+                                name="noUserEmail"
+                            />
+                        </PaymentPageMainDiv>
+                    )
+            }
             <PaymentPageMainDiv>
-                <CardPayment
-                    showAdaugaCard={handleClickAddCard}
-                />
-            </PaymentPageMainDiv>
-            <PaymentPageMainDiv>
-                <div style={{ display: "flex", justifyContent: "space-around" }}>
-                    <div>
-                        Sumar comanda: {total} RON
+                <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+                    <div style={{ displa: "block" }}>
+                        <div style={{ display: "flex" }}>
+                            Sumar comanda:
+                            {
+                                total ? (<div> {total} RON</div>) : (<div>Nu exista produse in cos</div>)
+                            }
+
+                        </div>
+                        {
+                            proccessing === "succeeded" ? (
+                                <div>
+                                    Plata realizata cu succes
+                                </div>
+                            ) : proccessing === "failPayment" ?
+                                (<div>Plata nu a fost realizata</div>) :
+                                    proccessing ==="incomplete_number" ? 
+                                        (<div>Card invalid</div>):(<div></div>)
+                        }
                     </div>
                     <div>
-                    <form action="" style={{ width: "100%" }} >
+                        <FormularPlata action="">
                             <CardNumberElement
-                            options={cardStyle}
+                                options={CardStyle}
+
                             />
                             <CardExpiryElement
-                                options={cardStyle}
+                                options={CardStyle}
+
                             />
                             <CardCvcElement
-                                options={cardStyle}
-                            />    
+                                options={CardStyle}
 
-                        <button disabled={disable}>Realizati plata</button>
-                    </form>
+                            />
+                            {
+                                disable === "NoAdress" ?
+                                    (<WarningPlata>Adauga o adresa pentru a putea face plata</WarningPlata>) :
+                                    (noUserEmail===undefined || noUserEmail==="") ? (<WarningPlata>Introdu un email</WarningPlata>) : 
+                                    proccessing === "Processing" ? (<WarningPlata>Plata in procesare</WarningPlata>) :
+                                        total ?
+                                            (
+                                                <Add
+                                                    className="my-2"
+                                                    disabled={disable}
+                                                    onClick={paymentHandler}
+                                                >Realizati plata</Add>
+                                            ) : (
+                                                <WarningPlata>Nu exista produse in cos</WarningPlata>
+                                            )
+                            }
+                        </FormularPlata>
                     </div>
                 </div>
 

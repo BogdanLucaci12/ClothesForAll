@@ -28,13 +28,13 @@ const FavoritesIcon = () => {
         <NavigationIconContainer
             onMouseEnter={handleOpen}
             onMouseLeave={handleClose}
-            onClick={handleclick}
+            
         >
             <CountLengthCart>{favoriteItem.length}</CountLengthCart>
-            <Link>
+            <div onClick={handleclick}>
                 <FavoriteBorderOutlinedIcon style={{ fontSize: '4vh' }} />
                 <p>Favorite</p>
-            </Link>
+            </div>
             {
                 isDropdownMenuOpen &&
                 <DropdownComponent>

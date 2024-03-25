@@ -85,6 +85,39 @@ padding:1em;
 border-radius:2rem;
 box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 `
-export const FormularPlata=styled.div`
-
+export const FormularPlata=styled.form`
+width:20em;
 `
+export const WarningPlata=styled.div`
+border:5px solid red;
+border-radius:1rem;
+display:flex;
+justify-content:center;
+align-items:center;
+color:red;
+padding:.2em;
+`
+
+export const CardStyle={
+    style: {
+        base: {
+            iconColor: '#c4f0ff',
+            color: '#7F388B',
+            fontWeight: '500',
+            fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+            fontSize: '20px',
+            fontSmoothing: 'antialiased',
+            ':-webkit-autofill': {
+                color: '#000000',
+            },
+            '::placeholder': {
+                color: '#000000',
+            },
+
+        },
+        invalid: {
+            iconColor: '#000000',
+            color: '#000000',
+        },
+    },
+}

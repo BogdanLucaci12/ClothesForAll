@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Div1 } from "./paymentPage.styles";
 import { Add } from "../../component/button/button.styles";
 import { UserContext } from "../../context/user.context";
-const SelectAdresaLivare = ({ showAdaugaAdresa, handleAdresaField, noUserAdress }) => {
-    const { adrese, userUid } = useContext(UserContext)
+const SelectAdresaLivare = ({ showAdaugaAdresa, handleAdresaField, noUserAdress, adaugaArrayAdresa }) => {
+    const { adrese, userUid,  currentUser} = useContext(UserContext)
     const [toateAdresele, setToateAdresele] = useState(adrese)
     const [alegeAdresa, setAlegeAdresa] = useState({
         nume: "",
@@ -13,14 +13,20 @@ const SelectAdresaLivare = ({ showAdaugaAdresa, handleAdresaField, noUserAdress 
         localitate: "",
         adresa: ""
     })
-//    useEffect(()=>{
-//        setAlegeAdresa(noUserAdress)
-//    }, [])
-    useEffect(() => { setToateAdresele(adrese) }, [adrese])
+   useEffect(()=>{
+       noUserAdress && setAlegeAdresa(noUserAdress)
+   }, [noUserAdress])
+    useEffect(() => {
+        
+        currentUser === undefined ? setToateAdresele()  : setToateAdresele(adrese)
+    }, [adrese, currentUser])
     const handleClickAdresa = (adr) => {
         const { adresa, judet, localitate, nume, telefon } = adr
         setAlegeAdresa({ nume: nume, adresa: adresa, judet: judet, localitate: localitate, telefon: telefon })
     }
+    useEffect(() => {
+       adaugaArrayAdresa && setToateAdresele([ ...adrese, adaugaArrayAdresa ])
+    }, [adaugaArrayAdresa, adrese])
     useEffect(() => {
         handleAdresaField(alegeAdresa)
     }, [alegeAdresa, handleAdresaField])
@@ -33,15 +39,22 @@ const SelectAdresaLivare = ({ showAdaugaAdresa, handleAdresaField, noUserAdress 
                 <div className="py-3 border">
                     <div><b>Persoana de contact</b></div>
                     <div>{alegeAdresa.nume} - {alegeAdresa.telefon}</div>
-                    <div>Adresa de livrare</div>
+                    <div><b>
+                        Adresa de livrare
+                        </b>
+                        </div>
                     <div>{alegeAdresa.judet}- {alegeAdresa.localitate}, {alegeAdresa.adresa}</div>
                 </div>
                 <div >
+                    {
+                        currentUser && (
                     <div className="pb-4">
                         <b>
                             Selecteaza o adresa pentru livrare
                         </b>
                     </div>
+                        )
+                    }
                     <div>
                         {
                             toateAdresele === undefined ? (

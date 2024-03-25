@@ -1,7 +1,6 @@
 import { ImageCard, ContentCard, CardMainDiv, HeaderCard, FooterCard, StergeCard } from "./card.styles"
 import MasterCardLogo from "../../../assets/MasterCard_Logo.svg.png"
 import VisaLogo from "../../../assets/visa.svg"
-import { Radio } from 'antd';
 import { DeleteCard } from "../../../utility/firebase";
 import { UserContext } from "../../../context/user.context";
 import { useContext, useEffect, useState } from "react";
@@ -10,10 +9,10 @@ const Card = ({ card, stergeCard }) => {
     const { userUid } = useContext(UserContext)
     const [handleBrandCard, setHandleBrandCard] = useState("")
     const [handlePictureCard, setHandlePictureCard] = useState()
-    const { nrCard, titular, dataExpirare, cardPrincipal } = card
+    const { nrCard, titular, dataExpirare } = card
     const decryptCard = decryptData(nrCard)
     const cardnumber=decryptCard ? decryptCard : nrCard 
-    const [numarCardHidde, setNumarCardHidde] = useState(() => {
+    const [numarCardHidde] = useState(() => {
         const preiaUltimele4Cifre = cardnumber.slice(-4)
         const ultimele4Cifre = `**** ${preiaUltimele4Cifre}`
         return ultimele4Cifre
@@ -31,7 +30,7 @@ const Card = ({ card, stergeCard }) => {
             setHandleBrandCard("VisaCard")
             setHandlePictureCard(VisaLogo)
         }
-    }, [])
+    }, [cardnumber])
 
     return (
         <CardMainDiv>
@@ -44,12 +43,7 @@ const Card = ({ card, stergeCard }) => {
                 </ContentCard>
             </HeaderCard>
             <FooterCard>
-                <Radio
-                    defaultChecked={cardPrincipal}
-                >
-                    Card Principal
-                </Radio>
-                <StergeCard onClick={handleStergeClick}>Sterge</StergeCard>
+                <StergeCard onClick={handleStergeClick}>Sterge acest card</StergeCard>
             </FooterCard>
         </CardMainDiv>
     )

@@ -2,7 +2,8 @@ import { createContext, useCallback, useContext, useEffect, useState} from "reac
 
 
 export const Cartcontext=createContext({
-    cartItems:[  ],
+    cartItems:[],
+    setCartItems:()=>{},
     addToCart:()=>{},
     increaseQuantity: ()=>{},
     decreaseQuantity: ()=>{},
@@ -19,7 +20,6 @@ export const CartProvider=({children})=>{
         setCartItems(cartItems.map((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem))
-       
     }
     const decreaseQuantity = (item)=>{
         const removeItem = cartItems.find((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret)

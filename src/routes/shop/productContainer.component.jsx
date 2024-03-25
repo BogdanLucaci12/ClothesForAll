@@ -2,15 +2,17 @@ import { Casuta, ColorSize, ProductContainerstyle, ProductImage, FavoritesIcon }
 import { FavoritesContext } from "../../context/favorites.context";
 import { useContext, } from "react";
 import { useNavigate } from "react-router-dom";
-const ProductContainer= ({produs, onClick})=>{
+import { ItemContext } from "../../context/itemcontext.component";
+const ProductContainer= ({produs})=>{
     const { ImageUrl, pret, Pret, Nume, nume, culoare, marime, categorie } = produs;
+    const {setItem}=useContext(ItemContext)
     const {addToFav } = useContext(FavoritesContext)
     const navigate = useNavigate();
     const handleClickFav=()=>{
         addToFav(produs);
     }
     const handleClick= ()=>{
-        onClick(produs);
+        setItem(produs)
         navigate("/selprod");
    }
     return(
