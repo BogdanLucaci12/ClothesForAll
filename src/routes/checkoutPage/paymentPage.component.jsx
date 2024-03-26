@@ -8,7 +8,7 @@ import { Add } from "../../component/button/button.styles";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContext } from "../../context/user.context";
 import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement } from "@stripe/react-stripe-js";
-import { UrmaresteComanda } from "../../utility/firebase";
+import { AdaugaComanda } from "../../utility/firebase";
 const PaymentPage = () => {
     const [openAdresa, setOpenAdresa] = useState(false);
    
@@ -81,7 +81,7 @@ const PaymentPage = () => {
         } else {
             if (paymentResult.paymentIntent.status === "succeeded") {
                 setProccessing("succeeded")
-                userUid ? UrmaresteComanda(userUid, paymentResult.paymentIntent.id, adresaSelectata, email, cartItems, total)
+                userUid ? AdaugaComanda(userUid, paymentResult.paymentIntent.id, adresaSelectata, email, cartItems, total)
                  : (setNoUserEmail(""))
                 setCartItems([])
             }

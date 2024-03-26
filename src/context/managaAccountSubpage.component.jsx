@@ -5,7 +5,8 @@ export const ManageClickOnUserPage = createContext({
     defaultClick: true,
     adress: false,
     card: false,
-    fav:false
+    fav:false,
+    comenzi:false
   },
   setClickState: () => { },
 })
@@ -14,7 +15,8 @@ export const ManageClickOnUserPageProvier = ({ children }) => {
     defaultClick: true,
     adress: false,
     card: false,
-    fav: false
+    fav: false,
+    comenzi:false
   });
 
   const setClickState = (clickedState) => {

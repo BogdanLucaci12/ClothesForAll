@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { auth } from "../utility/firebase";
+import { UrmaresteComanda, auth } from "../utility/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { showAdress, RetrieveCards, getUserCollection } from "../utility/firebase";
 export const UserContext = createContext({
@@ -11,8 +11,10 @@ export const UserContext = createContext({
     cards: [],
     isLoading: true,
     usercollection: [],
-    email:""
+    email:"",
+    purchase:[]
 })
+
 export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(() => {
         const existingUser = localStorage.getItem("user")
@@ -24,7 +26,7 @@ export const UserProvider = ({ children }) => {
     const [cards, setCards] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     const [usercollection, setUserCollection] = useState()
-
+    const [purchase, setPurchase]=useState([])
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -73,9 +75,20 @@ export const UserProvider = ({ children }) => {
         }
         getData()
     }, [userUid, currentUser])
-    const value = { isLoading, currentUser, setCurrentUser, userUid, setUserUid, adrese, cards, usercollection, email }
+    useEffect(()=>{
+        const getData = async () => {
+            try {
+                const data=await UrmaresteComanda(userUid)
+                setPurchase(data)
+            }
+            catch(err){
+                console.log(err)
+            }
+        }
+        getData()
+    }, [userUid])
+    const value = { isLoading, currentUser, setCurrentUser, userUid, setUserUid, adrese, cards, usercollection, email, purchase }
     return (
         <UserContext.Provider value={value}>{children}</UserContext.Provider>
     )
-
 }

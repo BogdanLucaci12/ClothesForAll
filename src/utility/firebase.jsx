@@ -236,7 +236,7 @@ export const deleteAdress = async (useruid, adresa) => {
                 return nuExistaAdreseSalvate;
             }
             else {
-             
+
                 const newAdressArray = adress.filter((adres) => adres.adresa.trim() !== adresa.trim())
                 await updateDoc(userDocRef, {
                     adress: newAdressArray
@@ -265,10 +265,10 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, an, luna) =>
                         codCVV: codCVV,
                         nrCard: nrCard,
                         dataExpirare: {
-                            an:an,
-                            luna:luna
+                            an: an,
+                            luna: luna
                         },
-                       
+
                     }]
             },
                 { merge: true }
@@ -283,7 +283,7 @@ export const AddCard = async (useruid, titularCard, codCVV, nrCard, an, luna) =>
                     an: an,
                     luna: luna
                 },
-               
+
             };
             const updatedCarduri = [...carduri, newCard];
             await updateDoc(userDocRef, {
@@ -313,7 +313,7 @@ export const RetrieveCards = async (useruid) => {
         catch (err) {
             console.log(err)
         }
-    } 
+    }
 }
 
 export const DeleteCard = async (useruid, nrCard) => {
@@ -337,9 +337,9 @@ export const DeleteCard = async (useruid, nrCard) => {
             console.log(err)
         }
     }
-    
+
 }
-export const UrmaresteComanda=async (useruid, id, adresa, email, cartItems, total)=>{
+export const AdaugaComanda = async (useruid, id, adresa, email, cartItems, total) => {
     if (useruid) {
         const userDocRef = doc(db, 'users', useruid);
         const userSnapshot = await getDoc(userDocRef);
@@ -348,11 +348,11 @@ export const UrmaresteComanda=async (useruid, id, adresa, email, cartItems, tota
             await updateDoc(userDocRef, {
                 comanda:
                     [{
-                      id:id,
-                      adresa:adresa,
-                      email:email,
-                        cartItems:cartItems,
-                        total:total
+                        id: id,
+                        adresa: adresa,
+                        email: email,
+                        cartItems: cartItems,
+                        total: total
                     }]
             },
                 { merge: true }
@@ -375,4 +375,18 @@ export const UrmaresteComanda=async (useruid, id, adresa, email, cartItems, tota
     } else {
         console.log("Nu exista un user logat")
     }
+}
+export const UrmaresteComanda =async (userUid)=>{
+    if (userUid){
+    const userDocRef = doc(db, 'users', userUid);
+    const userSnapshot = await getDoc(userDocRef);
+    const comanda = userSnapshot.data().comanda;
+    if(comanda){
+        return comanda
+    }
+    else{
+        return "Nu ai facut cumparaturi de pe site-ul nostru"
+    }
+}
+
 }

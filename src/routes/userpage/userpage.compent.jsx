@@ -14,6 +14,7 @@ import CardContainer from "./cardContainer/cardContainer.component";
 import FavoritesContainer from "./favoritesContainer/favoritesContainer.component";
 import { signOutUser } from "../../utility/firebase";
 import { useNavigate } from "react-router-dom";
+import ComenziPage from "./comenzi/comenzi.component";
 const UserPage = () => {
     const { currentUser, userUid, setCurrentUser } = useContext(UserContext)
     const { states, setClickState } = useContext(ManageClickOnUserPage)
@@ -29,6 +30,9 @@ const UserPage = () => {
     }
     const handleClickFav=()=>{
         setClickState("fav")
+    }
+    const handleClickComenzi=()=>{
+        setClickState("comenzi")
     }
     const handleDelogare=async()=>{
         await signOutUser();
@@ -46,7 +50,7 @@ const UserPage = () => {
                 </HeaderMeniuUser>
                 <ContentMeniu>
                     <Features image={<FcTodoList style={{ fontSize: "3em" }} />} denumire={"Comenzi"}
-                   
+                   onClick={handleClickComenzi}
                     />
                     <Features image={< AiFillCreditCard style={{ fontSize: "3em" }} />} denumire={"Cardurile mele"}
                         onClick={handleCardClick}
@@ -69,6 +73,9 @@ const UserPage = () => {
                 }
                 {
                     states.fav && <FavoritesContainer/>
+                }
+                {
+                    states.comenzi && <ComenziPage/>
                 }
             </ShowDetailsForSelectedMeniu>
         </MainDiv>
