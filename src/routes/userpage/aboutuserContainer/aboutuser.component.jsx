@@ -1,4 +1,4 @@
-import { AboutUserMain, Containerul, HeaderContainer, Content, Image, FooterContainer, ButtonModify } from "./aboutuser.styles"
+import { AboutUserMain, Containerul, HeaderContainer, Content, Image, FooterContainer } from "./aboutuser.styles"
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/user.context";
 import ModifyData from "./modifyData.component";
@@ -10,21 +10,21 @@ const AboutUser = () => {
     const alias = usercollection && usercollection.additionalInfo.alias;
     const telefon = usercollection && usercollection.additionalInfo.telefon;
     const email = usercollection && usercollection.email
-  
-const handleClick = () =>{
-    setOpen(false)
-}
+
+    const handleClick = () => {
+        setOpen(false)
+    }
 
     return (
         <AboutUserMain>
-            {open && 
-            <ModifyData
-             onclick={handleClick}
-             userName={userName}
-             alias={alias}
-             telefon={telefon}
-             />
-             }
+            {open &&
+                <ModifyData
+                    onclick={handleClick}
+                    userName={userName}
+                    alias={alias}
+                    telefon={telefon}
+                />
+            }
             {isLoading ? (<div>Incarcare date</div>) : (
                 <Containerul>
                     <HeaderContainer>
@@ -35,7 +35,7 @@ const handleClick = () =>{
                             <Image />
                         </div>
 
-                        <div style={{ display: "block", width:"auto" }}>
+                        <div style={{ display: "block", width: "auto" }}>
                             <div style={{ display: "block", fontSize: "1.2em", width: "auto" }}>
                                 <div style={{ display: "flex", gap: "1em" }}>
                                     <div>Alias: </div>
@@ -49,7 +49,7 @@ const handleClick = () =>{
                                     <div>Email: </div>
                                     <div>{email}</div>
                                 </div>
-                                <div style={{ display: "flex", gap:"1em"}}>
+                                <div style={{ display: "flex", gap: "1em" }}>
                                     <div>Telefon: </div>
                                     <div>{telefon}</div>
                                 </div>

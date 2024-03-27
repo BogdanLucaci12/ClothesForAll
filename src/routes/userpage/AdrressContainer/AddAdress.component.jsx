@@ -1,4 +1,4 @@
-import { Titlu, Content, Inputdiv, ExtAdresa, AdaugaAdresabttn, Option, MesajSucces } from "./useradress.styles";
+import { Titlu, Content, Inputdiv, ExtAdresa, AdaugaAdresabttn, Option, MesajSucces, InputdivForm } from "./useradress.styles";
 import { CloseSign, ModifiyDataContainer, ModifiyDataMainDiv } from "../aboutuserContainer/aboutuser.styles";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../../context/user.context";
@@ -146,27 +146,27 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
                 <Content>
                     <div><b>Persoana de contact</b></div>
                     <Inputdiv>
-                        <div style={{ width: "45%" }}>
+                        <InputdivForm>
                             <div>Nume</div>
                             <div><input
                                 type="text"
                                 id="nume"
                             /></div>
-                        </div>
-                        <div style={{ width: "45%" }}>
+                        </InputdivForm>
+                        <InputdivForm >
                             <div>Numar de telefon</div>
                             <div><input
                                 type="text"
                                 id="telefon"
                             /></div>
-                        </div>
+                        </InputdivForm>
                     </Inputdiv>
                 </Content>
                 <Content>
                     <div><b>Adresa de livrare</b></div>
                     <Inputdiv>
 
-                        <div style={{ width: "45%" }}>
+                        <InputdivForm>
                             <div>Judet</div>
                             <div onClick={() => setOpenJudet(!openJudet)}>
                                 <input
@@ -190,8 +190,8 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
                                     )
                                 }
                             </div>
-                        </div>
-                        <div style={{ width: "45%" }}>
+                        </InputdivForm>
+                        <InputdivForm>
                             <div>Localitate</div>
                             <div onClick={() => setOpenLocalitate(!openLocalitate)}>
                                 <input
@@ -201,7 +201,6 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
                                     value={optionLocalitate}
                                     onChange={inseraCautareaLocalitate}
                                     onClick={() => setOptionLocalitate("")}
-
                                 />
                                 {
                                     openLocalitate && (
@@ -218,7 +217,7 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
                                     )
                                 }
                             </div>
-                        </div>
+                        </InputdivForm>
                     </Inputdiv>
                     <ExtAdresa>
                         <div>Adresa</div>

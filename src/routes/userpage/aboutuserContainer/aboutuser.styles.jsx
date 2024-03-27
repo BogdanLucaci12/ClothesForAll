@@ -19,7 +19,9 @@ border-radius:1rem;
 display: flex;
 flex-direction: column;
 justify-content: center;
-
+@media screen and (max-width:900px) {
+    box-shadow: none
+}
 `
 export const HeaderContainer = styled.div`
 margin-bottom:0;
@@ -33,6 +35,9 @@ width: 100%;
 display:flex;
 align-items: center;
 justify-content: center;
+@media screen and (max-width:900px) {
+    flex-direction: column;
+}
 `
 export const Image = styled(LiaUserCircle)`
 width: 9vw;
@@ -64,6 +69,9 @@ cursor:pointer;
 padding:.8em;
 width: 15vw;
 top:90%;
+@media screen and (max-width:900px) {
+ width:100%;  
+}
 `
 
 export const ModifiyDataMainDiv=styled.div`
@@ -78,7 +86,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 z-index:10;
-
+@media screen and (max-width:900px) {
+   
+}
 `
 export const ModifiyDataContainer=styled.div`
 position:relative;
@@ -86,7 +96,10 @@ width:50vw;
 height:auto;
 background:white;
 border-radius:1rem;
-padding:.5em
+padding:.5em;
+@media screen and (max-width:900px) {
+ width:100%;  
+}
 `
 
 export const CloseSign = styled(GrAdd)`

@@ -47,7 +47,7 @@ const Comanda = ({comanda}) => {
                     <div>
                             <div>Marime: <b> {marime}</b> </div>
                             <div>  Culoare: <b>{culoare} </b> </div>
-                            <div> Cantitate: <b>{quantity} </b></div>
+                            <div> Cantitate: <b>{quantity} </b> Pret/buc: <b> {pret} RON</b></div>
                     </div>
                     </DescriptionEachPurchase>
                 </Purchase>
@@ -59,7 +59,8 @@ const Comanda = ({comanda}) => {
                     <div>{adresa.nume}</div>
                     <div>{telefon}</div>
                     <div>{email}</div>
-                    <div></div>
+                    <div>Sumar comanda</div>
+                    <div>Total: <b>{total}</b></div>
                 </DeliveryDetails>
             </div>
         </ComandaComp>

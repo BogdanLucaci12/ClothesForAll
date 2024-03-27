@@ -97,8 +97,6 @@ const PaymentPage = () => {
                     adaugaArrayAdresa={(e) => setNewAdress(e)}
                 />
             }
-            
-        
             <PaymentPageMainDiv>
                 <SelectAdresaLivare
                     showAdaugaAdresa={handleClickAddadresa}
@@ -134,7 +132,6 @@ const PaymentPage = () => {
                             {
                                 total ? (<div> {total} RON</div>) : (<div>Nu exista produse in cos</div>)
                             }
-
                         </div>
                         {
                             proccessing === "succeeded" ? (

@@ -92,9 +92,7 @@ const CardPayment = () => {
                                             key={index}
                                             card={card}
                                             onClick={(cardData, cvv) => handleClick(cardData, cvv, index)}
-
                                         >
-
                                         </AlegecardPayment>
                                     ))) :
                                     (<div>Nici un card salvat</div>

@@ -32,9 +32,7 @@ const SelectAdresaLivare = ({ showAdaugaAdresa, handleAdresaField, noUserAdress,
     }, [alegeAdresa, handleAdresaField])
     return (
         <Fragment>
-
             <div>
-
                 <h4 style={{ textAlign: "center" }}>Selecteaza adresa de livrare</h4>
                 <div className="py-3 border">
                     <div><b>Persoana de contact</b></div>
@@ -74,14 +72,13 @@ const SelectAdresaLivare = ({ showAdaugaAdresa, handleAdresaField, noUserAdress,
                                             {adr.judet} - {adr.localitate} - {adr.adresa}
                                         </div>
                                     </Div1>
-
-                                ))) : (<div>Nu exista adrese salvate</div>)
+                                ))) : 
+                                (<div>Nu exista adrese salvate</div>)
                         }
                     </div>
                 </div>
             </div>
             <Add className="my-2" onClick={showAdaugaAdresa}>Adauga adresa</Add>
-
         </Fragment>
     )
 }

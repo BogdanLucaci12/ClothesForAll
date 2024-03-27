@@ -49,16 +49,16 @@ const UserPage = () => {
                     <h4>{currentUser}</h4>
                 </HeaderMeniuUser>
                 <ContentMeniu>
-                    <Features image={<FcTodoList style={{ fontSize: "3em" }} />} denumire={"Comenzi"}
+                    <Features image={<FcTodoList style={{ fontSize: "2em" }} />} denumire={"Comenzi"}
                    onClick={handleClickComenzi}
                     />
-                    <Features image={< AiFillCreditCard style={{ fontSize: "3em" }} />} denumire={"Cardurile mele"}
+                    <Features image={< AiFillCreditCard style={{ fontSize: "2em" }} />} denumire={"Cardurile mele"}
                         onClick={handleCardClick}
                     />
-                    <Features image={< ImLocation style={{ fontSize: "3em" }} />} denumire={"Adresele mele"}
+                    <Features image={< ImLocation style={{ fontSize: "2em" }} />} denumire={"Adresele mele"}
                         onClick={handleAdressClick} />
-                    <Features image={< TiHeartOutline style={{ fontSize: "3em" }} />} denumire={"Produse favorite"} onClick={handleClickFav}/>
-                    <Features image={< BsPower style={{ fontSize: "3em" }} />} denumire={"Delogheaza-te"} onClick={handleDelogare}/>
+                    <Features image={< TiHeartOutline style={{ fontSize: "2em" }} />} denumire={"Produse favorite"} onClick={handleClickFav}/>
+                    <Features image={< BsPower style={{ fontSize: "2em" }} />} denumire={"Delogheaza-te"} onClick={handleDelogare}/>
                 </ContentMeniu>
             </Meniu>
             <ShowDetailsForSelectedMeniu>

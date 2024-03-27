@@ -13,6 +13,7 @@ justify-content: space-between;
 padding:1em;
 align-items: center;
 border-bottom: 1px solid rgba(0,0,0,0.2)
+
 `
 export const AdaugaAdreseButton =styled.div`
 background-color:black;
@@ -39,6 +40,8 @@ justify-content: center;
 flex-direction: column;
 padding:1em;
 font-size:20px
+
+
 `
 
 export const Inputdiv=styled.div`
@@ -53,6 +56,9 @@ justify-content: space-around;
     height:2.5em;
 border: 1px solid rgba(0,0,0,0.3);
 }
+@media only screen and (max-width: 900px) {
+    flex-direction: column;
+}
 `
 export const ExtAdresa = styled.div`
 width:100%;
@@ -66,6 +72,9 @@ padding:1em;
     height:2.5em;
 border: 1px solid rgba(0,0,0,0.3);
 }
+@media only screen and (max-width: 900px) {
+   margin:0
+}
 `
 
 export const AdaugaAdresabttn=styled.div`
@@ -77,6 +86,9 @@ width:20%;
 border-radius:1rem;
 display:flex;
 cursor:pointer;
+@media only screen and (max-width: 900px) {
+    width:100%;
+}
 `
 export const Option=styled.div`
 position: absolute;
@@ -111,6 +123,9 @@ margin:1em;
 padding:1em;
 font-size:20px;
 position:relative;
+@media screen and (max-width:900px) {
+ 
+}
 `
 export const HeaderAdresa=styled.div`
 height:90%;
@@ -139,4 +154,10 @@ display:flex;
 justify-content:center;
 align-items:center;
 font-size:20px;
+`
+export const InputdivForm=styled.div`
+width:45%;
+@media only screen and (max-width: 900px) {
+    width:100%;
+}
 `

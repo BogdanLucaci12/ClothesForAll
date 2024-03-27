@@ -4,7 +4,7 @@ import AdaugaCard from "./adaugaCard.component";
 import Card from "./card.component";
 import React from 'react';
 import { UserContext } from "../../../context/user.context";
-
+import Spinner from 'react-bootstrap/Spinner';
 const CardContainer = () => {
     const { cards } = useContext(UserContext);
     const [retrieveCards, setRetrieveCards] = useState()
@@ -41,7 +41,7 @@ const CardContainer = () => {
             </HeaderAdress>
             <ContentAdress>
                 {
-                    retrieveCards === undefined ? (<div>Se incarca cardurile</div>) :
+                    retrieveCards === undefined ? (<Spinner animation="border" variant="dark" />) :
                     retrieveCards!=="Nu exista carduri salvate"? 
                     (retrieveCards.map((card, index) => (
                         <Card

@@ -385,7 +385,7 @@ export const UrmaresteComanda =async (userUid)=>{
         return comanda
     }
     else{
-        return "Nu ai facut cumparaturi de pe site-ul nostru"
+        return "NoPurchase"
     }
 }
 

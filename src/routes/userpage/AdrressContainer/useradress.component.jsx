@@ -3,7 +3,7 @@ import AdaugaAdresa from "./AddAdress.component";
 import { HeaderAdress, AdaugaAdreseButton, ContentAdress } from "./useradress.styles"
 import { useContext, useEffect, useState } from "react";
 import AdresaContainer from "./containerAdresa.component";
-
+import Spinner from 'react-bootstrap/Spinner';
 const UserAdress = ()=>{
 const [open, setOpen] = useState(false);
 const {adrese}=useContext(UserContext)
@@ -26,11 +26,11 @@ const handleCloseOpen=()=>{
                 adaugaArrayAdresa={adaugaArrayAdresa}
             />}
             <HeaderAdress>
-            <h4>Adresele mele</h4>
+            <h5>Adresele mele</h5>
             <AdaugaAdreseButton  onClick={handleCloseOpen}>Adauga adresa noua</AdaugaAdreseButton>
             </HeaderAdress>
             <ContentAdress>
-                {   toateAdresele===undefined ? (<div>Se incarca adresele salvate</div>) : 
+                {toateAdresele === undefined ? (<Spinner animation="border" variant="dark" />) : 
                     toateAdresele !=="NoAdressSave" ? ( toateAdresele.map((adresaUnica, index) => (
                         <AdresaContainer
                             key={index}

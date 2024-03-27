@@ -1,6 +1,6 @@
 import { decryptData } from "../../utility/securedata"
 import { useEffect, useState } from "react"
-import { AlegecardPaymentPage, Choose, } from "./paymentPage.styles"
+import { AlegecardPaymentPage, CardDetailsForPaymentPage, Choose, } from "./paymentPage.styles"
 import { AfiseazaCard } from "../../component/button/button.styles"
 
 const AlegecardPayment = ({ card, onClick})=>{
@@ -29,16 +29,15 @@ const handleClickAfiseazaCVV=()=>{
 }
     return (
         <AlegecardPaymentPage>
-            <div style={{display:"flex", gap:"1em"}}>
+            <CardDetailsForPaymentPage>
             <div>{titularCard}</div>
             <div>{numarCardHidde}</div>
-            </div>
+            </CardDetailsForPaymentPage>
             <div>
                 {
                 afiseazaButton && 
                     <AfiseazaCard 
                             onClick={handleClickAfiseazaCVV}
-                
                     > Afiseaza datele cardului</AfiseazaCard>
                 }
             </div>

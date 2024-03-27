@@ -8,6 +8,10 @@ padding:1em;
 display:flex;
 background-color:#FFEEDD;
 gap:1em;
+@media screen and (max-width:900px) {
+  flex-direction:column;
+  margin-top:2em;
+}
 `
 
 export const Meniu=styled.div`
@@ -16,6 +20,10 @@ height:85vh;
 box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 background-color:white;
 border-radius:2rem;
+@media screen and (max-width:900px) {
+  width:100%;
+  height:17vh;
+}
 `
 
 export const ShowDetailsForSelectedMeniu=styled.div`
@@ -27,6 +35,10 @@ border-radius:2rem;
 display:flex;
 flex-direction:column;
 padding:.4em;
+@media screen and (max-width:900px) {
+    width:100%;
+    padding:0
+}
 `
 export const HeaderMeniuUser=styled.div`
 height: 10vh;
@@ -46,7 +58,9 @@ height: 5em;
 display:flex;
 justify-content:center;
 align-items:center;
+@media screen and (max-width:900px) {
 
+}
 `
 
 export const Image = styled(LiaUserCircle)`
@@ -59,6 +73,11 @@ display:flex;
 flex-direction:column;
 align-items:center;
 gap:1.5em;
+@media screen and (max-width:900px) {
+ flex-direction:initial;
+     justify-content:center;
+    margin:.2em;
+}
 `
 export const FeaturesMain=styled.div`
 width:95%;
@@ -74,7 +93,15 @@ padding:1em;
     color:white;
     cursor:pointer;
 }
+@media screen and (max-width:900px) {
+    height:3em;
+    width:3em;
+    justify-content:center
+}
 `
 export const Descriere=styled.div`
 font-size:25px;
+@media screen and (max-width:900px) {
+    display:none
+}
 `

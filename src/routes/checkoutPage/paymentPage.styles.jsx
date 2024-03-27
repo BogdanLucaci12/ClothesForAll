@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { SlTarget } from "react-icons/sl";
-export const Choose = styled(SlTarget)`
-font-size: 1.5em;
-`
+
 export const PaymentPageMainDiv=styled.div`
 margin-top:3em;
 box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
@@ -16,6 +13,10 @@ font-size:1.2em;
 :Div1:hover{
     background-color:rgba(0,0,0,0.5);
 }
+@media only screen and (max-width: 900px) {
+width:100%;
+}
+
 `
 export const Div1=styled.div`
 border-top:1px solid rgba(0,0,0,0.5);
@@ -53,16 +54,26 @@ div{
     width:18em;
 }
 input{
-      border-radius:1rem;
+    border-radius:1rem;
     border:1px solid rgba(0,0,0,0.5);  
     width:5em;
     height:1.5em;
+}
+ @media only screen and (max-width: 900px) {
+flex-direction:column;
+height:auto;
+justify-content:flex-start;
+align-items:flex-start
 }
 `
 export const DivForInputPaymentPage =styled.div`
     width:49%;
    display:flex;
    justify-content:space-between;
+   @media only screen and (max-width: 900px) {
+width:100%;
+flex-direction:column;
+}
 `
 export const ExpCard=styled.div`
 display:flex;
@@ -121,3 +132,11 @@ export const CardStyle={
         },
     },
 }
+export const CardDetailsForPaymentPage=styled.div`
+display:flex;
+gap:1em;
+@media only screen and (max-width: 900px) {
+flex-direction: column;
+gap:.1em
+}
+`
