@@ -1,5 +1,5 @@
 import SelectAdresaLivare from "./adressPayment.component"
-import { FormularPlata, PaymentPageMainDiv, WarningPlata, CardStyle } from "./paymentPage.styles"
+import { FormularPlata, PaymentPageMainDiv, WarningPlata, CardStyle, E1a, E1b } from "./paymentPage.styles"
 import AdaugaAdresa from "../userpage/AdrressContainer/AddAdress.component";
 import { useContext, useEffect, useState } from "react";
 import CardPayment from "./cardPayment.component";
@@ -17,7 +17,9 @@ const PaymentPage = () => {
     const [newAdress, setNewAdress] = useState()
     const [disable, setDisable] = useState("");
     const { currentUser, email, userUid } = useContext(UserContext)
-    const [noUserEmail, setNoUserEmail] = useState(email)
+    const [noUserEmail, setNoUserEmail] = useState(()=>{
+        return currentUser ? "email" : email
+    })
     const { total, setCartItems, cartItems } = useContext(Cartcontext)
     const stripe = useStripe()
     const elements = useElements()
@@ -43,7 +45,7 @@ const PaymentPage = () => {
             }
         }
     }, [adresaSelectata])
-
+  
     const paymentHandler = async (e) => {
         e.preventDefault()
         if (!stripe || !elements) return;
@@ -74,15 +76,23 @@ const PaymentPage = () => {
         })
         setProccessing(false)
         setDisable(false)
-        console.log(paymentResult)
         if (paymentResult.error) {
             paymentResult.error.code === "incomplete_number" ? setProccessing("incomplete_number") : setProccessing("failPayment")
             return
         } else {
             if (paymentResult.paymentIntent.status === "succeeded") {
                 setProccessing("succeeded")
-                userUid ? AdaugaComanda(userUid, paymentResult.paymentIntent.id, adresaSelectata, email, cartItems, total)
+                 const idComanda=paymentResult.paymentIntent.id
+                userUid ? AdaugaComanda(userUid, idComanda, adresaSelectata, email, cartItems, total)
                  : (setNoUserEmail(""))
+                const response = await fetch("/.netlify/functions/mail", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/jsson',
+                    },
+                    body: JSON.stringify({ email, idComanda, adresaSelectata, cartItems, total })
+                })
+                response()
                 setCartItems([])
             }
         }
@@ -125,8 +135,8 @@ const PaymentPage = () => {
                     )
             }
             <PaymentPageMainDiv>
-                <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-                    <div style={{ displa: "block" }}>
+                <E1a>
+                    <E1b>
                         <div style={{ display: "flex" }}>
                             Sumar comanda:
                             {
@@ -135,15 +145,15 @@ const PaymentPage = () => {
                         </div>
                         {
                             proccessing === "succeeded" ? (
-                                <div>
+                                <div style={{ marginLeft: "1em", color:"red" }}>
                                     Plata realizata cu succes
                                 </div>
                             ) : proccessing === "failPayment" ?
-                                (<div>Plata nu a fost realizata</div>) :
+                                (<div >Plata nu a fost realizata</div>) :
                                     proccessing ==="incomplete_number" ? 
                                         (<div>Card invalid</div>):(<div></div>)
                         }
-                    </div>
+                    </E1b>
                     <div>
                         <FormularPlata action="">
                             <CardNumberElement
@@ -161,7 +171,8 @@ const PaymentPage = () => {
                             {
                                 disable === "NoAdress" ?
                                     (<WarningPlata>Adauga o adresa pentru a putea face plata</WarningPlata>) :
-                                    (noUserEmail===undefined || noUserEmail==="") ? (<WarningPlata>Introdu un email</WarningPlata>) : 
+                                    (noUserEmail===undefined || noUserEmail==="") ? 
+                                    (<WarningPlata>Introdu un email</WarningPlata>) : 
                                     proccessing === "Processing" ? (<WarningPlata>Plata in procesare</WarningPlata>) :
                                         total ?
                                             (
@@ -176,7 +187,7 @@ const PaymentPage = () => {
                             }
                         </FormularPlata>
                     </div>
-                </div>
+                </E1a>
 
             </PaymentPageMainDiv>
         </div>

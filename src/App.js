@@ -8,7 +8,6 @@ import ShowSelectedProd from "./routes/shop/showselectedpro/showselectedprod.com
 import CartPage from "./routes/cartPage/cartPage.component";
 import UserPage from "./routes/userpage/userpage.compent";
 import PaymentPage from "./routes/checkoutPage/paymentPage.component";
-import { Payment } from "@mui/icons-material";
 const App = () => {
 
   return (

@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc, collection, query, getDocs, updateDoc } from "firebase/firestore"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_Firebase_Key,
     authDomain: "clothesforall-4ad3e.firebaseapp.com",

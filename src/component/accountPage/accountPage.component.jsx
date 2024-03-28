@@ -32,8 +32,8 @@ const AccountPage = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value })
-
   }
+ 
   const signInProvider = async () => {
     const { user } = await signInWithGooglePopUp();
     await createUserDocumentFromAuth(user)

@@ -7,7 +7,7 @@ border-radius:2rem;
 background-color:white;
 color:black;
 padding:1em;
-width:50vw;
+width:60vw;
 height:auto;
 font-size:1.2em;
 :Div1:hover{
@@ -15,6 +15,8 @@ font-size:1.2em;
 }
 @media only screen and (max-width: 900px) {
 width:100%;
+display:flex;
+flex-direction:column;
 }
 
 `
@@ -98,6 +100,11 @@ box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 `
 export const FormularPlata=styled.form`
 width:20em;
+   @media only screen and (max-width: 900px) {
+width:100%;
+display:flex;
+flex-direction:column;
+}
 `
 export const WarningPlata=styled.div`
 border:5px solid red;
@@ -138,5 +145,19 @@ gap:1em;
 @media only screen and (max-width: 900px) {
 flex-direction: column;
 gap:.1em
+}
+`
+export const E1a=styled.div`
+display:flex;
+width:100%;
+justify-content:space-between;
+@media only screen and (max-width: 900px) {
+flex-direction: column;
+}
+`
+export const E1b = styled.div`
+display:block;
+@media only screen and (max-width: 900px) {
+display:flex
 }
 `
