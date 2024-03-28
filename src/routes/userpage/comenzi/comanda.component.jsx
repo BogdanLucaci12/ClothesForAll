@@ -1,5 +1,4 @@
-import { ComandaComp, CustomCarousel, Purchase, DeliveryDetails, DescriptionEachPurchase } from "./comenzi.style"
-import logo from "../../../assets/logo.png"
+import { ComandaComp, CustomCarousel, Purchase, DeliveryDetails, DescriptionEachPurchase, Cfb } from "./comenzi.style"
 import { useEffect, useState } from "react";
 const Comanda = ({comanda}) => {
 
@@ -23,12 +22,12 @@ const Comanda = ({comanda}) => {
             const desc=cartItems.find(item=>item.ImageUrl===indexC.pageIndex.item.src)
             setDescriptionOfItem(desc)
         }
-    }, [indexC])
+    }, [indexC, cartItems])
     
     return (
         <ComandaComp>
             <div style={{padding:".5em"}}>Comanda nr : {id}</div>
-            <div style={{ display: "flex" }}>
+            <Cfb>
                 <Purchase>
                     <CustomCarousel
                         onChange={( pageIndex) =>
@@ -62,7 +61,7 @@ const Comanda = ({comanda}) => {
                     <div>Sumar comanda</div>
                     <div>Total: <b>{total}</b></div>
                 </DeliveryDetails>
-            </div>
+            </Cfb>
         </ComandaComp>
     )
 }

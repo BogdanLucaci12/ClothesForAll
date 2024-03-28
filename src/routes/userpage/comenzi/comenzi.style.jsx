@@ -15,6 +15,9 @@ margin:1em;
 border-radius:1rem;
 display:flex;
 flex-direction:column;
+@media only screen and (max-width: 900px) {
+    height:40em
+}
 `
 export const Purchase = styled.div`
 padding:1em;
@@ -22,13 +25,18 @@ padding:1em;
  height:18em;
  display:flex;
  flex-direction:column;
-
+@media only screen and (max-width: 900px) {
+width:100%;
+}
  `
 export const DeliveryDetails = styled.div`
  width:49%;
  height:100%;
   font-size:1.2em;
   padding:1em;
+  @media only screen and (max-width: 900px) {
+width:100%;
+}
  `
 export const CustomCarousel = styled(Carousel)`
 
@@ -45,4 +53,10 @@ width:8em;
 
 export const DescriptionEachPurchase=styled.div`
 font-size:1em
+`
+export const Cfb=styled.div`
+display:flex;
+@media only screen and (max-width: 900px) {
+flex-direction:column;
+}
 `
