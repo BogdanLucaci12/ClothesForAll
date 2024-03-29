@@ -1,14 +1,13 @@
 import { ProdusAdaugat ,Addtocart, Back ,Alege, MainDiv, MainpicDiv, OpenDropdown, ProductDetailes } from "./showselectedprod.styles";
 import { ItemContext } from "../../../context/itemcontext.component";
-import { useContext, useState, useRef, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Cartcontext } from "../../../context/addtocart.context";
-import { Button } from "../../../component/button/button.styles";
 const MarimeCuloare={
     culoare: "",
     marime:""
 }
 const ShowSelectedProd= ()=>{
-    const { cartItems, setCartItems, addToCart }=useContext(Cartcontext);
+    const {addToCart }=useContext(Cartcontext);
     const { item } = useContext(ItemContext);
     const {nume, Nume ,ImageUrl, culoare, marime, pret, categorie}=item
     const [isOpenSize, setIsOpenSize] = useState(false);

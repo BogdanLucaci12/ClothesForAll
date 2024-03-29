@@ -1,11 +1,11 @@
 import { decryptData } from "../../utility/securedata"
 import { useEffect, useState } from "react"
-import { AlegecardPaymentPage, CardDetailsForPaymentPage, Choose, } from "./paymentPage.styles"
+import { AlegecardPaymentPage, CardDetailsForPaymentPage, } from "./paymentPage.styles"
 import { AfiseazaCard } from "../../component/button/button.styles"
 
 const AlegecardPayment = ({ card, onClick})=>{
     const { nrCard, titularCard } = card
-    const [numarCardHidde, setNumarCardHidde] = useState(() => {
+    const [numarCardHidde] = useState(() => {
         const decryptCard = decryptData(nrCard)
         const preiaUltimele4Cifre = decryptCard.slice(-4)
         const ultimele4Cifre = `**** ${preiaUltimele4Cifre}`

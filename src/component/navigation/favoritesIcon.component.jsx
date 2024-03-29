@@ -1,9 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { NavigationIconContainer, CountLengthCart } from './navigation.syles';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import DropdownComponent from './dropdownmenu/dropdownmenu.component';
 import useDropdownMenu from './dropdownmenu/handledropdownmenu.component';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import FavoritesContent from './favoritesNav/favorites.componenst';
 import { FavoritesContext } from '../../context/favorites.context';
 import { ManageClickOnUserPage } from '../../context/managaAccountSubpage.component';

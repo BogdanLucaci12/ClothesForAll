@@ -1,7 +1,7 @@
 import { UserContext } from "../../../context/user.context";
 import AdaugaAdresa from "./AddAdress.component";
 import { HeaderAdress, AdaugaAdreseButton, ContentAdress } from "./useradress.styles"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import AdresaContainer from "./containerAdresa.component";
 import Spinner from 'react-bootstrap/Spinner';
 const UserAdress = ()=>{

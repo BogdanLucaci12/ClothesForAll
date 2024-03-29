@@ -4,7 +4,7 @@ const Item=({prod})=>{
     return (
         <Itemstyles>
             <PicItem>
-                <img src={ImageUrl} />
+                <img src={ImageUrl} alt=""/>
             </PicItem>
             <DetailesItem>
                 <DivEDf>{nume}</DivEDf>

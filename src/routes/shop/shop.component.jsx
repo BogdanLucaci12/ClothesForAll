@@ -1,4 +1,4 @@
-import { Div, HiddenSortContainer, FilterContainers, Containerforproducts, ProductsContainer, MainDiv, HeaderProductsContainer, SortItemsContainer, Filtre, ProdAdaugatCuSucces } from "./shop.styles";
+import { Div, HiddenSortContainer, FilterContainers, Containerforproducts, ProductsContainer, MainDiv, HeaderProductsContainer, SortItemsContainer, ProdAdaugatCuSucces } from "./shop.styles";
 import { ProductsContext } from "../../context/products.context";
 import { useContext, useState, useEffect } from "react";
 import ProductContainer from "./productContainer.component.jsx";

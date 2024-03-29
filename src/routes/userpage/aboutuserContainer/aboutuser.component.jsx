@@ -1,5 +1,5 @@
 import { AboutUserMain, Containerul, HeaderContainer, Content, Image, FooterContainer } from "./aboutuser.styles"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../../context/user.context";
 import ModifyData from "./modifyData.component";
 const AboutUser = () => {

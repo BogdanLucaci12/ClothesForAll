@@ -5,7 +5,7 @@ import useDropdownMenu from '../dropdownmenu/handledropdownmenu.component';
 import AccountContent from './content/accountcontent.component';
 import { useContext } from 'react';
 import { UserContext } from '../../../context/user.context';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const AccountIcon = () => {
     const { isDropdownMenuOpen, handleOpen, handleClose } = useDropdownMenu();
     const { currentUser }=useContext(UserContext);

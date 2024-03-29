@@ -20,15 +20,11 @@ const SearchBarNav = () => {
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (refinput.current && !refinput.current.contains(e.target)) {
-                // Clic în afara formularului
                 setLabelOff(false);
             }
         };
 
-        // Adăugăm evenimentul pentru clic în afara formularului
         document.addEventListener("mousedown", handleClickOutside);
-
-        // Curățăm evenimentul la dezmontarea componentei
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
@@ -44,7 +40,7 @@ const SearchBarNav = () => {
             || prod.categorie.toLowerCase().includes(searchfield.toLowerCase())
         ));
         setItemToBeShown(searchItem);
-    }, [searchfield]);
+    }, [searchfield, searchItems]);
     return (
         <Form ref={refinput}>
            {

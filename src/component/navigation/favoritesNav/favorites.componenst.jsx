@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { FavoritesContext } from "../../../context/favorites.context"
 import { CosGol, CosPlin, MainDiv } from "../cartNav/cartcontent.styles";
-import { Items, Button } from "../cartNav/cartcontent.styles";
+import { Items, } from "../cartNav/cartcontent.styles";
 import Item from "./favoritesItem.component";
 const FavoritesContent=()=>{
     const { favoriteItem} = useContext(FavoritesContext)
@@ -13,7 +13,6 @@ const FavoritesContent=()=>{
                     <CosPlin>
                         <Items>
                             {Object.values(favoriteItem).map((prod, index) => {
-                                const randomKey = `${prod.id}_${prod.marime}_${prod.culoare}`;
                                 return <Item key={index} prod={prod} />
                             })}
                         </Items>

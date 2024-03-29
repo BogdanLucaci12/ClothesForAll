@@ -1,18 +1,14 @@
 import { ModifiyDataMainDiv, ModifiyDataContainer, CloseSign, Formular, ButtonSubmit } from "./aboutuser.styles"
-import { useEffect, useState, useContext } from "react"
+import {  useState, useContext } from "react"
 import { UserContext } from "../../../context/user.context";
 import { UpdateUserCollection } from "../../../utility/firebase";
-import { useNavigate } from "react-router-dom";
-
 const ModifyData = ({ onclick, userName, alias, telefon }) => {
     const { userUid }=useContext(UserContext)
-    const navigate = useNavigate();
     const [newChanges, setNewChanges] = useState({
         userName1: userName,
         alias1: alias,
         telefon1: telefon
     })
-   
 const handleChange = (event)=>{
     const {name, value} = event.target
     setNewChanges((prevChanges) => ({ ...prevChanges, [name]:value}))

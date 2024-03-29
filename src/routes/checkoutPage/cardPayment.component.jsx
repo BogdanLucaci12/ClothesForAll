@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContext } from "../../context/user.context";
 import AlegecardPayment from "../checkoutPage/alegecardCheckoutpage.component"
 import { decryptData } from "../../utility/securedata";
-import { useNavigate } from "react-router-dom";
+
 const CardPayment = () => {
     const [nrCard, setNrCard] = useState("")
     const [titularCard, setTitularCard] = useState("")
@@ -14,7 +14,7 @@ const CardPayment = () => {
     const [retrieveCards, setRetrieveCards] = useState()
     const [month, setMonth] = useState("Luna");
     const [year, setYear] = useState("An")
-    const navigate=useNavigate()
+   
     useEffect(() => { setRetrieveCards(cards) }, [cards])
     const handleClick = (card, CVV) => {
         const { dataExpirare, nrCard, titularCard, codCVV } = card
@@ -34,9 +34,7 @@ const CardPayment = () => {
             }, 2000)
         }
     };
-    const showAdaugaCard = () => {
-        navigate("/userPage")
-    }
+ 
     return (
         <Fragment>
             {

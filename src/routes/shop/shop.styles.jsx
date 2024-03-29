@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CgHeart } from "react-icons/cg";
 import { IoIosArrowDown } from "react-icons/io";

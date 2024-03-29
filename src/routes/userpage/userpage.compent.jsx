@@ -16,7 +16,7 @@ import { signOutUser } from "../../utility/firebase";
 import { useNavigate } from "react-router-dom";
 import ComenziPage from "./comenzi/comenzi.component";
 const UserPage = () => {
-    const { currentUser, userUid, setCurrentUser } = useContext(UserContext)
+    const { currentUser, setCurrentUser } = useContext(UserContext)
     const { states, setClickState } = useContext(ManageClickOnUserPage)
     const navigate=useNavigate()
     const handleAdressClick = () => {

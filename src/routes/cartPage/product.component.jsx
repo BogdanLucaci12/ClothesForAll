@@ -1,10 +1,9 @@
 import { ProductMainDiv, Image, ProductDetails, PlusIcon, Cantitate, MinusIcon, Highlight } from "./cartPage.styles";
-import { Addtocart } from "../shop/showselectedpro/showselectedprod.styles";
 import { useContext } from "react";
 import { Cartcontext } from '../../context/addtocart.context'
 const Product=({product})=>{
     const {nume, pret, quantity, culoare, marime, ImageUrl, id, categorie}=product;
-    const { increaseQuantity, decreaseQuantity, cartItems } = useContext(Cartcontext);
+    const { increaseQuantity, decreaseQuantity } = useContext(Cartcontext);
     const handleButtonPlus=(item)=>{
         increaseQuantity(item)
     }

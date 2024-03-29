@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react"
+import {  useContext } from "react"
 import { FavoritesContext } from "../../../context/favorites.context";
 import ProductContainer from "../../../routes/shop/productContainer.component"
 

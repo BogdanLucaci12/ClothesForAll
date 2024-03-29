@@ -1,6 +1,5 @@
 import React from "react";
 import { FeaturesMain, ImageUserContainer, Descriere, } from "./userpage.styles";
-import styled from "styled-components";
 
 const Features = ({ image, denumire, onClick }) => {
 

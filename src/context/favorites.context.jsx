@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const FavoritesContext=createContext({
     favoriteItem:[],

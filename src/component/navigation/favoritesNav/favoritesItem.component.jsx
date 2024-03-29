@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Itemstyles, PicItem, DetailesItem, DivEDf, RemovefavItem, CustomCursor } from "../cartNav/itemCart.styles";
+import { Itemstyles, PicItem, DetailesItem, DivEDf, RemovefavItem } from "../cartNav/itemCart.styles";
 import { FavoritesContext } from "../../../context/favorites.context";
 
 const Item = ({ prod }) => {
@@ -11,7 +11,7 @@ const Item = ({ prod }) => {
     return (
         <Itemstyles>
             <PicItem>
-                <img src={ImageUrl} />
+                <img src={ImageUrl} alt=""/>
             </PicItem>
             <DetailesItem>
          
