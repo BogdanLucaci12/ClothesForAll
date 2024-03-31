@@ -12,4 +12,7 @@ border-radius:5px;
 box-shadow: 4px 2px 15px -4px #000000;
 background-color: white;
 margin-right:2em;
+@media only screen and (max-width: 768px) {
+  display: none
+}
 `

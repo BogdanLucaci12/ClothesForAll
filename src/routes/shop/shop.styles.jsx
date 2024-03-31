@@ -155,7 +155,7 @@ cursor:pointer;
 
  @media only screen and (max-width: 900px) {
 width:11rem;
-height:3em;
+height:1em;
 }
 `
 export const FavoritesIcon=styled(CgHeart)`

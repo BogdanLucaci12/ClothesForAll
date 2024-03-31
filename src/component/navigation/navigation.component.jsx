@@ -42,9 +42,9 @@ const NavigationBar = () => {
                         <img src={logo} alt="" style={{ width: '100%', height: '100%' }} />
                     </LogoContainer>
                     <GenProduse >
-                        <Link to="/shop" onClick={seteazaFemeie}><h4>Femei</h4></Link>
-                        <Link to="/shop" onClick={seteazaBarbat}><h4>Barbati</h4></Link>
-                        <Link to="/shop" onClick={seteazaCopil}><h4>Copii</h4></Link>
+                        <Link to="/shop" onClick={seteazaFemeie}><h5>Femei</h5></Link>
+                        <Link to="/shop" onClick={seteazaBarbat}><h5>Barbati</h5></Link>
+                        <Link to="/shop" onClick={seteazaCopil}><h5>Copii</h5></Link>
                     </GenProduse>
                     <SearchBarNav />
                     {

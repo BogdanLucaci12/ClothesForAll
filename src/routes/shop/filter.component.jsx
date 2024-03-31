@@ -9,7 +9,7 @@ const Filter = ({ numefiltru, selected, criteriu, onFilterChange }) =>{
     };
     
     const formstyle = {
-        height: isClicked ? "auto" : "3em",
+        height: isClicked ? "auto" : "2.5em",
     }
 
 return (

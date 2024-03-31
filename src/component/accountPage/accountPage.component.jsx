@@ -50,7 +50,9 @@ const AccountPage = () => {
       const userDisplayName = await getUserDisplayName(user);
       setCurrentUser(userDisplayName)
       resetFormFields();
-      navigate("/");
+      setTimeout(() =>{
+        navigate("/");
+      }, 2000)
     }
     catch (error) {
       console.log("erorr for signIn", error.code)

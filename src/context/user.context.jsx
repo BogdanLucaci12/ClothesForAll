@@ -11,14 +11,17 @@ export const UserContext = createContext({
     cards: [],
     isLoading: true,
     usercollection: [],
-    email:"",
-    purchase:[]
+    email: "",
+    purchase: []
 })
 
 export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(() => {
         const existingUser = localStorage.getItem("user")
-        return existingUser ? existingUser : "";
+        return existingUser===undefined || existingUser===null ? ""
+        :
+         existingUser
+         ;
     });
     const [userUid, setUserUid] = useState()
     const [email, setEmail] = useState()
@@ -26,27 +29,28 @@ export const UserProvider = ({ children }) => {
     const [cards, setCards] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     const [usercollection, setUserCollection] = useState()
-    const [purchase, setPurchase]=useState([])
+    const [purchase, setPurchase] = useState([])
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUserUid(user.uid)
-               setEmail(user.email)
+                setEmail(user.email)
             }
             else {
                 console.log("no user available")
             }
         })
-    }, [])
+    }, [auth])
     useEffect(() => {
         localStorage.setItem("user", currentUser)
+        console.log(currentUser)
     }, [currentUser])
     useEffect(() => {
         const fetchData = async () => {
             const date = await showAdress(userUid);
             setAdrese(date)
         }
-         fetchData()
+        fetchData()
     }, [userUid])
     useEffect(() => {
 
@@ -62,10 +66,6 @@ export const UserProvider = ({ children }) => {
             try {
                 const data = await getUserCollection(userUid);
                 setUserCollection(data);
-                if (data.userName !== currentUser) {
-                    setCurrentUser(data.userName)
-                    localStorage.setItem("user", data.userName)
-                }
             }
             catch (error) {
             }
@@ -74,14 +74,14 @@ export const UserProvider = ({ children }) => {
             }
         }
         getData()
-    }, [userUid, currentUser])
-    useEffect(()=>{
+    }, [userUid])
+    useEffect(() => {
         const getData = async () => {
             try {
-                const data=await UrmaresteComanda(userUid)
+                const data = await UrmaresteComanda(userUid)
                 setPurchase(data)
             }
-            catch(err){
+            catch (err) {
                 console.log(err)
             }
         }

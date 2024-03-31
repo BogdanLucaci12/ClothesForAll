@@ -157,7 +157,7 @@ export const getUserCollection = async (useruid) => {
 export const UpdateUserCollection = async (useruid, userName, alias, telefon) => {
     try {
         const userDocRef = doc(db, 'users', useruid)
-        console.log(userName, alias, telefon)
+       
         await updateDoc(userDocRef, {
             userName: userName,
             additionalInfo: {

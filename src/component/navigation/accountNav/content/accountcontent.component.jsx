@@ -7,8 +7,12 @@ import { signOutUser } from "../../../../utility/firebase";
 const AccountContent = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const signOutHandler= async()=>{
-        await signOutUser();
-        setCurrentUser("");
+        try {
+            await signOutUser();
+            setCurrentUser("");
+        } catch (error) {
+            console.error("Error during logout:", error);
+        }
     }
     return (
         <AccountContentStyle >

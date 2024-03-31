@@ -37,7 +37,7 @@ const UserPage = () => {
     const handleDelogare=async()=>{
         await signOutUser();
         setCurrentUser("");
-        setTimeout(()=>{navigate("/")}, 1000)
+        setTimeout(()=>{navigate("/")}, 2000)
     }
     return (
         <MainDiv>

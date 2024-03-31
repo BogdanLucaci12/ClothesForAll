@@ -41,6 +41,7 @@ width:90%;
 export const UserIcon=styled.div`
 display: flex;
 justify-content: space-between;
+gap:.5em;
 align-items: center;
 text-align:center;
 min-width:15vw;
@@ -51,7 +52,7 @@ border-radius:2rem;
 background-color:white;
 min-width: 95%;
 height: 4em;
-top:93vh;
+top:85vh;
 justify-content: space-around;
 z-index:5
 }
