@@ -19,7 +19,7 @@ return (
             </Image>
     </div>
         <ProductDetails>
-        <div style={{fontSize:"25px"}}>{nume}</div>
+        <div style={{fontSize:"15px"}}>{nume}</div>
         <div>{categorie}</div>
         <h5>{pret} RON</h5>
             <h6 style={{ display: "flex" }}>
@@ -29,12 +29,12 @@ return (
     </ProductDetails>
     <div style={{marginLeft:"auto"}}>
         <Cantitate>
-            <h4>
+            <h5>
             Cantitate: 
                     <PlusIcon onClick={() => handleButtonPlus(product)} />
                     {quantity}
                     <MinusIcon onClick={() => handleButtonMinus(product)}/>
-            </h4>
+            </h5>
         </Cantitate>
     </div>
 

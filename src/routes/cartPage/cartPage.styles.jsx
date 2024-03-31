@@ -4,11 +4,11 @@ import { CgAddR, CgRemoveR } from "react-icons/cg";
 export const PlusIcon = styled(CgAddR)`
 cursor: pointer;
 margin:0 .4em;
-` 
+`
 export const MinusIcon = styled(CgRemoveR)`
 cursor: pointer;
 margin-left:.4em;
-` 
+`
 
 export const MainDiv = styled.div`
 width:100%;
@@ -18,7 +18,7 @@ position:relative;
 display: flex;
 justify-content:center;
 `
-export const ShowProduct=styled.div`
+export const ShowProduct = styled.div`
 width:60%;
 height: auto;
 margin: 1em;
@@ -30,9 +30,9 @@ border-radius: 10px;
 width:100%; 
 }
 `
-export const ShowPriceDetailsStyles =styled.div`
+export const ShowPriceDetailsStyles = styled.div`
 width:20%;
-height:25vh;
+max-height:35vh;
 margin: 1em;
   box-shadow: 5px 10px 35px -14px rgba(0,0,0,0.75);
 -webkit-box-shadow: 5px 10px 35px -14px rgba(0,0,0,0.75);
@@ -44,7 +44,7 @@ width:100%;
 
 }
 `
-export const ProductMainDiv =styled.div`
+export const ProductMainDiv = styled.div`
 height:25vh;
 width:100%;
 border-bottom:.7px solid rgba(0,0,0,0.3);
@@ -58,21 +58,19 @@ height:auto;
 justify-content:center;
 }
 `
-export const Image=styled.div`
-height:100%;
+export const Image = styled.div`
+height:auto;
 display:flex;
 position:relative;
 justify-content:center;
 align-items:center;
 
 & img {
-    max-width:20em;
-    min-width:14em;
-    max-height:14em;
-    min-height:10em;
+    width:10em;
+height:10em
 }
 `
-export const ProductDetails=styled.div`
+export const ProductDetails = styled.div`
 display:flex;
 margin-left:1em;
 width:100%;
@@ -82,28 +80,28 @@ flex-direction:column;
 }
 
 `
-export const Cantitate=styled.div`
+export const Cantitate = styled.div`
 display:flex;
 position:relative;
 justify-content:center;
 align-items:center;
 `
 
-export const Valori= styled.div`
+export const Valori = styled.div`
 display:flex;
 justify-content:space-between;
 `
-export const GoToPay=styled.button`
+export const GoToPay = styled.button`
 width:100%;
 border-radius: 1em;
-height:2.5em;
+height:2em;
 color:white;
 background-color:black;
 box-shadow: 5px 10px 35px -14px rgba(0,0,0,0.75);
 -webkit-box-shadow: 5px 10px 35px -14px rgba(0,0,0,0.75);
 -moz-box-shadow: 5px 10px 35px -14px rgba(0,0,0,0.75);
 `
-export const NoProductInCart= styled.div`
+export const NoProductInCart = styled.div`
 position:absolute;
 top:20vh;
 left:50%;
@@ -121,7 +119,7 @@ width:80vw;
 }
 `
 
-export const ProductInCart=styled.div`
+export const ProductInCart = styled.div`
 width:100%;
 height:auto;
  display:flex;
@@ -131,7 +129,7 @@ display:block;
 }
 `
 
-export const Highlight=styled.div`
+export const Highlight = styled.div`
 color:white;
 background-color:black;
 margin-right:1em;

@@ -26,6 +26,7 @@ width:100%;
 margin-left:auto;
 justify-content:flex-end;
 display:flex;
+font-size:12px
 `
 export const RemovefavItem = styled(GrClose)`
 width:1em;

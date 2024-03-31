@@ -16,24 +16,24 @@ const ShowPriceDetails = () => {
     return (
         <ShowPriceDetailsStyles>
             <div>
-                <h1 style={{ textAlign: "center" }}>Sumar</h1>
+                <p style={{ textAlign: "center" }}>Sumar</p>
             </div>
             <div>
                 <Valori>
-                    <h5>Subtotal</h5>
-                    <h5> {total}</h5>
+                    <p>Subtotal</p>
+                    <p> {total}</p>
                 </Valori>
                 <Valori>
-                    <h5>Reducere</h5>
-                    <h5> 0 RON</h5>
+                    <p>Reducere</p>
+                    <p> 0 RON</p>
                 </Valori>
                 <Valori>
-                    <h5>Transport</h5>
-                    <h5> {transport} RON</h5>
+                    <p>Transport</p>
+                    <p> {transport} RON</p>
                 </Valori>
                 <Valori>
-                    <h5>Total</h5>
-                    <h5> {total + transport} RON</h5>
+                    <p>Total</p>
+                    <p> {total + transport} RON</p>
                 </Valori>
             </div>
             <GoToPay onClick={()=>navigate("/pay")}>Plateste</GoToPay>
