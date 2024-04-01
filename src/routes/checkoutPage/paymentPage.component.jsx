@@ -92,7 +92,6 @@ const PaymentPage = () => {
                     },
                     body: JSON.stringify({ email, idComanda, adresaSelectata, cartItems, total })
                 })
-                response()
                 setCartItems([])
             }
         }

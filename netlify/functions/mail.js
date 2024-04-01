@@ -20,7 +20,7 @@ exports.handler = async (event) => {
         from: process.env.SEND_EMAIL_EMAIL,
         to: email,
         subject: " Mulțumim pentru comanda dvs.!",
-        text: `Vă mulțumim că ați ales ClotheForAll!
+        text: `Vă mulțumim că ați ales ClothesForAll!
 
 Apreciem comanda dvs. și așteptăm cu nerăbdare să vă trimitem produsele.
 
@@ -43,7 +43,6 @@ Echipa ClothesForAll`,
 
     try {
         await transporter.sendMail(mailOptions);
-        console.log("Email sent successfully");
         return {
             statusCode: 200,
             body: JSON.stringify({ message: "Email sent successfully" })
