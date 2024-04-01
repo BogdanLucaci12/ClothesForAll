@@ -100,7 +100,7 @@ padding:1em;
 }
 `
 export const Descriere=styled.div`
-font-size:25px;
+font-size:15px;
 @media screen and (max-width:900px) {
     display:none
 }

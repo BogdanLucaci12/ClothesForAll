@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Carousel from 'react-elastic-carousel'
 
 export const ContainerComanda = styled.div`
 width=100%;
@@ -38,18 +37,6 @@ export const DeliveryDetails = styled.div`
 width:100%;
 }
  `
-export const CustomCarousel = styled(Carousel)`
-
- img{
-width:8em;
- height:8em;
- }
- .rec.rec-arrow {
-    border-radius: 0;
-    background-color:white;
-    border:none
-}
-`
 
 export const DescriptionEachPurchase=styled.div`
 font-size:1em

@@ -6,7 +6,7 @@ import { GrAdd } from "react-icons/gr";
 
 export const AboutUserMain = styled.div`
 width: 100%;
-height: 30vh;
+height: 40vh;
 display: flex;
 justify-content: center;
 `

@@ -10,8 +10,10 @@ const ComenziPage=()=>{
             
             {purchase === undefined ? (<Spinner animation="border" variant="dark" />): 
                 purchase === "NoPurchase" ? (<h3 >Nu ai comenzi</h3>):
-          purchase.map(e=>(
-            <Comanda comanda={e}/>
+          purchase.map((e, index)=>(
+            <Comanda 
+            key={index}
+            comanda={e}/>
           ))}
 
         </ContainerComanda>

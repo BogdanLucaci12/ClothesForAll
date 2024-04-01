@@ -40,10 +40,9 @@ export const UserProvider = ({ children }) => {
                 console.log("no user available")
             }
         })
-    }, [auth])
+    }, [])
     useEffect(() => {
         localStorage.setItem("user", currentUser)
-        console.log(currentUser)
     }, [currentUser])
     useEffect(() => {
         const fetchData = async () => {
