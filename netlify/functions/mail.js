@@ -45,7 +45,7 @@ Echipa ClothesForAll`,
         await transporter.sendMail(mailOptions);
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: "Email sent successfully" })
+            body: JSON.stringify({ message: "EmailSentSuccessfully" })
         };
     } catch (error) {
         console.log(error);

@@ -83,16 +83,20 @@ const PaymentPage = () => {
             if (paymentResult.paymentIntent.status === "succeeded") {
                 setProccessing("succeeded")
                  const idComanda=paymentResult.paymentIntent.id
-                userUid ? AdaugaComanda(userUid, idComanda, adresaSelectata, email, cartItems, total)
-                 : (setNoUserEmail(""))
-                const response = await fetch("/.netlify/functions/mail", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/jsson',
-                    },
-                    body: JSON.stringify({ email, idComanda, adresaSelectata, cartItems, total })
-                })
-                setCartItems([])
+                try {
+                    userUid ? await AdaugaComanda(userUid, idComanda, adresaSelectata, email, cartItems, total)
+                        : (setNoUserEmail(""))
+                    await fetch("/.netlify/functions/mail", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/jsson',
+                        },
+                        body: JSON.stringify({ email, idComanda, adresaSelectata, cartItems, total })
+                    });
+                    setCartItems([]);
+                } catch (error) {
+                    console.error('Eroare la trimiterea email-ului:', error);
+                }
             }
         }
     }
