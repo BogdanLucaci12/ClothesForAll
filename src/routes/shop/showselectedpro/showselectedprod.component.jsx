@@ -36,13 +36,10 @@ const ShowSelectedProd= ()=>{
         }));
     };
     const adaugaProdusInfo = () => {
-        // Adaugare produs logic aici
         setProdusAdaugat(true);
-
-        // Setare timeout pentru a reveni la fals după 3 secunde
         setTimeout(() => {
             setProdusAdaugat(false);
-        }, 3000); // 3000 milisecunde = 3 secunde
+        }, 3000); 
     };
      const handlebuttonclick = () => {
         const newCartItem={
@@ -61,7 +58,6 @@ return (
             produsAdaugat && (<ProdusAdaugat><h5>Produs adaugat cu succes</h5></ProdusAdaugat>)
         }
      <MainDiv>
-      
         <MainpicDiv>
                 <img src={ImageUrl} alt="" style={{width: "100%", height:"100%"}}/>
         </MainpicDiv>

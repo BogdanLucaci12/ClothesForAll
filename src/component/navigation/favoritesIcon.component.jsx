@@ -32,7 +32,7 @@ const FavoritesIcon = () => {
         >
             <CountLengthCart>{favoriteItem.length}</CountLengthCart>
             <div onClick={handleclick}>
-                <FavoriteBorderOutlinedIcon style={{ fontSize: '4vh' }} />
+                <FavoriteBorderOutlinedIcon style={{ fontSize: '3.5vh' }} />
                 <p>Favorite</p>
             </div>
             {

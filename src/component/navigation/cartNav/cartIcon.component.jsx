@@ -13,7 +13,7 @@ const CartIcon = () => {
       <NavigationIconContainer onMouseEnter={handleOpen} onMouseLeave={handleClose}>
          <CountLengthCart>{cartItems.length}</CountLengthCart>
          <Link to="/cart">
-            <ShoppingCartOutlinedIcon style={{ fontSize: '4vh' }} />
+            <ShoppingCartOutlinedIcon style={{ fontSize: '3.5vh' }} />
             <p>Coșul meu</p>
          </Link>
          {isDropdownMenuOpen &&

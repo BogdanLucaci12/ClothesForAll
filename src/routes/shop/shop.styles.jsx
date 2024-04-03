@@ -47,7 +47,7 @@ align-items: center;
 export const ProductContainerstyle= styled.div`
 display:block;
 height:28em;
-width:23em;
+width:17em;
 overflow: hidden;
 border-radius:5px;
 position: relative;
@@ -61,17 +61,17 @@ box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 z-index:10;
 }
   @media only screen and (max-width: 900px) {
-  width: 18em;
+  width: 17em;
   box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 }
  @media only screen and (max-width: 633px) {
-  width: 25em;
+  width: 17em;
 }
 `
 export const ProductImage= styled.img`
-margin: .5em;
-width: 95%;
-height: 14em;
+margin:.5em;
+height:12em;
+width:15em;
 object-fit: fill;
 `
 export const Containerforproducts=styled.div`
@@ -79,10 +79,10 @@ width:auto;
 height:auto;
 display:flex;
 flex-wrap: wrap;
-row-gap:2em;
+gap:2em;
   position: relative;
   z-index:0;
-
+justifi-content:center
 `
 export const ColorSize= styled.div`
 display:flex;

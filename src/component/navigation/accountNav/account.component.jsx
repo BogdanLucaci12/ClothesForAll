@@ -25,7 +25,7 @@ const AccountIcon = () => {
         >
             
             
-            <AccountCircleOutlinedIcon style={{ fontSize: '4vh' }} onClick={handleclick}/>
+            <AccountCircleOutlinedIcon style={{ fontSize: '3.5vh' }} onClick={handleclick}/>
             
             {
                 currentUser ? (<p>{currentUser}</p>) : (<p>Contul Meu</p>)

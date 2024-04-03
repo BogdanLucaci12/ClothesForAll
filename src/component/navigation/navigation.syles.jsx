@@ -51,20 +51,20 @@ box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 border-radius:2rem;
 background-color:white;
 min-width: 95%;
-height: 4em;
+height: 3em;
 top:85vh;
 justify-content: space-around;
 z-index:5
 }
 `
 export const NavigationIconContainer=styled.div`
-display:grid;
+display:flex;
+flex-direction: column;
 align-items: center;
-text-align: center;
 place-items:center;
-box-sizing: border-box;
 position:relative;
 cursor:pointer;
+height:3em
 `
 export const CountLengthCart=styled.div`
 position: absolute;

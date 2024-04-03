@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Back=styled.div`
 background-color: white;
-
 overflow: hidden;
 `
 export const MainDiv=styled.div`
@@ -19,7 +18,8 @@ box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.5);
 @media screen and (max-width: 900px) {
     display:block;
     width: 70%;
-    top: 55%;
+    top: 65%;
+    margin-bottom:2em
   }
 `
 export const MainpicDiv=styled.div`
