@@ -51,8 +51,8 @@ box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 border-radius:2rem;
 background-color:white;
 min-width: 95%;
-height: 3em;
-top:85vh;
+height: 4em;
+top:90vh;
 justify-content: space-around;
 z-index:5
 }
