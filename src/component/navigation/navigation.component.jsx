@@ -12,7 +12,7 @@ const NavigationBar = () => {
     const {setSeteazaCategoria } = useContext(CategorieContext);
     const seteazaBarbat = () => setSeteazaCategoria("barbati")
     const seteazaFemeie = () => setSeteazaCategoria("femei")
-    const seteazaCopil = () => setSeteazaCategoria("copil")
+    const seteazaCopil = () => setSeteazaCategoria("copii")
     const [navVisible, setNavVisible] = useState(true);
     const lastScrollTop = useRef(0);
     const isMobile = useMediaQuery({ maxWidth: 900 });

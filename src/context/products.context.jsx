@@ -18,7 +18,6 @@ export const ProductsProvider = ({ children }) => {
                 console.error("Error fetching data:", error);
             }
         };
-
         fetchData();
     }, [seteazaCategoria]);
 
