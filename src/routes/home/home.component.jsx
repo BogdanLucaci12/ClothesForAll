@@ -8,7 +8,7 @@ const Home = ()=>{
                 <h1>Welcome to Our Exclusive Online Store</h1>
                 </div>
                 <div>
-                <h5>Dicover a world where fashion meets minimalism. Our collection bringe togheter the essence of style and simplicity, caterubg to your unique tastes with exceptional quality and design</h5>
+                <h5>Discover a world where fashion meets minimalism. Our collection bringe togheter the essence of style and simplicity, caterubg to your unique tastes with exceptional quality and design</h5>
                 </div>
             </A23b>
             <A23bc>

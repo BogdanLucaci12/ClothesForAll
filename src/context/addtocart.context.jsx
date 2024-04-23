@@ -1,4 +1,30 @@
-import { createContext, useEffect, useState} from "react";
+import { createContext, useEffect, useState, useReducer} from "react";
+
+const addToCartNewItem = (cartItems, newCartItem) => {
+    const allreadyInCart = cartItems.find((cartItem) => cartItem.marime === newCartItem.marime && cartItem.culoare === newCartItem.culoare && cartItem.pret === newCartItem.pret)
+    if (allreadyInCart) {
+        return cartItems.map((cartItem) => cartItem.marime === newCartItem.marime && cartItem.culoare === newCartItem.culoare && cartItem.pret === newCartItem.pret
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem)
+    }
+    const updatedCartItems = [...cartItems, newCartItem];
+    return updatedCartItems
+}
+const decreaseQuantityOfCart=(cartItems, item)=>{
+    const removeItem = cartItems.find((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret)
+    if (removeItem.quantity === 1) {
+        const updatedCart = cartItems.filter((cartItem) => !(cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret));
+        return updatedCart
+    }
+    return cartItems.map((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem)
+}
+const increaseQuantityOfCart = (cartItems, item)=>{
+    return cartItems.map((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem)
+}
 
 
 export const Cartcontext=createContext({
@@ -8,52 +34,62 @@ export const Cartcontext=createContext({
     increaseQuantity: ()=>{},
     decreaseQuantity: ()=>{},
     total: 0,
-    
 })
+export const cartItem_Action_type={
+    cartItems:"cartItems"
+}
+
+const cartItemsReducers=(state, action)=>{
+    const {type, payload}=action
+    switch(type){
+        case cartItem_Action_type.cartItems:
+        return {
+            ...state, 
+            ...payload
+        }
+        default:
+            throw new Error(`unhandled action type ${type} in cartItemsReducers`)
+    }
+}
+
+const Initial_state={
+    cartItems: [],
+    total: 0
+}
 export const CartProvider=({children})=>{
-    const [cartItems, setCartItems] = useState(() => {
+    useEffect(() => {
         const storedCartItems = localStorage.getItem("cartItems");
-        return storedCartItems ? JSON.parse(storedCartItems) : [];
-    });
-    const [total, setTotal]=useState()
+        if (storedCartItems) {
+            dispatch({ type: cartItem_Action_type.cartItems, payload: JSON.parse(storedCartItems) });
+        }
+    }, []);
+    const [{ cartItems, total }, dispatch] = useReducer(cartItemsReducers, Initial_state)
+    const updatedCartItems = (newCartItems)=>{
+        const pretTotal = newCartItems.reduce((acc, cartItem) => {
+            return acc + cartItem.quantity * cartItem.pret;
+        }, 0);
+        dispatch({ type: cartItem_Action_type.cartItems, payload: { cartItems: newCartItems, total: pretTotal } })
+
+    }
     const increaseQuantity = (item) => {
-        setCartItems(cartItems.map((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem))
+        const newCartItem=increaseQuantityOfCart(cartItems, item)
+        updatedCartItems(newCartItem)
     }
     const decreaseQuantity = (item)=>{
-        const removeItem = cartItems.find((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret)
-    //    console.log(removeItem.quantity)
-        if(removeItem.quantity===1){
-            const updatedCart = cartItems.filter((cartItem) => !(cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret));    
-           return  setCartItems(updatedCart)
-        }
-       return setCartItems(cartItems.map((cartItem) => cartItem.marime === item.marime && cartItem.culoare === item.culoare && cartItem.pret === item.pret
-            ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem))
+        const newCartItem =decreaseQuantityOfCart(cartItems, item)
+        updatedCartItems(newCartItem)
     }
-    const addToCart = (newCartItem) =>{
-            const allreadyInCart = cartItems.find((cartItem) => cartItem.marime === newCartItem.marime && cartItem.culoare === newCartItem.culoare && cartItem.pret === newCartItem.pret)
-            console.log(allreadyInCart);
-            if (allreadyInCart) {
-                return setCartItems(cartItems.map((cartItem) => cartItem.marime === newCartItem.marime && cartItem.culoare === newCartItem.culoare && cartItem.pret === newCartItem.pret
-                    ? { ...cartItem, quantity: cartItem.quantity + 1 }
-                    : cartItem))
-            }
-            const updatedCartItems = [...cartItems, newCartItem];
-            setCartItems(updatedCartItems);
-        }
-    useEffect(()=>{
-         
-       const pretTotal = cartItems.reduce((acc, cartItem) => {
-           return acc + cartItem.quantity * cartItem.pret;
-       }, 0);
-        setTotal(pretTotal);
-    }, [cartItems])
+    const addToCart=(item)=>{
+        const newCartItem = addToCartNewItem(cartItems, item)
+        updatedCartItems(newCartItem)
+
+    }
     useEffect(() => {
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        if (cartItems.length > 0) {
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        }
     }, [cartItems]);
-    const value = { cartItems, setCartItems, increaseQuantity, addToCart, decreaseQuantity, total }
+    const value = { cartItems, increaseQuantity, addToCart, decreaseQuantity, total }
     return (
         <Cartcontext.Provider value={value}>{children}</Cartcontext.Provider>
     )
