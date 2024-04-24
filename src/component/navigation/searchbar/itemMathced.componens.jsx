@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { ImageItem, ItemDiv, ContentItem } from "./searchbarnav.styles";
 import { ItemContext } from "../../../context/itemcontext.component";
-import { LabelDropdownContext } from "../../../context/labelanddropdownforsearch.context";
+import { LabelInSearchBar } from "./managementLabel.component";
+
 const ItemMatched = ({ produs }) => {
+    const { setLabelOff } = LabelInSearchBar()
     const { setItem } = useContext(ItemContext);
-    const { setLabelOff } = useContext(LabelDropdownContext);
     const { ImageUrl, nume, pret, categorie } = produs;
     const handleClick = () => {
         setLabelOff(false);

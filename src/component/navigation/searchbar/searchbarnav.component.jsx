@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { FormInput, LabelInput, LoopIcons, Form} from "./searchbarnav.styles";
 import DropdownSearch from "./dropdownsearch.component";
 import { SearchItemContext } from "../../../context/searchitem.context";
-import { LabelDropdownContext } from "../../../context/labelanddropdownforsearch.context";
+import { LabelInSearchBar } from "./managementLabel.component";
 const SearchBarNav = () => {
-    const { labelOff, setLabelOff }=useContext(LabelDropdownContext);
+    const { labelOff, setLabelOff } = LabelInSearchBar()
     const [itemToBeShown, setItemToBeShown] = useState([]);
     const [searchfield, setSearchfield] = useState("");
     const { searchItems } = useContext(SearchItemContext);

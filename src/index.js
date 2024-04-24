@@ -12,7 +12,6 @@ import { ItemProvider } from './context/itemcontext.component';
 import { CartProvider } from './context/addtocart.context';
 import { FavoritesProvider } from './context/favorites.context';
 import { SearchItemProviver } from './context/searchitem.context';
-import { LabelDropdownProvider } from './context/labelanddropdownforsearch.context';
 import { ManageClickOnUserPageProvier } from './context/managaAccountSubpage.component';
 import { Elements } from '@stripe/react-stripe-js';
 import { StripePromise } from './utility/stripe.utils';
@@ -22,7 +21,6 @@ root.render(
     <BrowserRouter>
       <UserProvider>
         <ManageClickOnUserPageProvier>
-          <LabelDropdownProvider>
             <SearchItemProviver>
               <CategorieProvider>
                 <ProductsProvider>
@@ -38,7 +36,6 @@ root.render(
                 </ProductsProvider>
               </CategorieProvider>
             </SearchItemProviver>
-          </LabelDropdownProvider>
         </ManageClickOnUserPageProvier>
       </UserProvider>
     </BrowserRouter>

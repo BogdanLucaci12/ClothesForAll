@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, useReducer} from "react";
+import { createContext, useEffect, useReducer} from "react";
 
 const addToCartNewItem = (cartItems, newCartItem) => {
     const allreadyInCart = cartItems.find((cartItem) => cartItem.marime === newCartItem.marime && cartItem.culoare === newCartItem.culoare && cartItem.pret === newCartItem.pret)
