@@ -36,7 +36,8 @@ export const Cartcontext=createContext({
     total: 0,
 })
 export const cartItem_Action_type={
-    cartItems:"cartItems"
+    cartItems:"cartItems",
+    reinitialized:"paymentSucces"
 }
 
 const cartItemsReducers=(state, action)=>{
@@ -47,6 +48,10 @@ const cartItemsReducers=(state, action)=>{
             ...state, 
             ...payload
         }
+        case cartItem_Action_type.reinitialized:
+            return {
+                ...payload
+            }
         default:
             throw new Error(`unhandled action type ${type} in cartItemsReducers`)
     }
@@ -69,8 +74,11 @@ export const CartProvider=({children})=>{
             return acc + cartItem.quantity * cartItem.pret;
         }, 0);
         dispatch({ type: cartItem_Action_type.cartItems, payload: { cartItems: newCartItems, total: pretTotal } })
-
     }
+    const setCartItems= (cartItem)=>{
+        dispatch({
+            type: cartItem_Action_type.reinitialized, payload: { cartItems: cartItem, total: 0 }
+    })}
     const increaseQuantity = (item) => {
         const newCartItem=increaseQuantityOfCart(cartItems, item)
         updatedCartItems(newCartItem)
@@ -89,7 +97,7 @@ export const CartProvider=({children})=>{
             localStorage.setItem("cartItems", JSON.stringify(cartItems));
         }
     }, [cartItems]);
-    const value = { cartItems, increaseQuantity, addToCart, decreaseQuantity, total }
+    const value = { cartItems, increaseQuantity, addToCart, decreaseQuantity, total, setCartItems }
     return (
         <Cartcontext.Provider value={value}>{children}</Cartcontext.Provider>
     )
