@@ -14,6 +14,7 @@ width:60%;
 padding:1em;
 display: flex;
 border-radius:1em;
+justify-content: space-between;
 box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.5);
 @media screen and (max-width: 900px) {
     display:block;
