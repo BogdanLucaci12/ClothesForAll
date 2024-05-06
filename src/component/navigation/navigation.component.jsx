@@ -8,11 +8,20 @@ import AccountIcon from "./accountNav/account.component";
 import { CategorieContext } from "../../context/categorie.context";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { ProductsContext } from "../../context/products.context";
 const NavigationBar = () => {
     const {setSeteazaCategoria } = useContext(CategorieContext);
-    const seteazaBarbat = () => setSeteazaCategoria("barbati")
-    const seteazaFemeie = () => setSeteazaCategoria("femei")
-    const seteazaCopil = () => setSeteazaCategoria("copii")
+    const { setProduseCategorie } = useContext(ProductsContext);
+    const seteazaBarbat = () => {
+        setProduseCategorie({})
+        setSeteazaCategoria("barbati")
+    }
+    const seteazaFemeie = () => {
+        setProduseCategorie({})
+        setSeteazaCategoria("femei")}
+    const seteazaCopil = () => {
+        setProduseCategorie({})
+        setSeteazaCategoria("copii")}
     const [navVisible, setNavVisible] = useState(true);
     const lastScrollTop = useRef(0);
     const isMobile = useMediaQuery({ maxWidth: 900 });

@@ -32,7 +32,7 @@ export const ProductsProvider = ({ children }) => {
         return updatedProduse;
     };
     
-    const value = { produseCategorie};
+    const value = { produseCategorie, setProduseCategorie};
   
     return (
         <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>
