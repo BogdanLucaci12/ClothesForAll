@@ -22,9 +22,9 @@ provider.setCustomParameters({
 });
 const storage = getStorage(app);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
 export const signOutUser = async () => await signOut(auth);
-export const db = getFirestore();
 export const createUserDocumentFromAuth = async (userAuth, nume) => {
     if (!userAuth) return;
     const userDocRef = doc(db, 'users', userAuth.uid)
@@ -156,7 +156,7 @@ export const getUserCollection = async (useruid) => {
 export const UpdateUserCollection = async (useruid, userName, alias, telefon) => {
     try {
         const userDocRef = doc(db, 'users', useruid)
-       
+
         await updateDoc(userDocRef, {
             userName: userName,
             additionalInfo: {
@@ -376,17 +376,17 @@ export const AdaugaComanda = async (useruid, id, adresa, email, cartItems, total
         console.log("Nu exista un user logat")
     }
 }
-export const UrmaresteComanda =async (userUid)=>{
-    if (userUid){
-    const userDocRef = doc(db, 'users', userUid);
-    const userSnapshot = await getDoc(userDocRef);
-    const comanda = userSnapshot.data().comanda;
-    if(comanda){
-        return comanda
+export const UrmaresteComanda = async (userUid) => {
+    if (userUid) {
+        const userDocRef = doc(db, 'users', userUid);
+        const userSnapshot = await getDoc(userDocRef);
+        const comanda = userSnapshot.data().comanda;
+        if (comanda) {
+            return comanda
+        }
+        else {
+            return "NoPurchase"
+        }
     }
-    else{
-        return "NoPurchase"
-    }
-}
 
 }

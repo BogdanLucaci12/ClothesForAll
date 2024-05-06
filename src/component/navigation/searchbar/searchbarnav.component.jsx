@@ -40,7 +40,7 @@ const SearchBarNav = () => {
             || prod.categorie.toLowerCase().includes(searchfield.toLowerCase())
         ));
         setItemToBeShown(searchItem);
-    }, [searchfield, searchItems]);
+    }, [searchfield, searchItems])
     return (
         <Form ref={refinput}>
            {

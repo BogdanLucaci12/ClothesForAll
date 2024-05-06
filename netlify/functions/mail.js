@@ -14,7 +14,7 @@ const text = ()=>{
 }
 exports.handler = async (event) => {
     const jasonBase=atob(event.body)
-    const { email, id, adresaSelectata, total  } = JSON.parse(jasonBase)
+    const { email, idComanda, adresaSelectata, total  } = JSON.parse(jasonBase)
     const {adresa, judet, localitate, telefon}=adresaSelectata
     const mailOptions = {
         from: process.env.SEND_EMAIL_EMAIL,
@@ -25,7 +25,7 @@ exports.handler = async (event) => {
 Apreciem comanda dvs. și așteptăm cu nerăbdare să vă trimitem produsele.
 
 Detalii comandă:
-* Număr comandă: ${id}
+* Număr comandă: ${idComanda}
 
 Total: ${total} RON
 

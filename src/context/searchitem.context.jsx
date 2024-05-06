@@ -1,14 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import { SearchDatabases, getImagebyUrl } from "../utility/firebase";
-export const SearchItemContext=createContext({
-searchItem:[]
+export const SearchItemContext = createContext({
+    searchItem: []
 })
-export const SearchItemProviver=({children})=>{
+export const SearchItemProviver = ({ children }) => {
     const [searchItems, setSearchItems] = useState([])
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Assuming SearchDatabases is an async function
                 const allItemsInDb = await SearchDatabases();
                 const updatedCategoryMap = await updateImageUrls(allItemsInDb);
 
@@ -32,6 +31,6 @@ export const SearchItemProviver=({children})=>{
     }, []);
 
 
-    const value={searchItems}
+    const value = { searchItems }
     return <SearchItemContext.Provider value={value}>{children}</SearchItemContext.Provider>
 }

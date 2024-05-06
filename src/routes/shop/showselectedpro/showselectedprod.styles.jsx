@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const Back=styled.div`
+export const Back = styled.div`
 background-color: white;
 overflow: hidden;
 `
-export const MainDiv=styled.div`
+export const MainDiv = styled.div`
 position: absolute;
 top: 50%;
 right: 50%;
@@ -22,8 +22,8 @@ box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.5);
     margin-bottom:2em
   }
 `
-export const MainpicDiv=styled.div`
-width:50%;
+export const MainpicDiv = styled.div`
+width:25em;
 height:auto;
 display: flex;
 justify-content: center;
@@ -35,7 +35,7 @@ position: relative;
    height:20rem;
   }
 `
-export const ProductDetailes=styled.div`
+export const ProductDetailes = styled.div`
 width:50%;
 height:auto;
 display: flex;
@@ -47,7 +47,7 @@ padding-left: 1em;
    gap: 1em;
   }
 `
-export const Alege=styled.div`
+export const Alege = styled.div`
 width:100%;
 height:2em;
 text-align: center;
@@ -57,7 +57,7 @@ position:relative;
 cursor:pointer;
 box-shadow: 0px 0px 12px 7px rgba(0,0,0,0.1);
 `
-export const OpenDropdown=styled.div`
+export const OpenDropdown = styled.div`
 position: absolute;
 display: flex;
 justify-content:center;
@@ -81,7 +81,7 @@ p{
     }
 }
 `
-export const Addtocart=styled.button`
+export const Addtocart = styled.button`
 margin-top:auto;
 height: 3em;
 width: 100%;

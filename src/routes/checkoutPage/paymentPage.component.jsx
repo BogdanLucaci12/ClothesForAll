@@ -84,8 +84,7 @@ const PaymentPage = () => {
                 setProccessing("succeeded")
                  const idComanda=paymentResult.paymentIntent.id
                 try {
-                    userUid ? await AdaugaComanda(userUid, idComanda, adresaSelectata, email, cartItems, total)
-                        : (setNoUserEmail(""))
+                    userUid ? await AdaugaComanda(userUid, idComanda, adresaSelectata, email, cartItems, total) : (setNoUserEmail(""))
                     await fetch("/.netlify/functions/mail", {
                         method: "POST",
                         headers: {
