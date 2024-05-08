@@ -54,7 +54,7 @@ const PaymentPage = () => {
         const response = await fetch("/.netlify/functions/create-payment-intent", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/jsson',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({ amount: total * 100 })
         }).then(res => res.json());
