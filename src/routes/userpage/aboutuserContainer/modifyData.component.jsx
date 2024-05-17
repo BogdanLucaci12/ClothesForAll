@@ -2,8 +2,8 @@ import { ModifiyDataMainDiv, ModifiyDataContainer, CloseSign, Formular, ButtonSu
 import {  useState, useContext } from "react"
 import { UserContext } from "../../../context/user.context";
 import { UpdateUserCollection } from "../../../utility/firebase";
-const ModifyData = ({ onclick, userName, alias, telefon }) => {
-    const { userUid }=useContext(UserContext)
+const ModifyData = ({ onclick, userName, alias, telefon, email }) => {
+    const { userUid, setUserCollection }=useContext(UserContext)
     const [newChanges, setNewChanges] = useState({
         userName1: userName,
         alias1: alias,
@@ -16,10 +16,14 @@ const handleChange = (event)=>{
 
     const onSubmitClick = ()=>{
         UpdateUserCollection(userUid, newChanges.userName1, newChanges.alias1, newChanges.telefon1)
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
-
+        setUserCollection({ 
+            userName: newChanges.userName1, 
+            additionalInfo: { 
+                alias: newChanges.alias1, 
+                telefon: newChanges.telefon1 
+            },
+            email:email
+        })
     }
     return (
         <ModifiyDataMainDiv >

@@ -11,7 +11,6 @@ import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryEl
 import { AdaugaComanda } from "../../utility/firebase";
 const PaymentPage = () => {
     const [openAdresa, setOpenAdresa] = useState(false);
-   
     const [adresaSelectata, setAdresaSelectata] = useState();
     const [noUserAdress, setNoUserAdress] = useState();
     const [newAdress, setNewAdress] = useState()
@@ -27,7 +26,6 @@ const PaymentPage = () => {
     const handleClickAddadresa = () => {
         setOpenAdresa(!openAdresa)
     }
-   
     const handleAdresaField = (adresafield) => {
         setAdresaSelectata(adresafield)
     }
@@ -88,7 +86,7 @@ const PaymentPage = () => {
                     await fetch("/.netlify/functions/mail", {
                         method: "POST",
                         headers: {
-                            'Content-Type': 'application/jsson',
+                            'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({ email, idComanda, adresaSelectata, cartItems, total })
                     });
@@ -161,15 +159,12 @@ const PaymentPage = () => {
                         <FormularPlata action="">
                             <CardNumberElement
                                 options={CardStyle}
-
                             />
                             <CardExpiryElement
                                 options={CardStyle}
-
                             />
                             <CardCvcElement
                                 options={CardStyle}
-
                             />
                             {
                                 disable === "NoAdress" ?

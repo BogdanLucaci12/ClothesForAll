@@ -20,11 +20,9 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
         const { value } = e.target;
         setOptionLocalitate(value);
     };
-
     const optionClickLocalitati = (e) => {
         setOptionLocalitate(e.target.value)
     }
-
     const inseraCautareaJudet = (e) => {
         const { value } = e.target;
         setOptionJudet(value)
@@ -37,24 +35,18 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
     }, [optionJudet, localitati]);
     useEffect(() => {
         setAfiseazaLocalitati(localitateSelectataPeJudet)
-
     }, [localitateSelectataPeJudet])
-
     useEffect(() => {
         const filterLocalitate = localitateSelectataPeJudet.filter((loc) => loc.nume.toLowerCase().includes(optionLocalitate.toLowerCase()));
         setAfiseazaLocalitati(filterLocalitate);
-
     }, [optionLocalitate, localitateSelectataPeJudet])
-
     useEffect(() => {
         const filterJudete = judete.filter((jud) => jud.toLowerCase().includes(optionJudet.toLowerCase()));
         setAfiseazaJudete(filterJudete);
         setOptionLocalitate("Search");
-
     }, [optionJudet, judete])
     const optionClickJudet = (e) => {
         setOptionJudet(e.target.value)
-
     }
     useEffect(() => {
         const fetchData = async () => {
@@ -67,7 +59,6 @@ const AdaugaAdresa = ({ close, adaugaArrayAdresa, sendAdressNoUser }) => {
                 console.error("Error fetching data:", error);
             }
         };
-
         fetchData();
     }, []);
     const adaugaClickButton = () => {

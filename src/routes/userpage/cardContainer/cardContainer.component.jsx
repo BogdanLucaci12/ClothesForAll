@@ -19,14 +19,12 @@ const CardContainer = () => {
         if (open) {
             document.body.style.overflow = '';
         }
-     
     }
     const addCard = (card) => {
         console.log(card)
         setRetrieveCards([...retrieveCards, card])
     }
     open && (document.body.style.overflow = 'hidden')
-
     return (
         <div>
             {

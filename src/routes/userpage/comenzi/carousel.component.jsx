@@ -13,7 +13,6 @@ const ControlledCarousel = ({ cartItems, activeIndex }) => {
         setIndex(selectedIndex);
         activeIndex(selectedIndex);
     };
-   
     return (
         <Carousel
             activeIndex={index}
@@ -26,7 +25,6 @@ const ControlledCarousel = ({ cartItems, activeIndex }) => {
                 cartItems.map((item, index) => (
                     <Carousel.Item
                         key={index}
-                        
                     >
                         <img
                             src={item.ImageUrl}

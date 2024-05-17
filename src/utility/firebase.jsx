@@ -65,8 +65,8 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
     return await signInWithEmailAndPassword(auth, email, password)
 }
 export const getImagebyUrl = async (imageUrl) => {
+    if (!imageUrl) return
     try {
-        if (!imageUrl) return
         const storageRef = ref(storage, imageUrl);
         const url = await getDownloadURL(storageRef);
         return url

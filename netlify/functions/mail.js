@@ -9,12 +9,9 @@ const transporter = nodemailer.createTransport({
         pass: process.env.SEND_EMAIL_PASS,
     },
 });
-const text = ()=>{
-    
-}
+
 exports.handler = async (event) => {
-    const jasonBase=atob(event.body)
-    const { email, idComanda, adresaSelectata, total  } = JSON.parse(jasonBase)
+    const { email, idComanda, adresaSelectata, total  } = JSON.parse(event)
     const {adresa, judet, localitate, telefon}=adresaSelectata
     const mailOptions = {
         from: process.env.SEND_EMAIL_EMAIL,
@@ -40,7 +37,6 @@ Cu stimă,
 
 Echipa ClothesForAll`,
     };
-
     try {
         await transporter.sendMail(mailOptions);
         return {

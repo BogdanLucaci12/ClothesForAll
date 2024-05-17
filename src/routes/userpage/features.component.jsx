@@ -2,12 +2,10 @@ import React from "react";
 import { FeaturesMain, ImageUserContainer, Descriere, } from "./userpage.styles";
 
 const Features = ({ image, denumire, onClick }) => {
-
     return (
         <FeaturesMain onClick={onClick}>
-            
             <ImageUserContainer >
-               {image }
+                {image}
             </ImageUserContainer>
             <Descriere>
                 <div>{denumire}</div>
@@ -15,5 +13,4 @@ const Features = ({ image, denumire, onClick }) => {
         </FeaturesMain>
     );
 };
-
 export default Features;

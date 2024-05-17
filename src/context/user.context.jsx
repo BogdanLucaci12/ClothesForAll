@@ -44,27 +44,18 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("user", currentUser)
     }, [currentUser])
-    useEffect(() => {
-        const fetchData = async () => {
-            const date = await showAdress(userUid);
-            setAdrese(date)
-        }
-        fetchData()
-    }, [userUid])
-    useEffect(() => {
 
-        const fetchData = async () => {
-            const cardArray = await RetrieveCards(userUid);
-            setCards(cardArray)
-        }
-        fetchData()
-
-    }, [userUid])
     useEffect(() => {
         const getData = async () => {
             try {
                 const data = await getUserCollection(userUid);
                 setUserCollection(data);
+                const data2 = await UrmaresteComanda(userUid)
+                setPurchase(data2)
+                const cardArray = await RetrieveCards(userUid);
+                setCards(cardArray)
+                const date = await showAdress(userUid);
+                setAdrese(date)
             }
             catch (error) {
             }
@@ -74,19 +65,8 @@ export const UserProvider = ({ children }) => {
         }
         getData()
     }, [userUid])
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const data = await UrmaresteComanda(userUid)
-                setPurchase(data)
-            }
-            catch (err) {
-                console.log(err)
-            }
-        }
-        getData()
-    }, [userUid])
-    const value = { isLoading, currentUser, setCurrentUser, userUid, setUserUid, adrese, cards, usercollection, email, purchase }
+  
+    const value = { isLoading, currentUser, setCurrentUser, userUid, setUserUid, adrese, cards, usercollection, email, purchase, setUserCollection }
     return (
         <UserContext.Provider value={value}>{children}</UserContext.Provider>
     )

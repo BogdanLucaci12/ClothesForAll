@@ -19,7 +19,8 @@ const Comanda = ({comanda}) => {
     useEffect(()=>{
         if(indexC==="0"){
             setDescriptionOfItem(cartItems[0])
-        }else {
+        }
+        else {
             const desc=cartItems[indexC]
             setDescriptionOfItem(desc)
         }

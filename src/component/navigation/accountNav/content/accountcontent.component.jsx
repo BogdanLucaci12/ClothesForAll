@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 const AccountContent = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate()
-    const signOutHandler= async()=>{
+    const signOutHandler = async () => {
         try {
             await signOutUser();
             setCurrentUser("");
             setTimeout(() => { navigate("/") }, 1000)
-            
+
         } catch (error) {
             console.error("Error during logout:", error);
         }
@@ -23,7 +23,7 @@ const AccountContent = () => {
         <AccountContentStyle >
             <div>
                 {
-                    currentUser ? (<p>Bine ai venit, {currentUser}</p>) : <p>Nici un utilizator logat</p>
+                    currentUser ? (<p>Bine ai venit, {currentUser}</p>) : <p>Niciun utilizator logat</p>
                 }
             </div>
             <div>
@@ -34,12 +34,12 @@ const AccountContent = () => {
                                 Delogheaza-te
                             </Button>
                         </Link>) :
-                        ( <Link to="/account">
-                     <Button>
-                        Logheaza-te
-                    </Button>
-                </Link>)
-            }
+                        (<Link to="/account">
+                            <Button>
+                                Logheaza-te
+                            </Button>
+                        </Link>)
+                }
             </div>
         </AccountContentStyle>
     )

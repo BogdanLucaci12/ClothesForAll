@@ -14,7 +14,6 @@ const AboutUser = () => {
     const handleClick = () => {
         setOpen(false)
     }
-
     return (
         <AboutUserMain>
             {open &&
@@ -23,6 +22,7 @@ const AboutUser = () => {
                     userName={userName}
                     alias={alias}
                     telefon={telefon}
+                email={email}
                 />
             }
             {isLoading ? (<div>Incarcare date</div>) : (
