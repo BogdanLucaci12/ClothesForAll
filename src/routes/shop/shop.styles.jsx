@@ -72,7 +72,7 @@ export const ProductImage= styled.img`
 margin:.5em;
 height:12em;
 width:15em;
-object-fit: fill;
+object-fit: cover;
 `
 export const Containerforproducts=styled.div`
 width:auto;

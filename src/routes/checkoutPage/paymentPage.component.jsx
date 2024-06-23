@@ -57,7 +57,6 @@ const PaymentPage = () => {
             body: JSON.stringify({ amount: total * 100 })
         }).then(res => res.json());
         const { paymentIntent: { client_secret } } = response;
-
         const paymentResult = await stripe.confirmCardPayment(client_secret, {
             payment_method: {
                 card: elements.getElement(CardNumberElement),
@@ -97,7 +96,6 @@ const PaymentPage = () => {
             }
         }
     }
-
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
