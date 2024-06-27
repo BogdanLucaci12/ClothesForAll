@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.handler = async (event) => {
-    const { email, idComanda, adresaSelectata, total  } = JSON.parse(event)
+    const { email, idComanda, adresaSelectata, total  } = JSON.parse(event.body)
     const {adresa, judet, localitate, telefon}=adresaSelectata
     const mailOptions = {
         from: process.env.SEND_EMAIL_EMAIL,

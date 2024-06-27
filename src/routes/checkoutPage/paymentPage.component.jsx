@@ -85,8 +85,8 @@ const PaymentPage = () => {
                     await fetch("/.netlify/functions/mail", {
                         method: "POST",
                         headers: {
-                            'Content-Type': 'application/json',
-                        },
+                            'Content-Type': 'application/json',                    
+                            },
                         body: JSON.stringify({ email, idComanda, adresaSelectata, cartItems, total })
                     });
                     setCartItems([]);
